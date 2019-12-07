@@ -19,6 +19,7 @@ import { diskStorage } from 'multer';
 import * as moment from 'moment';
 import { extname } from 'path';
 import { IMAGES_EXTENSION_ALLOWED } from '../../config/constants';
+import { stringify } from 'querystring';
 
 @Controller('bikes')
 export class BikesController {
@@ -41,11 +42,12 @@ export class BikesController {
       if (IMAGES_EXTENSION_ALLOWED.includes(ext)) {
         cb(null, true);
       } else {
-        return cb(new NotFoundException(`Only images are allowed.`), false);
+        // tslint:disable-next-line: max-line-length
+        return cb(new NotFoundException(`'${ext}' no es una extensión válida, las válidas son ${stringify(IMAGES_EXTENSION_ALLOWED)}`), false);
       }
     },
     limits: {
-      fileSize: 2000000, // BITS
+      fileSize: 9000000, // BITS
     },
   }))
   async createBike(
@@ -53,8 +55,7 @@ export class BikesController {
     @Res() res,
     @UploadedFile() image,
   ) {
-    // TODO: Aplicar imagen a la db
-    const output = await this.bikesService.create(dto);
+    const output = await this.bikesService.create(dto, image);
     return res.status(HttpStatus.CREATED).json({ message: 'Created successfully', output });
   }
 
