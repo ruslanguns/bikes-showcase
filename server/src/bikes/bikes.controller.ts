@@ -18,7 +18,15 @@ import { BikeDto } from './dtos/bike.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { fileSettings } from '../../config';
 import { AuthGuard } from '@nestjs/passport';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
+@ApiBearerAuth()
+@ApiTags('Bikes')
 @Controller('bikes')
 export class BikesController {
 
@@ -27,6 +35,8 @@ export class BikesController {
   ) { }
 
   @Post()
+  @ApiOperation({ summary: 'Subir una nueva bicicleta' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
   @UseGuards(AuthGuard('jwt'))
   async createBike(
     @Body() dto: BikeDto,
@@ -37,6 +47,12 @@ export class BikesController {
   }
 
   @Get()
+  @ApiOperation({ summary: 'Obtener lista de bicicletas' })
+  @ApiResponse({
+    status: 200,
+    description: 'Los resultados son:',
+    type: BikeDto,
+  })
   async findBike(
     @Res() res,
   ) {
@@ -45,6 +61,8 @@ export class BikesController {
   }
 
   @Put(':id')
+  @ApiOperation({ summary: 'Modificar una nueva bicicleta' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
   @UseGuards(AuthGuard('jwt'))
   async updateBike(
     @Param('id') id: string,
@@ -56,6 +74,8 @@ export class BikesController {
   }
 
   @Delete(':id')
+  @ApiOperation({ summary: 'Eliminar una nueva bicicleta' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
   @UseGuards(AuthGuard('jwt'))
   async deleteBike(
     @Param('id') id: string,
@@ -66,6 +86,8 @@ export class BikesController {
   }
 
   @Post(':id/image')
+  @ApiOperation({ summary: 'Subir imagen a una bicicleta' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
   @UseGuards(AuthGuard('jwt'))
   @UseInterceptors(FileInterceptor('image', fileSettings))
   async addImage(
@@ -78,6 +100,8 @@ export class BikesController {
   }
 
   @Patch(':id/image')
+  @ApiOperation({ summary: 'Cambiar la imagen de una bicicleta' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
   @UseGuards(AuthGuard('jwt'))
   @UseInterceptors(FileInterceptor('image', fileSettings))
   async changeImage(
@@ -90,6 +114,8 @@ export class BikesController {
   }
 
   @Delete(':id/image')
+  @ApiOperation({ summary: 'Eliminar la imagen de una nueva bicicleta' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
   @UseGuards(AuthGuard('jwt'))
   async removeImage(
     @Param('id') id,

@@ -2,7 +2,15 @@ import { Controller, Put, Body, Res, HttpStatus, UseGuards } from '@nestjs/commo
 import { SettingsService } from './settings.service';
 import { SettingDto } from './dtos/settings.dto';
 import { AuthGuard } from '@nestjs/passport';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
+@ApiBearerAuth()
+@ApiTags('Settings')
 @Controller('settings')
 @UseGuards(AuthGuard('jwt'))
 export class SettingsController {
@@ -12,6 +20,8 @@ export class SettingsController {
   ) { }
 
   @Put()
+  @ApiOperation({ summary: 'Modificar los settings' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
   async updateSettings(
     @Body() dto: SettingDto,
     @Res() res,

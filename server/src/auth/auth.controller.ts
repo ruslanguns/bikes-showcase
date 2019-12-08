@@ -1,7 +1,14 @@
 import { Controller, Post, Body, Res, HttpStatus } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dtos/login.dto';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
+@ApiTags('Authentication')
 @Controller('auth')
 export class AuthController {
 
@@ -10,6 +17,7 @@ export class AuthController {
   ) { }
 
   @Post()
+  @ApiOperation({ summary: 'Inicio de sesión. Devuelve token de acceso.' })
   async login(
     @Body() dto: LoginDto,
     @Res() res,

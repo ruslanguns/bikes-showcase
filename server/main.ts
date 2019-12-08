@@ -3,6 +3,7 @@ import { ApplicationModule } from './app.module';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { MONGO_URI } from './config/constants';
 import * as passport from 'passport';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 async function bootstrap() {
   const logger = new Logger('Bootstrap');
@@ -10,6 +11,15 @@ async function bootstrap() {
   const app = await NestFactory.create(ApplicationModule);
 
   app.setGlobalPrefix('api');
+
+  const options = new DocumentBuilder()
+    .setTitle('API de Bikes Showcase')
+    .setDescription('Documentación API de la API del Catálogo de Bicicletas')
+    .setVersion('1.0')
+    .addBearerAuth()
+    .build();
+  const document = SwaggerModule.createDocument(app, options);
+  SwaggerModule.setup('docs', app, document);
 
   // Initialize express sessions, and have Passport use them
   app.use(passport.initialize());
