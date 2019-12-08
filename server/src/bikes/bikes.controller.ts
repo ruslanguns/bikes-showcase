@@ -10,12 +10,14 @@ import {
   Put,
   Delete,
   UseInterceptors,
-  UploadedFile
+  UploadedFile,
+  UseGuards
 } from '@nestjs/common';
 import { BikesService } from './bikes.service';
 import { BikeDto } from './dtos/bike.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { fileSettings } from '../../config';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('bikes')
 export class BikesController {
@@ -25,6 +27,7 @@ export class BikesController {
   ) { }
 
   @Post()
+  @UseGuards(AuthGuard('jwt'))
   async createBike(
     @Body() dto: BikeDto,
     @Res() res,
@@ -42,6 +45,7 @@ export class BikesController {
   }
 
   @Put(':id')
+  @UseGuards(AuthGuard('jwt'))
   async updateBike(
     @Param('id') id: string,
     @Body() dto: BikeDto,
@@ -52,6 +56,7 @@ export class BikesController {
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard('jwt'))
   async deleteBike(
     @Param('id') id: string,
     @Res() res,
@@ -61,6 +66,7 @@ export class BikesController {
   }
 
   @Post(':id/image')
+  @UseGuards(AuthGuard('jwt'))
   @UseInterceptors(FileInterceptor('image', fileSettings))
   async addImage(
     @UploadedFile() image,
@@ -72,6 +78,7 @@ export class BikesController {
   }
 
   @Patch(':id/image')
+  @UseGuards(AuthGuard('jwt'))
   @UseInterceptors(FileInterceptor('image', fileSettings))
   async changeImage(
     @UploadedFile() image,
@@ -83,6 +90,7 @@ export class BikesController {
   }
 
   @Delete(':id/image')
+  @UseGuards(AuthGuard('jwt'))
   async removeImage(
     @Param('id') id,
     @Res() res,

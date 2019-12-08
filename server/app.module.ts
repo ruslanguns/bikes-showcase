@@ -4,6 +4,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { join } from 'path';
 import { BikesModule } from './src/bikes';
 import { MONGO_URI } from './config/constants';
+import { SettingsModule } from './src/settings';
+import { AuthModule } from './src/auth/auth.module';
 
 @Module({
   imports: [
@@ -22,8 +24,11 @@ import { MONGO_URI } from './config/constants';
         useUnifiedTopology: true,
       }),
     }),
-    BikesModule
+    BikesModule,
+    SettingsModule,
+    AuthModule
   ],
-  controllers: []
+  controllers: [],
+  providers: []
 })
 export class ApplicationModule { }

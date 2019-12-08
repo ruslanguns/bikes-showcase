@@ -18,3 +18,11 @@ export const MONGO_URI = `mongodb://${DB.username}:${DB.password}@${DB.host}:${D
  * IMAGES EXTENSIONS ALLOWED
  */
 export const IMAGES_EXTENSION_ALLOWED = ['.jpg', '.jpeg', '.png'];
+
+export const Defaults = {
+  user: {
+    username: 'admin',
+    password: '123456'
+  },
+  jwtSecret: 'StrongSecretKeyForJWT'
+};
