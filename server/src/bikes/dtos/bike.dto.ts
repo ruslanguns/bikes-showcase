@@ -1,22 +1,29 @@
-import { IsString, IsNumber, IsOptional } from 'class-validator';
+import { IsString, IsOptional } from 'class-validator';
 
 export class BikeDto {
   @IsString()
-  productCode: string;
+  productId: string;
 
   @IsString()
-  brandName: string;
+  brand: string;
 
-  image: string;
+  @IsString()
+  details: string;
 
-  // @IsNumber()
-  price: number;
+  @IsString()
+  category: string;
 
   @IsString()
   @IsOptional()
   size: string;
 
+  price: number;
+
   @IsString()
   @IsOptional()
   state: string;
+
+  @IsString()
+  @IsOptional()
+  status: string;
 }
