@@ -70,6 +70,6 @@
     "tslint": "~5.15.0",
     "typescript": "~3.5.3",
     "wait-on": "^3.2.0",
-    "webpack-cli": "^3.1.0"
+    "webpack-cli": "^3.3.10"
   }
 }

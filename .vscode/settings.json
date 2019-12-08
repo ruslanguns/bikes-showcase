@@ -15,5 +15,6 @@
     "statusBar.foreground": "#e7e7e7"
   },
   "peacock.remoteColor": "#215732",
-  "jshint.enable": false
+  "jshint.enable": false,
+  "peacock.color": "#215732"
 }

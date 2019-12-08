@@ -10,17 +10,12 @@ import {
   Put,
   Delete,
   UseInterceptors,
-  NotFoundException,
   UploadedFile
 } from '@nestjs/common';
 import { BikesService } from './bikes.service';
 import { BikeDto } from './dtos/bike.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import * as moment from 'moment';
-import { extname } from 'path';
-import { IMAGES_EXTENSION_ALLOWED } from '../../config/constants';
-import { stringify } from 'querystring';
+import { fileSettings } from '../../config';
 
 @Controller('bikes')
 export class BikesController {
@@ -66,27 +61,7 @@ export class BikesController {
   }
 
   @Post(':id/image')
-  @UseInterceptors(FileInterceptor('image', {
-    storage: diskStorage({
-      destination: './files/bikes',
-      filename: (req, file, cb) => {
-        const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('');
-        return cb(null, `${randomName}_${moment().format('YYYY-MM-DD')}_${extname(file.originalname)}`);
-      },
-    }),
-    fileFilter: (req, file, cb) => {
-      const ext = extname(file.originalname);
-      if (IMAGES_EXTENSION_ALLOWED.includes(ext)) {
-        cb(null, true);
-      } else {
-        // tslint:disable-next-line: max-line-length
-        return cb(new NotFoundException(`'${ext}' no es una extensión válida, las válidas son ${stringify(IMAGES_EXTENSION_ALLOWED)}`), false);
-      }
-    },
-    limits: {
-      fileSize: 9000000, // BITS
-    },
-  }))
+  @UseInterceptors(FileInterceptor('image', fileSettings))
   async addImage(
     @UploadedFile() image,
     @Param('id') id,
@@ -97,27 +72,7 @@ export class BikesController {
   }
 
   @Patch(':id/image')
-  @UseInterceptors(FileInterceptor('image', {
-    storage: diskStorage({
-      destination: './files/bikes',
-      filename: (req, file, cb) => {
-        const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('');
-        return cb(null, `${randomName}_${moment().format('YYYY-MM-DD')}_${extname(file.originalname)}`);
-      },
-    }),
-    fileFilter: (req, file, cb) => {
-      const ext = extname(file.originalname);
-      if (IMAGES_EXTENSION_ALLOWED.includes(ext)) {
-        cb(null, true);
-      } else {
-        // tslint:disable-next-line: max-line-length
-        return cb(new NotFoundException(`'${ext}' no es una extensión válida, las válidas son ${stringify(IMAGES_EXTENSION_ALLOWED)}`), false);
-      }
-    },
-    limits: {
-      fileSize: 9000000, // BITS
-    },
-  }))
+  @UseInterceptors(FileInterceptor('image', fileSettings))
   async changeImage(
     @UploadedFile() image,
     @Param('id') id,

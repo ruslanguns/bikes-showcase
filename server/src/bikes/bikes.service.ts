@@ -61,7 +61,7 @@ export class BikesService {
       bike.image = undefined;
       await bike.save();
     } else {
-      throw new HttpException('No hay nada que eliminar.', HttpStatus.NOT_FOUND);
+      return;
     }
   }
 
