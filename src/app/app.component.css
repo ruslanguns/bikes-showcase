@@ -1,0 +1,14 @@
+
+.header {
+  opacity: 0.5;
+  position: absolute;
+  z-index: 3;
+}
+
+.header > img {
+  margin: 10%;
+}
+
+.swiper-container {
+  z-index: 2;
+}

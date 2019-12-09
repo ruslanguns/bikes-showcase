@@ -1,1 +1,18 @@
-<h1>Hola mundo!</h1>
+<div class="header">
+  <img src="https://cashconverters.es/content/themes/cash-converters/images/logo.png"
+       alt="logo">
+</div>
+<!-- Swiper -->
+<swiper [config]="config" class="swiper-container">
+  <div class="swiper-wrapper">
+
+    <ng-container *ngFor="let image of images">
+      <img [src]="image"
+           class="swiper-slide">
+    </ng-container>
+
+
+  </div>
+  <!-- Add Scrollbar -->
+  <div class="swiper-scrollbar"></div>
+</swiper>
