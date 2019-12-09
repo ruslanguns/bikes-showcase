@@ -16,6 +16,10 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) { }
 
+  /**
+   * Inicio de sesión
+   * @param dto Clase LoginDto
+   */
   async signIn(dto: LoginDto): Promise<ForbiddenException | object> {
     const { password } = dto;
     const user = await this.settingsModel.findOne({

@@ -15,6 +15,10 @@ export class SettingsService implements OnModuleInit {
     @InjectModel('Settings') private readonly settingsModel: Model<ISettings>,
   ) { }
 
+  /**
+   * Usamos el OnInit para ver si existe un usuario admin configurado.
+   * En caso de no estarlo se configura uno por defecto con los settings por defecto.
+   */
   async onModuleInit() {
     const adminUser = await this.settingsModel.findOne({ username: Defaults.user.username });
 
@@ -29,6 +33,10 @@ export class SettingsService implements OnModuleInit {
     }
   }
 
+  /**
+   * Modificar configuración
+   * @param dto Clase SettingDTO con opciones a modificar
+   */
   async update(dto: SettingDto) {
     if (dto.password) { dto.password = await crypto.createHmac('sha256', dto.password).digest('hex'); }
     return await this.settingsModel.findOneAndUpdate({ username: Defaults.user.username }, dto, { new: true, runValidators: true })
