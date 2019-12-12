@@ -1,0 +1,49 @@
+<div class="wrapper">
+  <div class="header">
+    <img src="https://cashconverters.es/content/themes/cash-converters/images/logo.png"
+         alt="logo">
+  </div>
+
+  <swiper class="swiper-container" [config]="config" #usefulSwiper>
+    <div class="swiper-wrapper">
+
+      <div class="swiper-slide" *ngFor="let bike of bicicletas">
+
+        <div class="bike-info">
+          <div class="card text-center">
+            <div class="card-header">
+              <div class="text-center">
+                <h2>
+                  <small class="pvp">PVP</small>
+                  <strong>{{ bike.price}}</strong>
+                </h2>
+              </div>
+            </div>
+            <div class="card-body text-left">
+              <h5 class="card-title">Detalles:</h5>
+              <p class="card-text text-left">
+                Marca: <strong> {{ bike.brand}} </strong> <br>
+                Estilo: <strong> Montaña </strong> <br>
+                Estado: <strong> Como nuevo </strong> <br>
+                Talla: <strong> M </strong> <br>
+              </p>
+            </div>
+            <div class="card-footer text-muted">
+              <strong>E201221-0</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="imagen">
+          <img [src]=" bike.image">
+        </div>
+
+
+      </div>
+
+    </div>
+
+    <div class="swiper-scrollbar"></div>
+
+  </swiper>
+</div>
