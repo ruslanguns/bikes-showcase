@@ -1,0 +1,112 @@
+<div class="container">
+  <h1 class="dash-title">E203123-0</h1>
+  <div class="row">
+    <div class="col-xl-12">
+      <div class="card spur-card">
+        <div class="card-header">
+          <div class="spur-card-icon">
+            <i class="fas fa-pen"></i>
+          </div>
+          <div class="spur-card-title"> Puedes editar los siguientes campos </div>
+        </div>
+        <div class="card-body ">
+          <form>
+
+            <div class="form-row">
+              <div class="form-group col-sm-4">
+                <label for="productId">Producto *</label>
+                <input appAutofocus type="string" class="form-control" id="productId" aria-describedby="emailHelp"
+                       placeholder="Ejemplo: E199012-0" value="E203123-0" required>
+                <small class="form-text text-muted">Introducir el código de producto.</small>
+              </div>
+
+              <div class="form-group col-sm-4">
+                <label for="price">P.V.P *</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">€</span>
+                  </div>
+                  <input type="number" class="form-control" id="price" placeholder="Ejemplo: 99.75" value="429.00"
+                         required>
+                </div>
+                <small class="form-text text-muted">Precio de venta al público.</small>
+              </div>
+
+              <div class="form-group col-sm-4">
+                <label for="productId">Estado *</label>
+                <select class="form-control" required>
+                  <option value="1">Usado</option>
+                  <option value="2">Buen estado</option>
+                  <option value="3" selected>Perfecto estado</option>
+                </select>
+                <small class="form-text text-muted">Estado del producto.</small>
+              </div>
+
+            </div>
+
+            <div class="form-row">
+
+              <div class="form-group col-sm-4">
+                <label for="marca">Marca *</label>
+                <input type="text" class="form-control" id="marca" placeholder="Ejemplo: Cannondale" value="BPRO"
+                       required>
+              </div>
+
+              <div class="form-group col-sm-8">
+                <label for="modelo">Modelo o detalles <small>[ Opcional ]</small> </label>
+                <input type="text" class="form-control" id="modelo" placeholder="Ejemplo: X12F">
+              </div>
+
+            </div>
+
+            <div class="form-row">
+
+              <div class="form-group col-sm-6">
+                <label for="category">Categoría <small>[ Opcional ]</small> </label>
+                <select id="category" class="form-control">
+                  <option value="" disabled selected hidden>Seleccione una opción</option>
+                  <option value="1">Carreras</option>
+                  <option value="2">Carretera</option>
+                  <option value="3">Montaña</option>
+                  <option value="4">Niño</option>
+                  <option value="5">Paseo</option>
+                  <option value="6">Plegable</option>
+                </select>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="size">Talla <small>[ Opcional ]</small> </label>
+                <select id="size" class="form-control">
+                  <option value="" disabled selected hidden>Seleccione una opción</option>
+                  <option value="1">S</option>
+                  <option value="2">M</option>
+                  <option value="3">L</option>
+                  <option value="3">XL</option>
+                </select>
+              </div>
+
+            </div>
+
+            <hr>
+
+            <div class="form-row">
+              <div class="form-group col-sm-6">
+                <label for="imagen">Subir imagen *</label>
+                <input type="file" class="form-control-file" id="imagen" accept=".jpg,.gif,.png" required>
+                <small class="form-text text-muted">Solo imagenes (.jpg, .jpeg, .gif, .png.), se recomienda
+                  un formato de 16:9 (1920x1080)</small>
+              </div>
+            </div>
+
+            <hr>
+            <button type="submit" class="btn btn-primary mb-1">Añadir</button>
+            <a routerLink="/admin/bicicletas" class="btn btn-outline-primary ml-3">Volver</a>
+            <small class="form-text text-muted">Puede presionar ENTER en cualquier momento para guardar.</small>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

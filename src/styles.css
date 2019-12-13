@@ -14,5 +14,19 @@ body {
   cursor: pointer !important;
 }
 
-/** UTILITIES */
+/* UTILITIES */
 .cursor {cursor: pointer; cursor: hand;}
+
+/* Remove Arrows/Spinners */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance:textfield;
+}
+

@@ -2,12 +2,12 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { SwiperOptions } from 'swiper';
 import { SwiperComponent } from 'ngx-useful-swiper';
 
-// TODO: Mejorar arquitectura
 @Component({
   selector: 'app-bikes',
   templateUrl: './bikes.component.html',
   styleUrls: ['./app.component.css']
 })
+/** TODO: Mejorar arquitectura */
 export class BikesComponent implements OnInit, AfterViewInit {
 
   @ViewChild('usefulSwiper', { static: false }) usefulSwiper: SwiperComponent;
