@@ -1,7 +1,7 @@
 
-@import url('https://fonts.googleapis.com/css?family=Arimo|Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Arimo|Roboto|Open+Sans&display=swap');
 body {
-  font-family: 'Arimo', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .dash-nav-item {
@@ -16,6 +16,17 @@ body {
 
 /* UTILITIES */
 .cursor {cursor: pointer; cursor: hand;}
+
+th.fitwidth {
+  width: 1px;
+  white-space: nowrap;
+}
+td.fitwidth {
+  width: 1px;
+  white-space: nowrap;
+}
+
+
 
 /* Remove Arrows/Spinners */
 /* Chrome, Safari, Edge, Opera */

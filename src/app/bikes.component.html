@@ -1,14 +1,10 @@
 <div class="wrapper">
   <div class="header">
-    <img src="https://cashconverters.es/content/themes/cash-converters/images/logo.png"
-         alt="logo">
+    <img src="https://cashconverters.es/content/themes/cash-converters/images/logo.png" alt="logo">
   </div>
-
   <swiper class="swiper-container" [config]="config" #usefulSwiper>
     <div class="swiper-wrapper">
-
       <div class="swiper-slide" *ngFor="let bike of bicicletas">
-
         <div class="bike-info">
           <div class="card text-center">
             <div class="card-header">
@@ -33,17 +29,11 @@
             </div>
           </div>
         </div>
-
         <div class="imagen">
           <img [src]=" bike.image">
         </div>
-
-
       </div>
-
     </div>
-
     <div class="swiper-scrollbar"></div>
-
   </swiper>
 </div>

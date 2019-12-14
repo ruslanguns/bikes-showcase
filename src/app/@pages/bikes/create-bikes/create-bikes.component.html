@@ -18,7 +18,6 @@
                 <label for="productId">Producto *</label>
                 <input appAutofocus type="string" class="form-control" id="productId" aria-describedby="emailHelp"
                        placeholder="Ejemplo: E199012-0" required>
-                <small class="form-text text-muted">Introducir el código de producto.</small>
               </div>
 
               <div class="form-group col-sm-4">
@@ -29,7 +28,7 @@
                   </div>
                   <input type="number" class="form-control" id="price" placeholder="Ejemplo: 99.75" required>
                 </div>
-                <small class="form-text text-muted">Precio de venta al público.</small>
+                <!-- <small class="form-text text-muted">Precio de venta al público.</small> -->
               </div>
 
               <div class="form-group col-sm-4">
@@ -39,7 +38,6 @@
                   <option value="2">Buen estado</option>
                   <option value="3">Perfecto estado</option>
                 </select>
-                <small class="form-text text-muted">Estado del producto.</small>
               </div>
 
             </div>
@@ -98,9 +96,16 @@
             </div>
 
             <hr>
-            <button type="submit" class="btn btn-primary mb-1">Añadir</button>
-            <a routerLink="/admin/bicicletas" class="btn btn-outline-primary ml-3">Volver</a>
-            <small class="form-text text-muted">Puede presionar ENTER en cualquier momento para guardar.</small>
+
+            <div class="col-12 mb-3">
+              <button type="submit" class="btn btn-primary">Añadir</button>
+              <a routerLink="/admin/bicicletas" class="btn btn-outline-primary ml-2">Volver</a>
+
+            </div>
+
+            <small class="form-text text-muted">- Puede presionar <b>ENTER</b> en cualquier momento para
+              guardar.</small>
+            <small class="form-text text-muted">- Puede presionar <b>ESCAPE</b> en cualquier momento para salir.</small>
 
           </form>
         </div>

@@ -1,11 +1,12 @@
 <div class="container">
-
   <div class="d-flex justify-content-between">
-    <h1 class="dash-title">Bicicletas</h1>
     <div>
-      <a routerLink="/admin/bicicletas/crear"
+      <h1 class="dash-title">Bicicletas</h1>
+    </div>
+    <div>
+      <a routerLink="crear"
          class="btn btn-primary mb-1">
-        <i class="fas fa-plus"></i>&nbsp;
+        <i class="fas fa-plus mr-2"></i>
         Agregar bicicleta
       </a>
     </div>
@@ -20,11 +21,11 @@
           </div>
           <div class="spur-card-title">Lista de bicicletas</div>
         </div>
-        <div class="card-body ">
+        <div class="card-body">
           <table class="table table-hover table-in-card">
             <thead>
               <tr>
-                <th scope="col">Cod. Producto</th>
+                <th class="fitwidth" scope="col">Cod. Producto</th>
                 <th scope="col">Marca</th>
                 <th scope="col">Precio</th>
                 <th scope="col">Estado</th>
@@ -33,21 +34,21 @@
             </thead>
             <tbody>
               <tr>
-                <th scope="row">
-                  <i class="fas fa-eye cursor mr-2" routerLink="1"></i>
+                <th routerLink="1" class="cursor align-middle" scope="row">
+                  <i class="fas fa-eye mr-1"></i>
                   E203123-0
                 </th>
-                <td class="cursor" routerLink="1">BPRO</td>
-                <td>429,00€</td>
-                <td>Perfecto estado</td>
-                <td>
-                  <a href="javascript: void(0);" class="btn btn-success btn-sm ml-1">
+                <td class="align-middle fitwidth">BPRO</td>
+                <td class="align-middle fitwidth">12429,00€</td>
+                <td class="align-middle fitwidth">Perfecto estado</td>
+                <td class="align-middle fitwidth">
+                  <a href="javascript: void(0);" class="btn btn-success btn-sm">
                     <i class="fas fa-check"></i>
                   </a>
-                  <a routerLink="/admin/bicicletas/1" class="btn btn-secondary btn-sm ml-1">
+                  <a routerLink="/admin/bicicletas/1" class="btn btn-secondary btn-sm ml-2">
                     <i class="fas fa-edit"></i>
                   </a>
-                  <a href="javascript: void(0);" class="btn btn-danger btn-sm ml-1">
+                  <a href="javascript: void(0);" class="btn btn-danger btn-sm ml-2">
                     <i class="fas fa-trash-alt"></i>
                   </a>
                 </td>
