@@ -1,4 +1,4 @@
-import { Controller, Put, Body, Res, HttpStatus, UseGuards } from '@nestjs/common';
+import { Controller, Put, Body, Res, HttpStatus, UseGuards, Get } from '@nestjs/common';
 import { SettingsService } from './settings.service';
 import { SettingDto } from './dtos/settings.dto';
 import { AuthGuard } from '@nestjs/passport';
@@ -28,5 +28,13 @@ export class SettingsController {
   ) {
     const data = await this.settingsService.update(dto);
     return res.status(HttpStatus.CREATED).json({ message: 'Los settings se han actualizado correctamente', data });
+  }
+
+  @Get()
+  async fetch(
+    @Res() res,
+  ) {
+    const data = await this.settingsService.find();
+    return res.status(HttpStatus.CREATED).json({ message: 'Datos de configuraciones', data });
   }
 }

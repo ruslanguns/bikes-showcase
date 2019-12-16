@@ -21,7 +21,7 @@ export class SettingsService implements OnModuleInit {
    * Usamos el OnInit para ver si existe un usuario admin configurado.
    * En caso de no estarlo se configura uno por defecto con los settings por defecto.
    */
-  async onModuleInit() {
+  async onModuleInit(): Promise<void> {
     const adminUser = await this.settingsModel.findOne({ username: Defaults.user.username });
 
     if (!adminUser) {
@@ -34,6 +34,13 @@ export class SettingsService implements OnModuleInit {
     } else {
       this.logger.log('User already setup.');
     }
+  }
+
+  /**
+   * Obtener configuraciones
+   */
+  async find(): Promise<ISettings> {
+    return await this.settingsModel.findOne().select('-_id, -password, -username').exec();
   }
 
   /**
