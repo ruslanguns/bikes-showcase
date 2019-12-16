@@ -15,7 +15,7 @@ const webpackOptions = WebpackConfigFactory.create(webpack, {
   server: "./server/main.ts"
 });
 
-const whitelistedPackages = /^(?!(livereload|concurrently|mongoose|sharp)).*/;
+const whitelistedPackages = /^(?!(livereload|concurrently|mongoose|sharp|fastify-swagger|validate)).*/;
 webpackOptions.externals[1] = nodeExternals({
   whitelist: whitelistedPackages
 });
@@ -24,6 +24,7 @@ webpackOptions.plugins.push(
   new webpack.IgnorePlugin({
     checkResource(resource) {
       const lazyImports = [
+        "@nestjs/swagger",
         "@nestjs/microservices",
         "@nestjs/microservices/microservices-module",
         "@nestjs/websockets/socket-module",

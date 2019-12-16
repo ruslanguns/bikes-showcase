@@ -5,6 +5,7 @@ import { PagesComponent } from './pages.component';
 import { SharedModule } from '../shared/shared.module';
 import { PagesRoutingModule } from './pages-routing.module';
 import { BikesModule } from './bikes/bikes.module';
+import { interceptorProviders } from '../shared/interceptors';
 
 @NgModule({
   declarations: [PagesComponent],
@@ -16,7 +17,10 @@ import { BikesModule } from './bikes/bikes.module';
     BikesModule
   ],
   exports: [
-    PagesComponent
+    PagesComponent,
+  ],
+  providers: [
+    interceptorProviders
   ]
 })
 export class PagesModule { }

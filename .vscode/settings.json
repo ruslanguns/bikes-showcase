@@ -16,5 +16,6 @@
   },
   "peacock.remoteColor": "#215732",
   "jshint.enable": false,
-  "peacock.color": "#215732"
+  "peacock.color": "#215732",
+  "vsicons.presets.angular": true
 }

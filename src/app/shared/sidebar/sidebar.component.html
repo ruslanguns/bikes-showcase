@@ -3,16 +3,16 @@
     <a href="javascript:void(0)" class="menu-toggle">
       <i class="fas fa-bars"></i>
     </a>
-    <a [routerLink]="['/admin']" class="spur-logo">
-      <span style="font-size: 19px;">Bikes Showcase</span>
+    <a [routerLink]="['/admin']" class="spur-logo menu-toggle-custom">
+      <span>Bikes Showcase</span>
     </a>
   </header>
   <nav class="dash-nav-list">
 
-    <a [routerLink]="['/admin']" class="dash-nav-item">
+    <a [routerLink]="['/admin']" class="dash-nav-item menu-toggle-custom">
       <i class="fas fa-chart-area"></i> Resumen
     </a>
-    <a [routerLink]="['/admin/bicicletas']" class="dash-nav-item">
+    <a [routerLink]="['/admin/bicicletas']" class="dash-nav-item menu-toggle-custom">
       <i class="fas fa-bicycle"></i> Bicicletas
     </a>
 
@@ -21,12 +21,12 @@
          class="dash-nav-item dash-nav-dropdown-toggle">
         <i class="fas fa-user-cog"></i> Ajustes </a>
       <div class="dash-nav-dropdown-menu">
-        <a [routerLink]="['/admin']"
-           class="dash-nav-dropdown-item">Contraseña</a>
+        <a [routerLink]="['/admin/ajustes/password']"
+           class="dash-nav-dropdown-item menu-toggle-custom">Contraseña</a>
       </div>
     </div>
 
-    <a [routerLink]="['/login']" class="dash-nav-item">
+    <a (click)="logout()" class="dash-nav-item">
       <i class="fas fa-sign-out-alt"></i> Salir </a>
   </nav>
 </div>

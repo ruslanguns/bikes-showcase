@@ -3,18 +3,24 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { AuthRoutingModule } from './auth-routing.module';
-import { RouterModule } from '@angular/router';
-import { SharedModule } from '../shared/shared.module';
-import { AutoFocusDirective } from '../shared/directives/auto-focus.directive';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from './auth.service';
+import { SharedModule } from '../shared';
+import { interceptorProviders } from '../shared/interceptors';
 
 @NgModule({
   declarations: [LoginComponent],
   imports: [
     CommonModule,
+    HttpClientModule,
     AuthRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     SharedModule
+  ],
+  providers: [
+    AuthService,
+    interceptorProviders
   ]
 })
 export class AuthModule { }

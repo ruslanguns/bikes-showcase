@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { PnotifyService } from 'src/app/shared';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -10,11 +12,15 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 export class LoginComponent implements OnInit {
 
   form: FormGroup;
+  PNotify;
 
   constructor(
-    private router: Router,
-    private fb: FormBuilder
-  ) { }
+    private fb: FormBuilder,
+    private pnotifyService: PnotifyService,
+    private authService: AuthService
+  ) {
+    this.PNotify = this.pnotifyService.getPNotify();
+  }
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -23,13 +29,10 @@ export class LoginComponent implements OnInit {
   }
 
   formSubmitted() {
-    console.log(this.form.value);
-
     if (this.form.invalid) {
       return;
     }
-
-    this.router.navigate(['admin']);
-
+    const { password } = this.form.value;
+    return this.authService.login(password).subscribe();
   }
 }

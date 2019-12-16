@@ -4,6 +4,7 @@ import * as crypto from 'crypto';
 export const SettingsSchema = new Schema({
   username: { type: String, required: true, lowercase: true },
   password: { type: String, required: true },
+  email: { type: String, required: true },
   updatedAt: Date,
   lastLoginAt: Date,
 }, { strict: 'throw' });

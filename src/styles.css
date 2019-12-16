@@ -1,5 +1,6 @@
 
 @import url('https://fonts.googleapis.com/css?family=Arimo|Roboto|Open+Sans&display=swap');
+
 body {
   font-family: 'Open Sans', sans-serif;
 }
@@ -25,8 +26,6 @@ td.fitwidth {
   width: 1px;
   white-space: nowrap;
 }
-
-
 
 /* Remove Arrows/Spinners */
 /* Chrome, Safari, Edge, Opera */

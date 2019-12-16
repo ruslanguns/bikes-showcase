@@ -4,6 +4,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { HeaderComponent } from './header/header.component';
 import { RouterModule } from '@angular/router';
 import { AutoFocusDirective } from './directives/auto-focus.directive';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from '../@auth';
 
 @NgModule({
   declarations: [
@@ -13,12 +15,14 @@ import { AutoFocusDirective } from './directives/auto-focus.directive';
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    HttpClientModule
   ],
   exports: [
     SidebarComponent,
     HeaderComponent,
     AutoFocusDirective
-  ]
+  ],
+  providers: [AuthService]
 })
 export class SharedModule { }

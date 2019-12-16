@@ -22,7 +22,8 @@ export const IMAGES_EXTENSION_ALLOWED = ['.jpg', '.jpeg', '.png'];
 export const Defaults = {
   user: {
     username: 'admin',
-    password: '123456'
+    password: '123456',
+    email: 'ruslanguns@gmail.com'
   },
   jwtSecret: 'StrongSecretKeyForJWT'
 };

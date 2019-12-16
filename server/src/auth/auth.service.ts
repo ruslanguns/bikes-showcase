@@ -22,12 +22,7 @@ export class AuthService {
    */
   async signIn(dto: LoginDto): Promise<ForbiddenException | object> {
     const { password } = dto;
-    const user = await this.settingsModel.findOne({
-      username: Defaults.user.username,
-      password: crypto.createHmac('sha256', password).digest('hex'),
-    });
-
-    if (!user) { throw new ForbiddenException('Su contraseña esta mal.'); }
+    const user = await this.validate(password);
 
     const { lastLoginAt } = user;
     user.lastLoginAt = new Date();
@@ -38,5 +33,20 @@ export class AuthService {
     const accessToken = await this.jwtService.sign(payload);
 
     return { accessToken, lastLoginAt };
+  }
+
+  /**
+   * Validación de usuario admin por contraseña
+   * @param password Contraseña actual
+   */
+  async validate(password: string) {
+    const user = await this.settingsModel.findOne({
+      username: Defaults.user.username,
+      password: crypto.createHmac('sha256', password).digest('hex'),
+    });
+
+    if (!user) { throw new ForbiddenException('Su contraseña esta mal.'); }
+
+    return user;
   }
 }

@@ -28,6 +28,12 @@ function init_jquery() {
       }
     });
 
+    $(".menu-toggle-custom").click(function () {
+      if (mobileBreakpoint.matches) {
+        $(".dash-nav").toggleClass("mobile-show");
+      }
+    });
+
     $(".searchbox-toggle").click(function () {
       $(".searchbox").toggleClass("show");
     });
