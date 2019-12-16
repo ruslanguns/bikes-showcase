@@ -2,9 +2,9 @@ import { Schema } from 'mongoose';
 import * as crypto from 'crypto';
 
 export const SettingsSchema = new Schema({
-  username: { type: String, required: true, lowercase: true },
+  username: { type: String, required: true, lowercase: true, trim: true },
   password: { type: String, required: true },
-  email: { type: String, required: true },
+  email: { type: String, required: true, lowercase: true, trim: true },
   updatedAt: Date,
   lastLoginAt: Date,
 }, { strict: 'throw' });
@@ -18,11 +18,7 @@ SettingsSchema.pre('save', async function save(next) {
     return next();
   }
   try {
-    user.password = await crypto
-      .createHmac('sha256', user.password)
-      .digest('hex');
+    user.password = await crypto.createHmac('sha256', user.password).digest('hex');
     return next();
-  } catch (err) {
-    return next(err);
-  }
+  } catch (err) { next(err); }
 });

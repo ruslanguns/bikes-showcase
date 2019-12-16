@@ -42,19 +42,10 @@ export class SettingsService implements OnModuleInit {
    */
   async update(dto: SettingDto) {
 
-    // Confirmación de seguridad
     const { currentPassword: password } = dto;
     const user = await this.authService.validate(password);
     if (!user) { return; }
 
-    // Cambio de email, en caso de ser necesario.
-    if (dto.email) {
-      const settings = await this.settingsModel.findOne();
-      if (settings.email === dto.email) { throw new NotAcceptableException('Es la mismo correo.'); }
-    }
-
-    // Cambio de contraseña, en caso de ser necesario.
-    if (dto.currentPassword === dto.password) { throw new NotAcceptableException('Es la misma contraseña.'); }
     delete dto.currentPassword;
     if (dto.password) { dto.password = await crypto.createHmac('sha256', dto.password).digest('hex'); }
 
