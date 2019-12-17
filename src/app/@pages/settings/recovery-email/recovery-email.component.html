@@ -1,0 +1,84 @@
+<div class="container">
+  <h1 class="dash-title">Correo de recuperación</h1>
+  <div class="row">
+    <div class="col-xl-12">
+      <div class="card spur-card">
+        <div class="card-header">
+          <div class="spur-card-icon">
+            <i class="fas fa-edit"></i>
+          </div>
+          <div class="spur-card-title"> Formulario para cambio de correo de recuperación de contraseña </div>
+        </div>
+        <div class="card-body ">
+
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="form">
+
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <label for="currentPassword">Contraseña actual</label>
+                  <input type="password"
+                         [(ngModel)]="currentPassword"
+                         formControlName="currentPassword"
+                         placeholder="Introduzca su contraseña actual"
+                         class="form-control"
+                         id="currentPassword"
+                         required>
+                  <small *ngIf="form.get('currentPassword').invalid && (form.get('email').dirty)"
+                         class="form-text text-danger">
+                    <div *ngIf="form.get('currentPassword').errors.required">
+                      Debe proveer su contraseña para poder cambiar los ajustes"
+                    </div>
+                  </small>
+
+
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <label for="email"> Correo de recuperación</label>
+                  <input type="email"
+                         [(ngModel)]="email"
+                         formControlName="email"
+                         placeholder="Introduzca el correo de recuperación"
+                         class="form-control"
+                         id="email"
+                         aria-describedby="emailHelp"
+                         required>
+
+                  <small *ngIf="form.get('email').invalid && (form.get('email').dirty || form.get('email').touched)"
+                         class="form-text text-danger">
+                    <div *ngIf="form.get('email').errors.required">
+                      Este campo es requerido
+                    </div>
+                    <div *ngIf="form.get('email').errors.pattern">
+                      Debe introducir un formato de correo electrónico válido.
+                    </div>
+                  </small>
+
+                </div>
+
+              </div>
+            </div>
+
+            <hr>
+
+            <div class="mb-3">
+              <button [disabled]="!form.valid" type="submit" class="btn btn-primary">
+                <i class="fas fa-save"></i>
+                Cambiar
+              </button>
+            </div>
+
+            <small class="form-text text-muted">
+              - Puede presionar <b>ENTER</b> en cualquier momento para guardar.
+            </small>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
