@@ -60,6 +60,9 @@ export class AuthService {
    */
   expiredToken(): boolean {
     const token = this.getToken();
+
+    if (!token) { return true; }
+
     if (validator.isJWT(token || '')) {
       return this.helper.isTokenExpired(token);
     } else {

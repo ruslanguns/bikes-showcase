@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { SharedModule } from '../shared';
 import { interceptorProviders } from '../shared/interceptors';
+import { LoginGuard } from './guards/login.guard';
 
 @NgModule({
   declarations: [LoginComponent],
@@ -20,7 +21,8 @@ import { interceptorProviders } from '../shared/interceptors';
   ],
   providers: [
     AuthService,
-    interceptorProviders
+    interceptorProviders,
+    LoginGuard
   ]
 })
 export class AuthModule { }
