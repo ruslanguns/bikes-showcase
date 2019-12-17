@@ -27,7 +27,7 @@ export class RecoveryEmailComponent implements OnInit {
 
     this.form = new FormGroup({
       currentPassword: new FormControl(null, [Validators.required]),
-      email: new FormControl(null, [Validators.required, Validators.pattern(this.emailPattern)]),
+      email: new FormControl(null, [Validators.required, Validators.email]),
     });
 
   }
@@ -50,7 +50,8 @@ export class RecoveryEmailComponent implements OnInit {
       .subscribe(
         res => {
           this.PNotify.success('Correo de recuperación cambiado.');
-          this.currentPassword = ''; // reset password
+          this.form.reset();
+          this.fetchData();
         },
         error => console.log('HTTP error', error)
       );
