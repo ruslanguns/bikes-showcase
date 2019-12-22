@@ -1,0 +1,37 @@
+<div class="form-screen">
+  <a [routerLink]="['login']" class="spur-logo animated wobble">
+    <i class="fas fa-bicycle"></i>
+    <span>Panel Bike Showcase</span>
+  </a>
+
+  <div class="card account-dialog">
+
+    <div class="card-header bg-primary text-white">
+      Recuperar contraseña
+    </div>
+
+    <div class="card-body">
+
+      <form [formGroup]="form" (ngSubmit)="formSubmitted()">
+        <div class="form-group">
+          <input appAutofocus
+                 name="email"
+                 type="text"
+                 formControlName="email"
+                 class="form-control"
+                 placeholder="Introduce el correo de recuperación">
+          <small class="form-text text-muted">En caso de olvido, contacte con su administrador.</small>
+        </div>
+
+        <div class="account-dialog-actions">
+          <button [disabled]="!form.valid"
+                  type="submit"
+                  class="btn btn-primary btn-block">
+            Entrar
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

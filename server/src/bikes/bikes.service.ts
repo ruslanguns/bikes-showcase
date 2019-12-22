@@ -1,4 +1,4 @@
-import { Injectable, BadGatewayException, HttpException, HttpStatus, BadRequestException } from '@nestjs/common';
+import { Injectable, BadGatewayException, BadRequestException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { IBikes } from './interfaces';

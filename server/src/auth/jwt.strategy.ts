@@ -3,18 +3,19 @@ import { Strategy, ExtractJwt } from 'passport-jwt';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Defaults } from '../../config';
 import { ISettings } from '../settings/interfaces';
 import { JwtPayload } from './jwt.interface';
+import { ConfigService } from '../config/config.service';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
     @InjectModel('Settings') private readonly model: Model<ISettings>,
+    private readonly config: ConfigService,
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: Defaults.jwtSecret,
+      secretOrKey: config.get<string>('JWT_SECRET'),
     });
   }
 

@@ -4,18 +4,12 @@ const WebpackConfigFactory = require("@nestjs/ng-universal")
 
 const nodeExternals = require("webpack-node-externals");
 
-/**
- * In fact, passing following configuration to the WebpackConfigFactory is not required
- * default options object returned from this method has equivalent entries defined by default.
- *
- * Example: WebpackConfigFactory.create(webpack);
- */
 const webpackOptions = WebpackConfigFactory.create(webpack, {
   // This is our Nest server for Dynamic universal
   server: "./server/main.ts"
 });
 
-const whitelistedPackages = /^(?!(livereload|concurrently|mongoose|sharp|fastify-swagger|validate)).*/;
+const whitelistedPackages = /^(?!(livereload|concurrently|mongoose|sharp|fastify-swagger)).*/;
 webpackOptions.externals[1] = nodeExternals({
   whitelist: whitelistedPackages
 });

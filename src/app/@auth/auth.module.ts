@@ -8,9 +8,10 @@ import { AuthService } from './auth.service';
 import { SharedModule } from '../shared';
 import { interceptorProviders } from '../shared/interceptors';
 import { LoginGuard } from './guards/login.guard';
+import { RecoveryComponent } from './recovery/recovery.component';
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, RecoveryComponent],
   imports: [
     CommonModule,
     HttpClientModule,

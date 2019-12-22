@@ -1,13 +1,13 @@
 import { NestFactory } from '@nestjs/core';
 import { ApplicationModule } from './app.module';
 import { Logger, ValidationPipe } from '@nestjs/common';
-import { MONGO_URI } from './config/constants';
 import * as passport from 'passport';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { ConfigService } from './src/config/config.service';
 
 async function bootstrap() {
   const logger = new Logger('Bootstrap');
-  logger.log(MONGO_URI, 'DB URI');
+
   const app = await NestFactory.create(ApplicationModule);
 
   app.setGlobalPrefix('api');

@@ -16,8 +16,8 @@ import {
 import { BikesService } from './bikes.service';
 import { BikeDto } from './dtos/bike.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { fileSettings } from '../../config';
 import { AuthGuard } from '@nestjs/passport';
+import { FileSettingsService } from '../config';
 import {
   ApiBearerAuth,
   ApiOperation,
@@ -30,9 +30,14 @@ import {
 @Controller('bikes')
 export class BikesController {
 
+  fileSettingsOptions: {};
+
   constructor(
     private readonly bikesService: BikesService,
-  ) { }
+    private readonly fileSettings: FileSettingsService,
+  ) {
+    this.fileSettingsOptions = this.fileSettings.fileOptions();
+  }
 
   @Post()
   @ApiOperation({ summary: 'Subir una nueva bicicleta' })
@@ -89,7 +94,7 @@ export class BikesController {
   @ApiOperation({ summary: 'Subir imagen a una bicicleta' })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   @UseGuards(AuthGuard('jwt'))
-  @UseInterceptors(FileInterceptor('image', fileSettings))
+  @UseInterceptors(FileInterceptor('image', this.fileSettingsOptions))
   async addImage(
     @UploadedFile() image,
     @Param('id') id,
@@ -103,7 +108,7 @@ export class BikesController {
   @ApiOperation({ summary: 'Cambiar la imagen de una bicicleta' })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   @UseGuards(AuthGuard('jwt'))
-  @UseInterceptors(FileInterceptor('image', fileSettings))
+  @UseInterceptors(FileInterceptor('image', this.fileSettingsOptions))
   async changeImage(
     @UploadedFile() image,
     @Param('id') id,
