@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BikesService } from './bikes.service';
 import { IBikes } from './bikes.interface';
 import { PnotifyService } from 'src/app/shared';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-bikes',
@@ -22,9 +22,7 @@ export class BikesComponent implements OnInit {
     this.fetchData();
   }
 
-  ngOnInit() {
-    console.log(this.bikes);
-  }
+  ngOnInit() { }
 
 
   fetchData() {
@@ -73,12 +71,17 @@ export class BikesComponent implements OnInit {
       cancelButtonText: 'Cancelar',
       showLoaderOnConfirm: true,
       preConfirm: () => {
-        // cuando es aceptado...
-        console.log('VENDIDA');
-        Swal.insertQueueStep({
-          icon: 'success',
-          title: 'El producto se ha macardo como vendido.'
-        });
+        this.bikesService.sold(id)
+          .subscribe(
+            res => {
+              this.fetchData();
+              Swal.insertQueueStep({
+                icon: 'success',
+                title: 'El producto se ha macardo como vendido.'
+              });
+            },
+            err => error => console.log('HTTP error', error),
+          );
       }
     }]);
   }
