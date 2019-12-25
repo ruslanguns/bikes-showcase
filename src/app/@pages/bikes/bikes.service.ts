@@ -95,7 +95,7 @@ export class BikesService {
       );
   }
 
-  sold(id: string) {
+  toSold(id: string) {
     const URL = `api/bikes/${id}`;
     const data = { status: 'vendido' };
     const http$ = this.http.put<ApiResponse>(URL, data);
@@ -103,6 +103,23 @@ export class BikesService {
     return http$
       .pipe(
         pluck('data'),
+        tap(res => console.log(res)),
+        catchError(err => {
+          this.PNotify.error({ text: err.error.error.message || err.error.message });
+          return throwError(err);
+        })
+      );
+  }
+
+  toSale(id: string) {
+    const URL = `api/bikes/${id}`;
+    const data = { status: 'a la venta' };
+    const http$ = this.http.put<ApiResponse>(URL, data);
+
+    return http$
+      .pipe(
+        pluck('data'),
+        tap(res => console.log(res)),
         catchError(err => {
           this.PNotify.error({ text: err.error.error.message || err.error.message });
           return throwError(err);

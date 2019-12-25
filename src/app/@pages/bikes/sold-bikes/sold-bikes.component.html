@@ -1,17 +1,17 @@
 <div class="container">
   <div class="d-flex justify-content-between">
     <div>
-      <h1 class="dash-title">Bicicletas a la venta</h1>
+      <h1 class="dash-title">Bicicletas vendidas</h1>
     </div>
     <div>
-      <a routerLink="vendidas"
-         class="btn btn-outline-success">
+      <a routerLink="/admin/bicicletas"
+         class="btn btn-outline-info">
         <i class="fas fa-cart-arrow-down mr-2"></i>
-        Bicicletas Vendidas
+        Bicicletas a la venta
       </a>
-      <a routerLink="crear"
+      <a routerLink="/admin/bicicletas/crear"
          class="btn btn-primary ml-2">
-        <i class="fas fa-plus mr-2"></i>
+        <i class="fas fa-plus mr-"></i>
         Agregar bicicleta
       </a>
     </div>
@@ -34,7 +34,7 @@
                 <th scope="col">Marca</th>
                 <th scope="col">Precio</th>
                 <th scope="col">Estado</th>
-                <th scope="col">Última edición</th>
+                <th scope="col">Fecha venta</th>
                 <th scope="col">Fecha creación</th>
                 <th scope="col">Acciones</th>
               </tr>
@@ -48,14 +48,11 @@
                 <td class="align-middle fitwidth">{{ bike.brand | uppercase }}</td>
                 <td class="align-middle fitwidth">{{ bike.price | currency: 'EUR' }}</td>
                 <td class="align-middle fitwidth">{{ bike.state | titlecase }}</td>
-                <td class="align-middle fitwidth">{{ bike.updatedAt | date: 'short' }}</td>
+                <td class="align-middle fitwidth">{{ bike.soldAt | date: 'short' }}</td>
                 <td class="align-middle fitwidth">{{ bike.createdAt | date: 'short' }}</td>
                 <td class="align-middle fitwidth">
-                  <a (click)="markSold(bike._id)" href="javascript: void(0);" class="btn btn-success btn-sm">
-                    <i class="fas fa-check"></i>
-                  </a>
-                  <a [routerLink]="['/admin/bicicletas/', bike._id]" class="btn btn-secondary btn-sm ml-2">
-                    <i class="fas fa-edit"></i>
+                  <a (click)="markSale(bike._id)" href="javascript: void(0);" class="btn btn-success btn-sm">
+                    <i class="fas fa-cart-plus"></i>
                   </a>
                   <a (click)="deleteBike(bike._id)" href="javascript: void(0);" class="btn btn-danger btn-sm ml-2">
                     <i class="fas fa-trash-alt"></i>
@@ -63,7 +60,7 @@
                 </td>
               </tr>
               <tr *ngIf="!bikes.length">
-                <td colspan="7" class="text-center">No hay bicicletas para mostrar</td>
+                <td colspan="7" class="text-center">No bicicletas para mostrar</td>
               </tr>
 
             </tbody>

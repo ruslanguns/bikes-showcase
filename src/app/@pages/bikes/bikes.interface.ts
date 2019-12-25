@@ -10,6 +10,7 @@ export interface IBikes {
   size: string;
   state: string;
   status: string;
+  soldAt: Date;
   createdAt: Date;
   updatedAt: Date;
 }

@@ -10,10 +10,11 @@ import { DetailBikesComponent } from './detail-bikes/detail-bikes.component';
 import { BikesService } from './bikes.service';
 import { interceptorProviders } from 'src/app/shared/interceptors';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SoldBikesComponent } from './sold-bikes/sold-bikes.component';
 
 
 @NgModule({
-  declarations: [BikesComponent, CreateBikesComponent, DetailBikesComponent],
+  declarations: [BikesComponent, CreateBikesComponent, DetailBikesComponent, SoldBikesComponent],
   imports: [
     CommonModule,
     HttpClientModule,

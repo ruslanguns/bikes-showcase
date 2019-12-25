@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { BikesService } from './bikes.service';
-import { IBikes } from './bikes.interface';
 import { PnotifyService } from 'src/app/shared';
 import Swal from 'sweetalert2';
+import { IBikes } from '../bikes.interface';
+import { BikesService } from '../bikes.service';
 
 @Component({
-  selector: 'app-bikes',
-  templateUrl: './bikes.component.html',
+  selector: 'app-sold-bikes',
+  templateUrl: './sold-bikes.component.html',
   styles: []
 })
-export class BikesComponent implements OnInit {
+export class SoldBikesComponent implements OnInit {
 
   bikes: IBikes[] = [];
   PNotify;
@@ -26,7 +26,7 @@ export class BikesComponent implements OnInit {
 
 
   fetchData() {
-    this.bikesService.fetch()
+    this.bikesService.fetchSold()
       .subscribe(
         res => this.bikes = res,
         error => console.log('HTTP error', error),
@@ -59,23 +59,23 @@ export class BikesComponent implements OnInit {
     });
   }
 
-  markSold(id: string) {
+  markSale(id: string) {
     Swal.fire({
-      title: 'Marcar como vendida',
-      text: `Esta acción es revertible después.`,
+      title: 'Ponerlo a la venta',
+      text: `¿Realmente desea volver a ponerlo a la venta?`,
       icon: 'info',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: '¡Si, marcar vendido!',
-      cancelButtonText: 'Cancelar',
+      confirmButtonText: '¡Si!',
+      cancelButtonText: 'Cancelar'
     }).then(result => {
       if (result.value) {
-        this.bikesService.toSold(id)
+        this.bikesService.toSale(id)
           .subscribe(
             res => {
               this.fetchData();
-              this.PNotify.success('Marcada como vendida');
+              this.PNotify.success('Puesta a la venta');
             },
             error => console.log('HTTP error', error),
           );

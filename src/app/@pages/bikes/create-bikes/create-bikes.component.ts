@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription, fromEvent } from 'rxjs';
 import { pluck, filter } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -9,7 +9,7 @@ import { BikesService } from '../bikes.service';
 @Component({
   selector: 'app-create-bikes',
   templateUrl: './create-bikes.component.html',
-  styleUrls: ['./create-bikes.component.css']
+  styles: []
 })
 export class CreateBikesComponent implements OnInit, OnDestroy {
 

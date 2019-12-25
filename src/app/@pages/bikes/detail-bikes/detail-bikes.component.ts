@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-detail-bikes',
   templateUrl: './detail-bikes.component.html',
-  styleUrls: ['./detail-bikes.component.css']
+  styles: [],
 })
 export class DetailBikesComponent implements OnInit, OnDestroy {
 

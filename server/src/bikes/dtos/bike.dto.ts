@@ -40,4 +40,8 @@ export class BikeDto {
   @IsString()
   @IsOptional()
   status = 'a la venta';
+
+  soldAt: Date;
+  updatedAt: Date;
+
 }

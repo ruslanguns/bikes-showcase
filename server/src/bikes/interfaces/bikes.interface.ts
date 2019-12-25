@@ -10,6 +10,7 @@ export interface IBikes extends Document {
   readonly size: string;
   readonly state: string;
   readonly status: string;
+  soldAt: Date;
   readonly createdAt: Date;
-  readonly updatedAt: Date;
+  updatedAt: Date;
 }

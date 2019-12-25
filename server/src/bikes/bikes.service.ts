@@ -18,6 +18,7 @@ export class BikesService {
    * @param dto Clase BikeDto
    */
   async create(dto: BikeDto): Promise<IBikes> {
+    dto.updatedAt = new Date();
     return await this.bikesModel.create(dto)
       .catch(err => { throw new BadGatewayException('Error al guardar en DB', err); });
   }
@@ -44,6 +45,13 @@ export class BikesService {
    * @param dto Clase BikeDto
    */
   async update(id: string, dto: BikeDto): Promise<IBikes | string> {
+    if (dto.status && dto.status === 'vendido') {
+      dto.soldAt = new Date();
+    }
+    if (dto.status && dto.status === 'a la venta') {
+      dto.soldAt = undefined;
+    }
+    dto.updatedAt = new Date();
     return await this.bikesModel.findByIdAndUpdate(id, dto, { new: true, runValidators: true })
       .then(res => (!!res) ? res : 'No hay nada que modificar.')
       .catch(err => { throw new BadGatewayException('Error al modificar en DB', err); });
@@ -74,6 +82,7 @@ export class BikesService {
       fs.unlinkSync(image.path);
       throw new BadRequestException('No puede agregar más imagenes.');
     } else {
+      bike.updatedAt = new Date();
       bike.image = image.path;
       await bike.save();
     }
