@@ -5,16 +5,6 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
-.dash-nav-item {
-  color: #fff !important;
-  cursor: pointer !important;
-}
-
-.dash-nav-dropdown-item {
-  color: #fff !important;
-  cursor: pointer !important;
-}
-
 /* UTILITIES */
 .cursor {cursor: pointer; cursor: hand;}
 

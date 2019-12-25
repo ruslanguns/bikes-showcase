@@ -1,5 +1,5 @@
 
-export class ChangePasswordClass {
+export class ChangePassword {
   constructor(
     public currentPassword: string,
     public password: string,

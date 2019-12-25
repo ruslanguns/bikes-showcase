@@ -33,25 +33,28 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th routerLink="1" class="cursor align-middle" scope="row">
+              <tr *ngFor="let bike of bikes">
+                <th [routerLink]="['/admin/bicicletas/', bike._id]" class="cursor align-middle" scope="row">
                   <i class="fas fa-eye mr-1"></i>
-                  E203123-0
+                  {{ bike.productId }}
                 </th>
-                <td class="align-middle fitwidth">BPRO</td>
-                <td class="align-middle fitwidth">12429,00€</td>
-                <td class="align-middle fitwidth">Perfecto estado</td>
+                <td class="align-middle fitwidth">{{ bike.brand | uppercase }}</td>
+                <td class="align-middle fitwidth">{{ bike.price | currency: 'EUR' }}</td>
+                <td class="align-middle fitwidth">{{ bike.state | titlecase }}</td>
                 <td class="align-middle fitwidth">
-                  <a href="javascript: void(0);" class="btn btn-success btn-sm">
+                  <a (click)="markSold(bike._id)" href="javascript: void(0);" class="btn btn-success btn-sm">
                     <i class="fas fa-check"></i>
                   </a>
-                  <a routerLink="/admin/bicicletas/1" class="btn btn-secondary btn-sm ml-2">
+                  <a [routerLink]="['/admin/bicicletas/', bike._id]" class="btn btn-secondary btn-sm ml-2">
                     <i class="fas fa-edit"></i>
                   </a>
-                  <a href="javascript: void(0);" class="btn btn-danger btn-sm ml-2">
+                  <a (click)="deleteBike(bike._id)" href="javascript: void(0);" class="btn btn-danger btn-sm ml-2">
                     <i class="fas fa-trash-alt"></i>
                   </a>
                 </td>
+              </tr>
+              <tr *ngIf="!bikes.length">
+                <td colspan="5" class="text-center">No bicicletas para mostrar</td>
               </tr>
 
             </tbody>

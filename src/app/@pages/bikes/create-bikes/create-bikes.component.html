@@ -11,12 +11,13 @@
             una nueva bicicleta </div>
         </div>
         <div class="card-body ">
-          <form>
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
             <div class="form-row">
               <div class="form-group col-sm-4">
                 <label for="productId">Producto *</label>
-                <input appAutofocus type="string" class="form-control" id="productId" aria-describedby="emailHelp"
+                <input formControlName="productId" appAutofocus type="string" class="form-control" id="productId"
+                       aria-describedby="emailHelp"
                        placeholder="Ejemplo: E199012-0" required>
               </div>
 
@@ -26,17 +27,18 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon3">€</span>
                   </div>
-                  <input type="number" class="form-control" id="price" placeholder="Ejemplo: 99.75" required>
+                  <input formControlName="price" type="number" class="form-control" id="price"
+                         placeholder="Ejemplo: 99.75" required>
                 </div>
                 <!-- <small class="form-text text-muted">Precio de venta al público.</small> -->
               </div>
 
               <div class="form-group col-sm-4">
                 <label for="productId">Estado *</label>
-                <select class="form-control" required>
-                  <option value="1">Usado</option>
-                  <option value="2">Buen estado</option>
-                  <option value="3">Perfecto estado</option>
+                <select formControlName="state" class="form-control" required>
+                  <option value="usado">Usado</option>
+                  <option value="buen estado">Buen estado</option>
+                  <option value="perfecto estado">Perfecto estado</option>
                 </select>
               </div>
 
@@ -46,12 +48,14 @@
 
               <div class="form-group col-sm-4">
                 <label for="marca">Marca *</label>
-                <input type="text" class="form-control" id="marca" placeholder="Ejemplo: Cannondale" required>
+                <input formControlName="brand" type="text" class="form-control" id="marca"
+                       placeholder="Ejemplo: Cannondale" required>
               </div>
 
               <div class="form-group col-sm-8">
                 <label for="modelo">Modelo o detalles <small>[ Opcional ]</small> </label>
-                <input type="text" class="form-control" id="modelo" placeholder="Ejemplo: X12F">
+                <input formControlName="details" type="text" class="form-control" id="modelo"
+                       placeholder="Ejemplo: X12F">
               </div>
 
             </div>
@@ -60,25 +64,25 @@
 
               <div class="form-group col-sm-6">
                 <label for="category">Categoría <small>[ Opcional ]</small> </label>
-                <select id="category" class="form-control">
+                <select formControlName="category" id="category" class="form-control">
                   <option value="" disabled selected hidden>Seleccione una opción</option>
-                  <option value="1">Carreras</option>
-                  <option value="2">Carretera</option>
-                  <option value="3">Montaña</option>
-                  <option value="4">Niño</option>
-                  <option value="5">Paseo</option>
-                  <option value="6">Plegable</option>
+                  <option value="carreras">Carreras</option>
+                  <option value="carretera">Carretera</option>
+                  <option value="montaña">Montaña</option>
+                  <option value="niño">Niño</option>
+                  <option value="paseo">Paseo</option>
+                  <option value="plegable">Plegable</option>
                 </select>
               </div>
 
               <div class="form-group col-sm-6">
                 <label for="size">Talla <small>[ Opcional ]</small> </label>
-                <select id="size" class="form-control">
+                <select formControlName="size" id="size" class="form-control">
                   <option value="" disabled selected hidden>Seleccione una opción</option>
-                  <option value="1">S</option>
-                  <option value="2">M</option>
-                  <option value="3">L</option>
-                  <option value="3">XL</option>
+                  <option value="S">S</option>
+                  <option value="M">M</option>
+                  <option value="L">L</option>
+                  <option value="XL">XL</option>
                 </select>
               </div>
 
@@ -86,10 +90,19 @@
 
             <hr>
 
+            <!-- FILE UPLOAD -->
             <div class="form-row">
               <div class="form-group col-sm-6">
-                <label for="imagen">Subir imagen *</label>
-                <input type="file" class="form-control-file" id="imagen" accept=".jpg,.gif,.png" required>
+                <input id="imagen"
+                       #fileInput
+                       (change)="onFileChanged($event)"
+                       type="file"
+                       class="form-control-file"
+                       accept=".jpg,.gif,.png">
+                <!-- <button (click)="fileInput.click()" type="button" class="btn btn-outline-danger">
+                  <i class="fas fa-upload mr-2"></i>
+                  Subir imagen
+                </button> -->
                 <small class="form-text text-muted">Solo imagenes (.jpg, .jpeg, .gif, .png.), se recomienda
                   un formato de 16:9 (1920x1080)</small>
               </div>
@@ -97,11 +110,9 @@
 
             <hr>
 
-            <div class="col-12 mb-3">
-              <button type="submit" class="btn btn-primary">Añadir</button>
-              <a routerLink="/admin/bicicletas" class="btn btn-outline-primary ml-2">Volver</a>
+            <button [disabled]="!form.valid" type="submit" class="btn btn-primary">Añadir</button>
+            <a routerLink="/admin/bicicletas" class="btn btn-outline-primary ml-2">Volver</a>
 
-            </div>
 
             <small class="form-text text-muted">- Puede presionar <b>ENTER</b> en cualquier momento para
               guardar.</small>

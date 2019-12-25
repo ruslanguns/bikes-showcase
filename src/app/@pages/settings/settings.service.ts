@@ -1,9 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { PnotifyService } from 'src/app/shared';
-import { ChangePasswordClass } from './password/change-password.class';
+import { ChangeEmail } from './recovery-email';
+import { ChangePassword } from './password';
 import { catchError, retry, pluck } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { throwError, Observable } from 'rxjs';
+import { ISettings } from './settings.interface';
+
+interface ApiResponse {
+  message: string;
+  data: ISettings;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -19,9 +26,9 @@ export class SettingsService {
     this.PNotify = this.pnotifyService.getPNotify();
   }
 
-  fetch() {
+  fetch(): Observable<ISettings> {
     const URL = `api/settings`;
-    const http$ = this.http.get(URL);
+    const http$ = this.http.get<ApiResponse>(URL);
 
     return http$
       .pipe(
@@ -33,9 +40,9 @@ export class SettingsService {
       );
   }
 
-  changeEmail(data: ChangePasswordClass) {
+  changeEmail(data: ChangeEmail): Observable<ApiResponse> {
     const URL = `api/settings`;
-    const http$ = this.http.put(URL, data);
+    const http$ = this.http.put<ApiResponse>(URL, data);
 
     return http$
       .pipe(
@@ -47,9 +54,9 @@ export class SettingsService {
       );
   }
 
-  changePassword(data: ChangePasswordClass) {
+  changePassword(data: ChangePassword): Observable<ApiResponse> {
     const URL = `api/settings`;
-    const http$ = this.http.put(URL, data);
+    const http$ = this.http.put<ApiResponse>(URL, data);
 
     return http$
       .pipe(

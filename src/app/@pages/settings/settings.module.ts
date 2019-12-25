@@ -16,8 +16,8 @@ import { RecoveryEmailComponent } from './recovery-email/recovery-email.componen
   imports: [
     CommonModule,
     FormsModule,
-    HttpClientModule,
     ReactiveFormsModule,
+    HttpClientModule,
     SettingsRoutingModule,
     SharedModule,
   ],

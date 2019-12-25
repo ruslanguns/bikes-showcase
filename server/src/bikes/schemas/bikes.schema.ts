@@ -2,7 +2,7 @@ import { Schema } from 'mongoose';
 import * as uniqueValidator from 'mongoose-unique-validator';
 
 const stateEnum = {
-  values: ['usado', 'como_nuevo', 'nuevo'],
+  values: ['usado', 'buen estado', 'perfecto estado'],
   message: `'{VALUE}' no es un valor válido.`,
 };
 
@@ -14,7 +14,7 @@ const StatusEnum = {
 export const BikesSchema = new Schema({
   productId: { type: String, required: true, unique: true },
   brand: { type: String, required: true },
-  details: { type: String, required: true },
+  details: { type: String, required: false },
   category: { type: String, default: '' },
   size: { type: String, default: '' },
   image: String,
@@ -23,12 +23,6 @@ export const BikesSchema = new Schema({
   status: { type: String, default: 'a la venta', enum: StatusEnum },
   createdAt: { type: Date, default: Date.now },
   updatedAt: Date,
-});
-
-BikesSchema.pre('findOneAndUpdate', async (next) => {
-  const update = this.getUpdate();
-  update.updatedAt = await new Date();
-  next();
 });
 
 BikesSchema.plugin(uniqueValidator, {

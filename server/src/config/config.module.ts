@@ -2,7 +2,6 @@ import { Module, Global } from '@nestjs/common';
 import { ConfigService } from './config.service';
 import { ConfigManagerModule } from '@nestjsplus/config';
 import { join } from 'path';
-import { FileSettingsService } from './file-settings.service';
 
 @Global()
 @Module({
@@ -15,7 +14,7 @@ import { FileSettingsService } from './file-settings.service';
       useFile: join(__dirname, '../../../../config/development.env'),
     }),
   ],
-  providers: [ConfigService, FileSettingsService],
-  exports: [ConfigService, FileSettingsService],
+  providers: [ConfigService],
+  exports: [ConfigService],
 })
 export class ConfigModule { }

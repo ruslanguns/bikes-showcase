@@ -31,13 +31,21 @@ export class BikesService {
   }
 
   /**
+   * Obtener Bicicleta por ID
+   */
+  async findById(id: string): Promise<IBikes> {
+    return await this.bikesModel.findById(id)
+      .catch(err => { throw new BadGatewayException('Error al buscar la bicicleta en la DB', err); });
+  }
+
+  /**
    * Actualizar bicicleta por ID
    * @param id MongoId de bicicleta por modificar
    * @param dto Clase BikeDto
    */
   async update(id: string, dto: BikeDto): Promise<IBikes | string> {
     return await this.bikesModel.findByIdAndUpdate(id, dto, { new: true, runValidators: true })
-      .then(res => (res._id.length) ? res : 'No hay nada que modificar.')
+      .then(res => (!!res) ? res : 'No hay nada que modificar.')
       .catch(err => { throw new BadGatewayException('Error al modificar en DB', err); });
   }
 
@@ -45,9 +53,10 @@ export class BikesService {
    * Eliminar un registro por ID
    * @param id MongoId de bicicleta por eliminar
    */
-  async delete(id: string): Promise<IBikes | string> {
+  async delete(id: string) {
+    await this.removeImage(id);
     return await this.bikesModel.findByIdAndDelete(id)
-      .then(res => (res._id.length) ? res : 'No hay nada que eliminar.')
+      .then(res => (!!res) ? res : 'No hay nada que modificar.')
       .catch(err => { throw new BadGatewayException('Error al eliminar en DB', err); });
   }
 
