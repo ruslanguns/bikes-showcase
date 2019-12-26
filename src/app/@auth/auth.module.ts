@@ -9,9 +9,10 @@ import { SharedModule } from '../shared';
 import { interceptorProviders } from '../shared/interceptors';
 import { LoginGuard } from './guards/login.guard';
 import { RecoveryComponent } from './recovery/recovery.component';
+import { ResetComponent } from './reset/reset.component';
 
 @NgModule({
-  declarations: [LoginComponent, RecoveryComponent],
+  declarations: [LoginComponent, RecoveryComponent, ResetComponent],
   imports: [
     CommonModule,
     HttpClientModule,

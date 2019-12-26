@@ -1,4 +1,4 @@
-import { Injectable, BadGatewayException, BadRequestException } from '@nestjs/common';
+import { Injectable, BadGatewayException, BadRequestException, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { IBikes } from './interfaces';
@@ -52,7 +52,7 @@ export class BikesService {
       dto.soldAt = undefined;
     }
     dto.updatedAt = new Date();
-    return await this.bikesModel.findByIdAndUpdate(id, dto, { new: true, runValidators: true })
+    return await this.bikesModel.findByIdAndUpdate(id, dto, { new: true, runValidators: true, context: 'query' })
       .then(res => (!!res) ? res : 'No hay nada que modificar.')
       .catch(err => { throw new BadGatewayException('Error al modificar en DB', err); });
   }
@@ -62,7 +62,8 @@ export class BikesService {
    * @param id MongoId de bicicleta por eliminar
    */
   async delete(id: string) {
-    await this.removeImage(id);
+    const removingImage = await this.removeImage(id);
+    if (!removingImage) { throw new NotFoundException('No hay nada que eliminar. '); }
     return await this.bikesModel.findByIdAndDelete(id)
       .then(res => (!!res) ? res : 'No hay nada que modificar.')
       .catch(err => { throw new BadGatewayException('Error al eliminar en DB', err); });
@@ -78,12 +79,12 @@ export class BikesService {
     const bike: IBikes = await this.bikesModel.findOne({ _id: id })
       .catch(err => { throw new BadGatewayException('Error al buscar a la bicicleta Server', err); });
 
-    if (bike && bike.image && bike.image.length) {
+    if (bike && bike.image && bike.image.path) {
       fs.unlinkSync(image.path);
       throw new BadRequestException('No puede agregar más imagenes.');
     } else {
       bike.updatedAt = new Date();
-      bike.image = image.path;
+      bike.image = image;
       await bike.save();
     }
   }
@@ -94,7 +95,8 @@ export class BikesService {
    * @param newImage Imagen con la que reemplazaremos la anterior
    */
   async editImage(id, newImage): Promise<void> {
-    await this.removeImage(id); // Eliminamos antigua imagen...
+    const removingImage = await this.removeImage(id, newImage); // Eliminamos antigua imagen...
+    if (!removingImage) { throw new NotFoundException('No hay nada que modificar.'); }
     return await this.addImage(id, newImage); // Comprimimos y guardamos la nueva imagen.
   }
 
@@ -102,14 +104,17 @@ export class BikesService {
    * Eliminar la imagen de una bicicleta
    * @param id MongoId de bicicleta
    */
-  async removeImage(id): Promise<void> {
+  async removeImage(id, newImage?): Promise<boolean> {
     const bike = await this.bikesModel.findById(id).select('image');
-    if (bike && bike.image && !!bike.image.length) {
-      fs.unlinkSync(bike.image);
+
+    if (bike && bike.image && bike.image.path) {
+      fs.unlinkSync(bike.image.path);
       bike.image = undefined;
       await bike.save();
+      return true;
     } else {
-      return;
+      if (newImage) { fs.unlinkSync(newImage.path); }
+      return false;
     }
   }
 

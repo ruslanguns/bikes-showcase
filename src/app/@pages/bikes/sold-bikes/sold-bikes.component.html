@@ -51,7 +51,7 @@
                 <td class="align-middle fitwidth">{{ bike.soldAt | date: 'short' }}</td>
                 <td class="align-middle fitwidth">{{ bike.createdAt | date: 'short' }}</td>
                 <td class="align-middle fitwidth">
-                  <a (click)="markSale(bike._id)" href="javascript: void(0);" class="btn btn-success btn-sm">
+                  <a (click)="markSale(bike._id)" href="javascript: void(0);" class="btn btn-info btn-sm">
                     <i class="fas fa-cart-plus"></i>
                   </a>
                   <a (click)="deleteBike(bike._id)" href="javascript: void(0);" class="btn btn-danger btn-sm ml-2">

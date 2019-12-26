@@ -8,11 +8,12 @@ import { SharedModule } from '../../shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { SettingsService } from './settings.service';
 import { interceptorProviders } from '../../shared/interceptors';
-import { RecoveryEmailComponent } from './recovery-email/recovery-email.component';
+import { RecoveryEmailComponent } from './recovery-email';
+import { ResetPasswordComponent } from './reset-password';
 
 
 @NgModule({
-  declarations: [PasswordComponent, RecoveryEmailComponent],
+  declarations: [PasswordComponent, RecoveryEmailComponent, ResetPasswordComponent],
   imports: [
     CommonModule,
     FormsModule,

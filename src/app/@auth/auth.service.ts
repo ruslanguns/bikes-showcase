@@ -1,11 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, retry } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { PnotifyService } from '../shared/services/pnotify.service';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import * as validator from 'validator';
+import { RecoveryClass } from './recovery';
+
+interface ApiResponse {
+  message: string;
+  data: any;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -53,6 +59,20 @@ export class AuthService {
     this.removeLocalStorageItems(items);
     this.router.navigate(['/login']);
     return;
+  }
+
+  recovery(data: RecoveryClass) {
+    const URL = `api/auth/recuperar`;
+    const http$ = this.http.post<ApiResponse>(URL, data);
+
+    return http$
+      .pipe(
+        retry(1),
+        catchError(err => {
+          this.PNotify.error({ text: err.error.message });
+          return throwError(err);
+        })
+      );
   }
 
   /**

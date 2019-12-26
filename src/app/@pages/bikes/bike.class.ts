@@ -5,8 +5,12 @@ export class Bike {
   brand: string;
   details: string;
   category: string;
-  size: string;
+  image: string;
   price: number;
+  size: string;
   state: string;
   status: string;
+  soldAt: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }

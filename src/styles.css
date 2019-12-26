@@ -30,3 +30,26 @@ input[type=number] {
   -moz-appearance:textfield;
 }
 
+/** Typography */
+.pvp {
+  font-size: 0.5em;
+}
+
+.header img {
+  position: absolute;
+  display:block;
+  width: 25%;
+  margin: 2%;
+  z-index: 3;
+  float: left;
+}
+
+.bike-info {
+  position: absolute;
+  z-index: 3;
+  right: 0;
+  top: 0;
+  width: 250px;
+  height: 300px;
+  margin: 2%;
+}

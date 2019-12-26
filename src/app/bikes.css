@@ -1,0 +1,26 @@
+
+.frame {
+  min-height: 100vh !important;    /* equals max image height */
+  max-height: 100vh !important;    /* equals max image height */
+  height: 1000px;
+  width: auto!important;
+  /* border: 1px solid red !important; */
+  white-space: nowrap !important;
+  margin: auto !important;
+}
+
+
+.helper {
+  display: inline-block !important;
+  height: 100% !important;
+  vertical-align: middle !important;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.image-slider {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}

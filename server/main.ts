@@ -3,12 +3,11 @@ import { ApplicationModule } from './app.module';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import * as passport from 'passport';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { ConfigService } from './src/config/config.service';
+import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
   const logger = new Logger('Bootstrap');
-
-  const app = await NestFactory.create(ApplicationModule);
+  const app = await NestFactory.create<NestExpressApplication>(ApplicationModule);
 
   app.setGlobalPrefix('api');
 

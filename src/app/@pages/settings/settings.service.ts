@@ -6,6 +6,7 @@ import { ChangePassword } from './password';
 import { catchError, retry, pluck } from 'rxjs/operators';
 import { throwError, Observable } from 'rxjs';
 import { ISettings } from './settings.interface';
+import { ResetPassword } from './reset-password';
 
 interface ApiResponse {
   message: string;
@@ -57,6 +58,20 @@ export class SettingsService {
   changePassword(data: ChangePassword): Observable<ApiResponse> {
     const URL = `api/settings`;
     const http$ = this.http.put<ApiResponse>(URL, data);
+
+    return http$
+      .pipe(
+        retry(1),
+        catchError(err => {
+          this.PNotify.error({ text: err.error.message });
+          return throwError(err);
+        })
+      );
+  }
+
+  resetPassword(data: ResetPassword) {
+    const URL = `api/auth/reset`;
+    const http$ = this.http.patch<ApiResponse>(URL, data);
 
     return http$
       .pipe(

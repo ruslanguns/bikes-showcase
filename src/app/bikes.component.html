@@ -1,9 +1,8 @@
-<div class="wrapper">
+<div class="header">
+  <img src="https://cashconverters.es/content/themes/cash-converters/images/logo.png" alt="logo">
+</div>
 
-  <div class="header">
-    <img src="https://cashconverters.es/content/themes/cash-converters/images/logo.png" alt="logo">
-  </div>
-
+<div class="presentador">
   <swiper class="swiper-container" [config]="config" #usefulSwiper>
 
     <div class="swiper-wrapper">
@@ -18,40 +17,36 @@
 
               <div class="text-center">
                 <h2>
-                  <small class="pvp">PVP</small>
-                  <strong>{{ bike.price}}</strong>
+                  <small class="pvp">PVP </small>
+                  <strong>{{ bike.price | currency:'EUR'}}</strong>
                 </h2>
               </div>
-
             </div>
-
             <div class="card-body text-left">
               <h5 class="card-title">Detalles:</h5>
               <p class="card-text text-left">
-                Marca: <strong> {{ bike.brand}} </strong> <br>
-                Estilo: <strong> Montaña </strong> <br>
-                Estado: <strong> Como nuevo </strong> <br>
-                Talla: <strong> M </strong> <br>
+                Marca: <strong> {{ bike.brand | uppercase }} </strong> <br>
+                Estilo: <strong> {{ bike.category | titlecase }} </strong> <br>
+                Estado: <strong> {{ bike.state | titlecase }}</strong> <br>
+                Talla: <strong> {{ bike.size | uppercase }} </strong> <br>
               </p>
             </div>
 
             <div class="card-footer text-muted">
-              <strong>E201221-0</strong>
+              <strong>{{ bike.productId }}</strong>
             </div>
 
           </div>
         </div>
 
-        <div class="imagen">
-          <img [src]=" bike.image">
+        <div class="frame">
+          <span class="helper"></span>
+          <img [src]="'api/bikes/' + bike._id + '/image'" height=800 class="image-slider">
         </div>
-
       </div>
-
     </div>
-
-    <div class="swiper-scrollbar"></div>
+    <!-- Add Pagination -->
+    <div class="swiper-pagination"></div>
 
   </swiper>
-
 </div>

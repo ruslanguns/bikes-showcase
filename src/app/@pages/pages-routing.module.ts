@@ -7,6 +7,7 @@ import { AuthGuard } from '../@auth/guards/auth.guard';
 
 const routes: Routes = [
   { path: '', component: PagesComponent, canActivate: [AuthGuard], children: PAGES_ROUTES },
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({

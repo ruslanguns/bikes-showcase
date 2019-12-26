@@ -53,6 +53,13 @@ export class AuthService {
     return user;
   }
 
+  async resetPassword(password: string): Promise<ISettings | string> {
+    password = crypto.createHmac('sha256', password).digest('hex');
+    return await this.settingsModel.findOneAndUpdate({}, { password }, { new: true, runValidators: true, context: 'query' })
+      .then(res => (!!res) ? res : 'No hay nada que modificar.')
+      .catch(err => { throw new BadGatewayException('Error al modificar en DB', err); });
+  }
+
   async recovery(emailProvided: string) {
 
     const { id, email } = await this.settingsModel.findOne().select('email').exec();
@@ -70,12 +77,12 @@ export class AuthService {
                     Hola!<br><br>
                     Se ha solicitado la recuperación de su contraseña. <br><br>
 
-                    <a href="http://localhost:4200/reset/${accessToken}" taget="_blank">
+                    <a href="http://localhost:4200/login/reset/${accessToken}" taget="_blank">
                       Haga click aquí </a> para ir a su panel y gestionar su contraseña.<br>
 
                     Si tiene problemas con el enlace copie y pegue en la URL el texto siguiente: <br><br>
 
-                    http://localhost:4200/reset/${accessToken} <br><br>
+                    http://localhost:4200/login/reset/${accessToken} <br><br>
 
                     Si usted no ha solicitado este correo, puede ignorarlo. <br><br>
 

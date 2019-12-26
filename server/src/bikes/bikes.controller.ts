@@ -24,6 +24,7 @@ import {
 } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { fileOptions } from '../config';
+import { NotFoundException } from '@nestjs/common';
 
 @ApiBearerAuth()
 @ApiTags('Bikes')
@@ -74,6 +75,8 @@ export class BikesController {
     @Res() res,
   ) {
     const data = await this.bikesService.findById(bikeId);
+    if (!data) { throw new NotFoundException('No existe bicicleta con ese ID'); }
+
     return res.status(HttpStatus.CREATED).json({ message: 'Búsqueda correcta', data });
   }
 
@@ -127,6 +130,7 @@ export class BikesController {
     @Param('id') id,
     @Res() res,
   ) {
+    console.log(image);
     const data = await this.bikesService.editImage(id, image);
     return res.status(HttpStatus.CREATED).json({ message: 'Imagen actualizada correctamente', data });
   }
@@ -141,6 +145,15 @@ export class BikesController {
   ) {
     const data = await this.bikesService.removeImage(id);
     return res.status(HttpStatus.CREATED).json({ message: 'Imagen eliminada correctamente', data });
+  }
+
+  @Get(':id/image')
+  async serveBikeImage(
+    @Res() res,
+    @Param('id') id,
+  ) {
+    const { image } = await this.bikesService.findById(id);
+    (image) ? res.sendFile(image.filename, { root: image.destination }) : res.status(HttpStatus.NOT_FOUND).json({ message: 'La bicicleta no tiene imagen.' });
   }
 
 }

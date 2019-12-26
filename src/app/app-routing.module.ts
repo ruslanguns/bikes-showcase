@@ -6,6 +6,7 @@ const routes: Routes = [
   { path: '', component: BikesComponent },
   { path: 'login', loadChildren: () => import('./@auth/auth.module').then(m => m.AuthModule) },
   { path: 'admin', loadChildren: () => import('./@pages/pages.module').then(m => m.PagesModule) },
+  { path: '**', redirectTo: 'login' }
 ];
 
 @NgModule({

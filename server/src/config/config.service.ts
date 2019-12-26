@@ -158,7 +158,7 @@ export class ConfigService extends ConfigManager {
    * Valid SmtpCredentials for Nestjs Mailer
    */
   private createSmtpCredentials(smtp_username: string, smtp_password: string, smtp_domain: string) {
-    return `smtps://${smtp_username}:${smtp_password}@${smtp_domain}`;
+    return `smtp://${smtp_username}:${smtp_password}@${smtp_domain}`;
   }
 
   /**

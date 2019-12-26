@@ -92,19 +92,33 @@
 
             <!-- FILE UPLOAD -->
             <div class="form-row">
-              <div class="form-group col-sm-6">
+              <div class="form-group col-sm-12">
+
+                <div class="image-preview mb-3" *ngIf="previewUrl">
+                  <img [src]="previewUrl" width="35%" height="auto" />
+                </div>
                 <input id="imagen"
                        #fileInput
                        (change)="onFileChanged($event)"
                        type="file"
                        class="form-control-file"
+                       style="display: none"
                        accept=".jpg,.gif,.png">
-                <!-- <button (click)="fileInput.click()" type="button" class="btn btn-outline-danger">
+                <button (click)="fileInput.click()" type="button" class="btn btn-outline-danger mr-2">
                   <i class="fas fa-upload mr-2"></i>
                   Subir imagen
-                </button> -->
+                </button>
+                <span *ngIf="selectedFile">{{ selectedFile.name }}</span>
                 <small class="form-text text-muted">Solo imagenes (.jpg, .jpeg, .gif, .png.), se recomienda
                   un formato de 16:9 (1920x1080)</small>
+              </div>
+
+              <div *ngIf="fileUploadProgress">
+                Upload progress: {{ fileUploadProgress }}
+              </div>
+
+              <div class="mb-3" *ngIf="uploadedFilePath">
+                {{uploadedFilePath}}
               </div>
             </div>
 

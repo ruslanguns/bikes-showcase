@@ -25,6 +25,20 @@ export class BikesService {
     this.PNotify = this.pnotifyService.getPNotify();
   }
 
+  fetchById(id: string): Observable<IBikes> {
+    const URL = `api/bikes/${id}`;
+    const http$ = this.http.get<ApiResponse>(URL);
+
+    return http$
+      .pipe(
+        pluck('data'),
+        catchError(err => {
+          this.PNotify.error({ text: err.error.error.message || err.error.message });
+          return throwError(err);
+        })
+      );
+  }
+
   fetch(): Observable<IBikes[]> {
     const URL = `api/bikes`;
     const http$ = this.http.get<ApiResponse>(URL);
@@ -73,9 +87,33 @@ export class BikesService {
       );
   }
 
+  update(id: string, data: Bike): Observable<IBikes> {
+
+    const URL = `api/bikes/${id}`;
+
+    const http$ = this.http.put<ApiResponse>(URL, data);
+
+    return http$
+      .pipe(
+        pluck('data'),
+        catchError(err => {
+          this.PNotify.error({ text: err.error.error.message || err.error.message });
+          return throwError(err);
+        })
+      );
+  }
+
   uploadImage(id: string, image: FormData) {
     const URL = `api/bikes/${id}/image`;
     return this.http.post<ApiResponse>(URL, image, {
+      reportProgress: true,
+      observe: 'events'
+    });
+  }
+
+  editImage(id: string, image: FormData) {
+    const URL = `api/bikes/${id}/image`;
+    return this.http.patch<ApiResponse>(URL, image, {
       reportProgress: true,
       observe: 'events'
     });
@@ -103,7 +141,7 @@ export class BikesService {
     return http$
       .pipe(
         pluck('data'),
-        tap(res => console.log(res)),
+        // tap(res => console.log(res)),
         catchError(err => {
           this.PNotify.error({ text: err.error.error.message || err.error.message });
           return throwError(err);
@@ -119,7 +157,7 @@ export class BikesService {
     return http$
       .pipe(
         pluck('data'),
-        tap(res => console.log(res)),
+        // tap(res => console.log(res)),
         catchError(err => {
           this.PNotify.error({ text: err.error.error.message || err.error.message });
           return throwError(err);

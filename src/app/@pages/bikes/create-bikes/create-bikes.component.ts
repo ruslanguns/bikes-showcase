@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { PnotifyService } from '../../../shared/services/pnotify.service';
 import { BikesService } from '../bikes.service';
+import { HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-create-bikes',
@@ -19,6 +20,10 @@ export class CreateBikesComponent implements OnInit, OnDestroy {
   PNotify;
   selectedFile: File;
   bikeCreated = false;
+
+  previewUrl: any = null;
+  fileUploadProgress: string = null;
+  uploadedFilePath: string = null;
 
   keyup$ = (keyCode: string) => {
     return fromEvent<KeyboardEvent>(document, 'keyup')
@@ -55,15 +60,47 @@ export class CreateBikesComponent implements OnInit, OnDestroy {
     this.OnKeyEscapeClose.unsubscribe();
   }
 
+  fileProgress(fileInput: any) {
+    this.selectedFile = fileInput.target.files[0] as File;
+    this.preview();
+  }
+
+
   onFileChanged(event) {
     this.selectedFile = event.target.files[0];
+    this.preview();
   }
 
   uploadImage(id: string) {
     const uploadData = new FormData();
     uploadData.append('image', this.selectedFile, this.selectedFile.name);
+
+    this.fileUploadProgress = '0%';
+
     this.bikesService.uploadImage(id, uploadData)
-      .subscribe(event => console.log(event));
+      .subscribe(events => {
+        if (events.type === HttpEventType.UploadProgress) {
+          this.fileUploadProgress = Math.round(events.loaded / events.total * 100) + '%';
+          // console.log(this.fileUploadProgress);
+        } else if (events.type === HttpEventType.Response) {
+          this.fileUploadProgress = '';
+          // console.log(events.body);
+        }
+      });
+  }
+
+  preview() {
+    // Show preview
+    const mimeType = this.selectedFile.type;
+    if (mimeType.match(/image\/*/) == null) {
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.readAsDataURL(this.selectedFile);
+    reader.onload = (_event) => {
+      this.previewUrl = reader.result;
+    };
   }
 
   onSubmit() {
@@ -87,7 +124,8 @@ export class CreateBikesComponent implements OnInit, OnDestroy {
       category: '',
       size: '',
     });
-    console.log(this.form.value);
+    this.selectedFile = null;
+    this.previewUrl = null;
   }
 
 

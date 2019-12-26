@@ -1,30 +1,24 @@
 <div class="container">
-  <h1 class="dash-title">E203123-0 </h1>
+  <h1 class="dash-title">Bicicleta # {{ bike.productId }}</h1>
   <div class="row">
     <div class="col-xl-12">
       <div class="card spur-card">
         <div class="card-header">
           <div class="spur-card-icon">
-            <i class="fas fa-pen"></i>
+            <i class="fas fa-plus"></i>
           </div>
-          <div class="spur-card-title"> Puedes editar los siguientes campos</div>
-          <div class="spur-card-title">
-            <a
-               routerLink="/admin/bicicletas"
-               style="font-size: 20px;" class="text-danger ml-3">
-              <i class="far fa-trash-alt"></i>
-            </a>
-          </div>
+          <div class="spur-card-title"> Formulario para modificar bicicleta </div>
         </div>
         <div class="card-body ">
-          <form>
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
             <div class="form-row">
               <div class="form-group col-sm-4">
                 <label for="productId">Producto *</label>
-                <input appAutofocus type="string" class="form-control" id="productId" aria-describedby="emailHelp"
-                       placeholder="Ejemplo: E199012-0" value="E203123-0" required>
-                <!-- <small class="form-text text-muted">Introducir el código de producto.</small> -->
+                <input formControlName="productId" [(ngModel)]="bike.productId" appAutofocus type="string"
+                       class="form-control" id="productId"
+                       aria-describedby="emailHelp"
+                       placeholder="Ejemplo: E199012-0" required>
               </div>
 
               <div class="form-group col-sm-4">
@@ -33,17 +27,18 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon3">€</span>
                   </div>
-                  <input type="number" class="form-control" id="price" placeholder="Ejemplo: 99.75" value="429.00"
-                         required>
+                  <input formControlName="price" [(ngModel)]="bike.price" type="number" class="form-control" id="price"
+                         placeholder="Ejemplo: 99.75" required>
                 </div>
+                <!-- <small class="form-text text-muted">Precio de venta al público.</small> -->
               </div>
 
               <div class="form-group col-sm-4">
                 <label for="productId">Estado *</label>
-                <select class="form-control" required>
-                  <option value="1">Usado</option>
-                  <option value="2">Buen estado</option>
-                  <option value="3" selected>Perfecto estado</option>
+                <select formControlName="state" [(ngModel)]="bike.state" class="form-control" required>
+                  <option value="usado">Usado</option>
+                  <option value="buen estado">Buen estado</option>
+                  <option value="perfecto estado">Perfecto estado</option>
                 </select>
               </div>
 
@@ -53,13 +48,14 @@
 
               <div class="form-group col-sm-4">
                 <label for="marca">Marca *</label>
-                <input type="text" class="form-control" id="marca" placeholder="Ejemplo: Cannondale" value="BPRO"
-                       required>
+                <input formControlName="brand" [(ngModel)]="bike.brand" type="text" class="form-control" id="marca"
+                       placeholder="Ejemplo: Cannondale" required>
               </div>
 
               <div class="form-group col-sm-8">
                 <label for="modelo">Modelo o detalles <small>[ Opcional ]</small> </label>
-                <input type="text" class="form-control" id="modelo" placeholder="Ejemplo: X12F">
+                <input formControlName="details" type="text" class="form-control" id="modelo"
+                       placeholder="Ejemplo: X12F">
               </div>
 
             </div>
@@ -68,25 +64,25 @@
 
               <div class="form-group col-sm-6">
                 <label for="category">Categoría <small>[ Opcional ]</small> </label>
-                <select id="category" class="form-control">
+                <select formControlName="category" [(ngModel)]="bike.category" id="category" class="form-control">
                   <option value="" disabled selected hidden>Seleccione una opción</option>
-                  <option value="1">Carreras</option>
-                  <option value="2">Carretera</option>
-                  <option value="3">Montaña</option>
-                  <option value="4">Niño</option>
-                  <option value="5">Paseo</option>
-                  <option value="6">Plegable</option>
+                  <option value="carreras">Carreras</option>
+                  <option value="carretera">Carretera</option>
+                  <option value="montaña">Montaña</option>
+                  <option value="niño">Niño</option>
+                  <option value="paseo">Paseo</option>
+                  <option value="plegable">Plegable</option>
                 </select>
               </div>
 
               <div class="form-group col-sm-6">
                 <label for="size">Talla <small>[ Opcional ]</small> </label>
-                <select id="size" class="form-control">
+                <select formControlName="size" [(ngModel)]="bike.size" id="size" class="form-control">
                   <option value="" disabled selected hidden>Seleccione una opción</option>
-                  <option value="1">S</option>
-                  <option value="2">M</option>
-                  <option value="3">L</option>
-                  <option value="3">XL</option>
+                  <option value="S">S</option>
+                  <option value="M">M</option>
+                  <option value="L">L</option>
+                  <option value="XL">XL</option>
                 </select>
               </div>
 
@@ -94,26 +90,54 @@
 
             <hr>
 
+            <!-- FILE UPLOAD -->
             <div class="form-row">
-              <div class="form-group col-sm-6">
-                <label for="imagen">Subir imagen *</label>
-                <input type="file" class="form-control-file" id="imagen" accept=".jpg,.gif,.png" required>
-                <small class="form-text text-muted">
-                  Solo imagenes (.jpg, .jpeg, .gif, .png.), se recomienda un formato de 16:9 (1920x1080)
+              <div class="form-group col-sm-12">
+
+                <div class="image-preview mb-3" *ngIf="!previewUrl">
+                  <img [src]="bikeImageUrl" width="35%" height="auto" />
+                </div>
+
+                <div class="image-preview mb-3" *ngIf="previewUrl">
+                  <img [src]="previewUrl" width="35%" height="auto" />
+                </div>
+                <input id="imagen"
+                       #fileInput
+                       (change)="onFileChanged($event)"
+                       type="file"
+                       class="form-control-file"
+                       style="display: none"
+                       accept=".jpg,.gif,.png">
+                <button (click)="fileInput.click()" type="button" class="btn btn-outline-danger mr-2">
+                  <i class="fas fa-upload mr-2"></i>
+                  Cambiar imagen
+                </button>
+                <span *ngIf="selectedFile">{{ selectedFile.name }}</span>
+                <small class="form-text text-muted">Solo imagenes (.jpg, .jpeg, .gif, .png.), se recomienda
+                  un formato de 16:9 (1920x1080)
                 </small>
+                <small class="form-text text-muted">Debes guardar para que se apliquen los cambios.
+                </small>
+              </div>
+
+              <div *ngIf="fileUploadProgress">
+                Upload progress: {{ fileUploadProgress }}
+              </div>
+
+              <div class="mb-3" *ngIf="uploadedFilePath">
+                {{uploadedFilePath}}
               </div>
             </div>
 
             <hr>
 
-            <button type="submit" class="btn btn-primary">
-              <i class="fas fa-edit mr-2"></i>
-              Modificar
-            </button>
+            <button [disabled]="!form.valid" type="submit" class="btn btn-primary">Actualizar</button>
+            <a routerLink="/admin/bicicletas" class="btn btn-outline-primary ml-2">Volver</a>
 
-            <a routerLink="/admin/bicicletas" class="btn btn-outline-primary ml-3">Volver</a>
 
-            <small class="form-text text-muted">Puede presionar ENTER en cualquier momento para guardar.</small>
+            <small class="form-text text-muted">- Puede presionar <b>ENTER</b> en cualquier momento para
+              guardar.</small>
+            <small class="form-text text-muted">- Puede presionar <b>ESCAPE</b> en cualquier momento para salir.</small>
 
           </form>
         </div>
