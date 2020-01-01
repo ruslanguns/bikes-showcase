@@ -15,6 +15,20 @@ webpackOptions.externals[1] = nodeExternals({
 });
 
 webpackOptions.plugins.push(
+  //https://github.com/bastidest/context-map-webpack-plugin
+  new ContextMapPlugin('node_modules/uglify-js/tools', [
+    '../lib/utils.js',
+    '../lib/ast.js',
+    '../lib/parse.js',
+    '../lib/transform.js',
+    '../lib/scope.js',
+    '../lib/output.js',
+    '../lib/compress.js',
+    '../lib/sourcemap.js',
+    '../lib/mozilla-ast.js',
+    '../lib/propmangle.js',
+    './exports.js',
+  ]),
   new webpack.IgnorePlugin({
     checkResource(resource) {
       const lazyImports = [
@@ -37,21 +51,7 @@ webpackOptions.plugins.push(
       }
       return false;
     }
-  }),
-  //https://github.com/bastidest/context-map-webpack-plugin
-  new ContextMapPlugin('node_modules/uglify-js/tools', [
-    '../lib/utils.js',
-    '../lib/ast.js',
-    '../lib/parse.js',
-    '../lib/transform.js',
-    '../lib/scope.js',
-    '../lib/output.js',
-    '../lib/compress.js',
-    '../lib/sourcemap.js',
-    '../lib/mozilla-ast.js',
-    '../lib/propmangle.js',
-    './exports.js',
-  ])
+  })
 );
 
 module.exports = webpackOptions;

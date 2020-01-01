@@ -10,11 +10,12 @@
     "e2e": "ng e2e",
     "serve": "node serve-script",
     "compile:server": "webpack --config webpack.server.config.js --progress --colors",
-    "serve:ssr": "node dist/server",
-    "build:ssr": "npm run build:client-and-server-bundles && npm run compile:server",
     "build:client-and-server-bundles": "ng build --prod && ng run bikes-showcase:server:production",
     "start:db": "bash docker.sh",
-    "start:prod": "webpack-dev-server --open --config webpack.server.config.js"
+    "build:server": "./node_modules/.bin/tsc -p ./server/tsconfig.json",
+    "build:ssr": "npm run build:client-and-server-bundles && npm run build:server",
+    "start:prod": "npm run build:ssr && node dist/server-app/main.js",
+    "start-only": "node dist/server-app/main.js"
   },
   "private": true,
   "dependencies": {
