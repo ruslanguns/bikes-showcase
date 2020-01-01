@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { PnotifyService } from '../../shared/services/pnotify.service';
 import { HttpClient } from '@angular/common/http';
 import { pluck, catchError, map, tap } from 'rxjs/operators';
 import { throwError, Observable } from 'rxjs';
@@ -16,14 +15,9 @@ interface ApiResponse {
 })
 export class BikesService {
 
-  PNotify;
-
   constructor(
     private readonly http: HttpClient,
-    private readonly pnotifyService: PnotifyService,
-  ) {
-    this.PNotify = this.pnotifyService.getPNotify();
-  }
+  ) { }
 
   fetchById(id: string): Observable<IBikes> {
     const URL = `api/bikes/${id}`;
@@ -33,7 +27,7 @@ export class BikesService {
       .pipe(
         pluck('data'),
         catchError(err => {
-          this.PNotify.error({ text: err.error.error.message || err.error.message });
+          console.log({ text: err.error.error.message || err.error.message });
           return throwError(err);
         })
       );
@@ -49,7 +43,7 @@ export class BikesService {
         map((bikes: any) => bikes.filter((bike: IBikes) => bike.status !== 'vendido')),
         // tap(bikes => console.log(bikes)),
         catchError(err => {
-          this.PNotify.error({ text: err.error.error.message || err.error.message });
+          console.log({ text: err.error.error.message || err.error.message });
           return throwError(err);
         })
       );
@@ -65,7 +59,7 @@ export class BikesService {
         map((bikes: any) => bikes.filter((bike: IBikes) => bike.status !== 'a la venta')),
         // tap(bikes => console.log(bikes)),
         catchError(err => {
-          this.PNotify.error({ text: err.error.error.message || err.error.message });
+          console.log({ text: err.error.error.message || err.error.message });
           return throwError(err);
         })
       );
@@ -81,7 +75,7 @@ export class BikesService {
       .pipe(
         pluck('data'),
         catchError(err => {
-          this.PNotify.error({ text: err.error.error.message || err.error.message });
+          console.log({ text: err.error.error.message || err.error.message });
           return throwError(err);
         })
       );
@@ -97,7 +91,7 @@ export class BikesService {
       .pipe(
         pluck('data'),
         catchError(err => {
-          this.PNotify.error({ text: err.error.error.message || err.error.message });
+          console.log({ text: err.error.error.message || err.error.message });
           return throwError(err);
         })
       );
@@ -127,7 +121,7 @@ export class BikesService {
       .pipe(
         pluck('data'),
         catchError(err => {
-          this.PNotify.error({ text: err.error.error.message || err.error.message });
+          console.log({ text: err.error.error.message || err.error.message });
           return throwError(err);
         })
       );
@@ -143,7 +137,7 @@ export class BikesService {
         pluck('data'),
         // tap(res => console.log(res)),
         catchError(err => {
-          this.PNotify.error({ text: err.error.error.message || err.error.message });
+          console.log({ text: err.error.error.message || err.error.message });
           return throwError(err);
         })
       );
@@ -159,7 +153,7 @@ export class BikesService {
         pluck('data'),
         // tap(res => console.log(res)),
         catchError(err => {
-          this.PNotify.error({ text: err.error.error.message || err.error.message });
+          console.log({ text: err.error.error.message || err.error.message });
           return throwError(err);
         })
       );

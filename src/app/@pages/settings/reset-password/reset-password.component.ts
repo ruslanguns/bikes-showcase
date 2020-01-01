@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SettingsService } from '../settings.service';
-import { PnotifyService } from '../../../shared/services/pnotify.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../@auth/auth.service';
+import * as jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-reset-password',
@@ -12,15 +13,12 @@ import { Router } from '@angular/router';
 export class ResetPasswordComponent implements OnInit {
 
   form: FormGroup;
-  PNotify;
 
   constructor(
     private readonly settingsService: SettingsService,
-    private readonly pnotifyService: PnotifyService,
     private readonly router: Router,
+    private readonly authService: AuthService,
   ) {
-
-    this.PNotify = this.pnotifyService.getPNotify();
 
     this.form = new FormGroup({
       password: new FormControl(null, [Validators.required, Validators.minLength(4)]),
@@ -30,6 +28,9 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Si no es un TOKEN tipo Reset vuelta pa tras
+    const decoded = jwt_decode(this.authService.getToken());
+    if (!decoded.reset) { return this.router.navigate(['/admin']); }
   }
 
   private passwordsShouldMatch(group: FormGroup) {
@@ -43,7 +44,7 @@ export class ResetPasswordComponent implements OnInit {
     return this.settingsService.resetPassword(this.form.value)
       .subscribe(
         res => {
-          this.PNotify.success('Contraseña cambiada.');
+          console.log('Contraseña cambiada.');
           this.form.reset();
           this.router.navigate(['/admin']);
         },

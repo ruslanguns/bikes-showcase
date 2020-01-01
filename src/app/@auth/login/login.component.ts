@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { PnotifyService } from 'src/app/shared';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -12,15 +10,11 @@ import { AuthService } from '../auth.service';
 export class LoginComponent implements OnInit {
 
   form: FormGroup;
-  PNotify;
 
   constructor(
     private fb: FormBuilder,
-    private pnotifyService: PnotifyService,
     private authService: AuthService
-  ) {
-    this.PNotify = this.pnotifyService.getPNotify();
-  }
+  ) { }
 
   ngOnInit() {
     this.form = this.fb.group({

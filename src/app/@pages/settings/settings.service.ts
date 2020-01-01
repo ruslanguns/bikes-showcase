@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { PnotifyService } from 'src/app/shared';
 import { ChangeEmail } from './recovery-email';
 import { ChangePassword } from './password';
 import { catchError, retry, pluck } from 'rxjs/operators';
@@ -18,14 +17,10 @@ interface ApiResponse {
 })
 export class SettingsService {
 
-  PNotify;
 
   constructor(
     private readonly http: HttpClient,
-    private pnotifyService: PnotifyService,
-  ) {
-    this.PNotify = this.pnotifyService.getPNotify();
-  }
+  ) { }
 
   fetch(): Observable<ISettings> {
     const URL = `api/settings`;
@@ -35,7 +30,7 @@ export class SettingsService {
       .pipe(
         pluck('data'),
         catchError(err => {
-          this.PNotify.error({ text: err.error.message });
+          console.log({ text: err.error.message });
           return throwError(err);
         })
       );
@@ -49,7 +44,7 @@ export class SettingsService {
       .pipe(
         retry(1),
         catchError(err => {
-          this.PNotify.error({ text: err.error.message });
+          console.log({ text: err.error.message });
           return throwError(err);
         })
       );
@@ -63,7 +58,7 @@ export class SettingsService {
       .pipe(
         retry(1),
         catchError(err => {
-          this.PNotify.error({ text: err.error.message });
+          console.log({ text: err.error.message });
           return throwError(err);
         })
       );
@@ -77,7 +72,7 @@ export class SettingsService {
       .pipe(
         retry(1),
         catchError(err => {
-          this.PNotify.error({ text: err.error.message });
+          console.log({ text: err.error.message });
           return throwError(err);
         })
       );
