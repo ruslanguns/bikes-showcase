@@ -7,7 +7,6 @@ import { BikesService } from '../bikes.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpEventType } from '@angular/common/http';
 import { IBikes } from '../bikes.interface';
-import { PnotifyService } from 'src/app/shared';
 import { Bike } from '../bike.class';
 
 @Component({
@@ -21,7 +20,6 @@ export class DetailBikesComponent implements OnInit, OnDestroy {
   bike: IBikes = new Bike();
 
   form: FormGroup;
-  PNotify;
   selectedFile: File;
   bikeCreated = false;
 
@@ -43,13 +41,11 @@ export class DetailBikesComponent implements OnInit, OnDestroy {
     private readonly router: Router,
     private readonly bikesService: BikesService,
     private route: ActivatedRoute,
-    private readonly pnotifyService: PnotifyService,
   ) {
     this.route.params.subscribe(params => {
       this.bikeId = params.bikeId;
     });
 
-    this.PNotify = this.pnotifyService.getPNotify();
     this.fetch(this.bikeId);
     this.form = new FormGroup({
       productId: new FormControl(null, [Validators.required]),
@@ -131,7 +127,7 @@ export class DetailBikesComponent implements OnInit, OnDestroy {
     return this.bikesService.update(this.bikeId, this.form.value)
       .subscribe(
         res => {
-          this.PNotify.success('¡Bicicleta actualizada!');
+          console.log('¡Bicicleta actualizada!');
           const { _id } = res;
           this.uploadImage(_id);
         },

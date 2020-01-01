@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, catchError, retry } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { PnotifyService } from '../shared/services/pnotify.service';
 import { of, throwError } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import * as validator from 'validator';
@@ -20,16 +19,12 @@ export class AuthService {
 
   accessToken = '';
   id = '';
-  PNotify;
   helper = new JwtHelperService();
 
   constructor(
     private readonly http: HttpClient,
     private readonly router: Router,
-    private pnotifyService: PnotifyService,
-  ) {
-    this.PNotify = this.pnotifyService.getPNotify();
-  }
+  ) { }
 
   /**
    * Inicio de sesión
@@ -42,10 +37,10 @@ export class AuthService {
       .pipe(
         map(async (res: any) => {
           await this.setLocalStorageItems(res.data);
-          this.PNotify.success({ text: 'Login exitoso.' });
+          console.log({ text: 'Login exitoso.' });
           this.router.navigate(['/admin']);
         }),
-        catchError(error => this.PNotify.error({ text: 'Login incorrecto.' }) && of(false))
+        catchError(error => throwError(error))
       );
   }
 
@@ -69,7 +64,7 @@ export class AuthService {
       .pipe(
         retry(1),
         catchError(err => {
-          this.PNotify.error({ text: err.error.message });
+          console.log({ text: err.error.message });
           return throwError(err);
         })
       );
@@ -80,21 +75,16 @@ export class AuthService {
    */
   expiredToken(): boolean {
     const token = this.getToken();
-
     if (!token) { return true; }
-
-    if (validator.isJWT(token || '')) {
-      return this.helper.isTokenExpired(token);
-    } else {
-      return false;
-    }
+    (validator.isJWT(token || '')) ? this.helper.isTokenExpired(token) : false;
   }
 
   /**
    * Obtener Token desde LocalStorage
    */
   getToken(): string {
-    return localStorage.getItem('accessToken');
+    const accessToken: string = localStorage.getItem('accessToken');
+    return (!accessToken) ? null : accessToken;
   }
 
   /**

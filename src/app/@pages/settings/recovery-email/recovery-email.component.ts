@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { PnotifyService } from 'src/app/shared';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SettingsService } from '../settings.service';
 
@@ -13,17 +12,11 @@ export class RecoveryEmailComponent implements OnInit {
   form: FormGroup;
   email: string;
   currentPassword = '';
-
-  PNotify;
-
   emailPattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
 
   constructor(
     private readonly settingsService: SettingsService,
-    private pnotifyService: PnotifyService,
   ) {
-
-    this.PNotify = this.pnotifyService.getPNotify();
 
     this.form = new FormGroup({
       currentPassword: new FormControl(null, [Validators.required]),
@@ -49,7 +42,7 @@ export class RecoveryEmailComponent implements OnInit {
     return this.settingsService.changeEmail(this.form.value)
       .subscribe(
         res => {
-          this.PNotify.success('Correo de recuperación cambiado.');
+          console.log('Correo de recuperación cambiado.');
           this.form.reset();
           this.fetchData();
         },

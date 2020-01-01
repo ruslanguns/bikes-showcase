@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BikesService } from './bikes.service';
 import { IBikes } from './bikes.interface';
-import { PnotifyService } from 'src/app/shared';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -12,13 +11,10 @@ import Swal from 'sweetalert2';
 export class BikesComponent implements OnInit {
 
   bikes: IBikes[] = [];
-  PNotify;
 
   constructor(
     private readonly bikesService: BikesService,
-    private readonly pnotifyService: PnotifyService,
   ) {
-    this.PNotify = this.pnotifyService.getPNotify();
     this.fetchData();
   }
 
@@ -50,7 +46,7 @@ export class BikesComponent implements OnInit {
             res => {
               console.log(res);
               this.fetchData();
-              this.PNotify.success('Bicicleta eliminada');
+              console.log('Bicicleta eliminada');
             },
             error => console.log('HTTP error', error),
           );
@@ -75,7 +71,7 @@ export class BikesComponent implements OnInit {
           .subscribe(
             res => {
               this.fetchData();
-              this.PNotify.success('Marcada como vendida');
+              console.log('Marcada como vendida');
             },
             error => console.log('HTTP error', error),
           );

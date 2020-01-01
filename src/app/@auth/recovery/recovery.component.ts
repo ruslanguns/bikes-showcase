@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { PnotifyService } from 'src/app/shared';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 
@@ -12,16 +11,12 @@ import { Router } from '@angular/router';
 export class RecoveryComponent implements OnInit {
 
   form: FormGroup;
-  PNotify;
 
   constructor(
     private readonly fb: FormBuilder,
-    private readonly pnotifyService: PnotifyService,
     private readonly authService: AuthService,
     private readonly router: Router,
-  ) {
-    this.PNotify = this.pnotifyService.getPNotify();
-  }
+  ) { }
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -37,7 +32,7 @@ export class RecoveryComponent implements OnInit {
       .subscribe(
         res => {
           this.router.navigate(['/login']);
-          this.PNotify.alert('Correo de recuperación enviado.');
+          console.log('Correo de recuperación enviado.');
         },
         error => console.log('HTTP Error', error),
       );

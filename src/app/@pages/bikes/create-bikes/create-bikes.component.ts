@@ -3,7 +3,6 @@ import { Subscription, fromEvent } from 'rxjs';
 import { pluck, filter } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { PnotifyService } from '../../../shared/services/pnotify.service';
 import { BikesService } from '../bikes.service';
 import { HttpEventType } from '@angular/common/http';
 
@@ -17,7 +16,6 @@ export class CreateBikesComponent implements OnInit, OnDestroy {
   private OnKeyEscapeClose: Subscription;
 
   form: FormGroup;
-  PNotify;
   selectedFile: File;
   bikeCreated = false;
 
@@ -35,10 +33,8 @@ export class CreateBikesComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly router: Router,
-    private readonly pnotifyService: PnotifyService,
     private readonly bikesService: BikesService
   ) {
-    this.PNotify = this.pnotifyService.getPNotify();
 
     this.form = new FormGroup({
       productId: new FormControl(null, [Validators.required]),
@@ -108,7 +104,7 @@ export class CreateBikesComponent implements OnInit, OnDestroy {
     return this.bikesService.create(this.form.value)
       .subscribe(
         res => {
-          this.PNotify.success('¡Bicicleta agregada!');
+          console.log('¡Bicicleta agregada!');
           const { _id } = res;
           this.uploadImage(_id);
           this.formReset();

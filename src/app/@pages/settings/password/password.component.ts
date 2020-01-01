@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SettingsService } from '../settings.service';
-import { PnotifyService } from '../../../shared/services/pnotify.service';
 
 @Component({
   selector: 'app-password',
@@ -11,14 +10,10 @@ import { PnotifyService } from '../../../shared/services/pnotify.service';
 export class PasswordComponent implements OnInit {
 
   form: FormGroup;
-  PNotify;
 
   constructor(
     private readonly settingsService: SettingsService,
-    private pnotifyService: PnotifyService,
   ) {
-
-    this.PNotify = this.pnotifyService.getPNotify();
 
     this.form = new FormGroup({
       currentPassword: new FormControl(null, [Validators.required]),
@@ -42,7 +37,7 @@ export class PasswordComponent implements OnInit {
     return this.settingsService.changePassword(this.form.value)
       .subscribe(
         res => {
-          this.PNotify.success('Contraseña cambiada.');
+          console.log('Contraseña cambiada.');
           this.form.reset();
         },
         error => console.log('HTTP error', error)
