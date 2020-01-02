@@ -1,14 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
-import { LoginGuard } from './guards/login.guard';
 import { RecoveryComponent } from './recovery/recovery.component';
 import { ResetComponent } from './reset/reset.component';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent, canActivate: [LoginGuard] },
-  { path: 'recuperar', component: RecoveryComponent, canActivate: [LoginGuard] },
-  { path: 'reset/:accessToken', component: ResetComponent, canActivate: [LoginGuard] },
+  { path: '', component: LoginComponent },
+  { path: 'recuperar', component: RecoveryComponent },
+  { path: 'reset/:accessToken', component: ResetComponent },
 ];
 
 @NgModule({

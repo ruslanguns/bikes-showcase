@@ -115,7 +115,6 @@ export class BikesController {
     @Param('id') id,
     @Res() res,
   ) {
-    console.log(image);
     const data = await this.bikesService.addImage(id, image);
     return res.status(HttpStatus.CREATED).json({ message: 'Imagen cargada correctamente', data });
   }
@@ -130,7 +129,6 @@ export class BikesController {
     @Param('id') id,
     @Res() res,
   ) {
-    console.log(image);
     const data = await this.bikesService.editImage(id, image);
     return res.status(HttpStatus.CREATED).json({ message: 'Imagen actualizada correctamente', data });
   }

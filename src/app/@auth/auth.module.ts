@@ -7,7 +7,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { SharedModule } from '../shared';
 import { interceptorProviders } from '../shared/interceptors';
-import { LoginGuard } from './guards/login.guard';
 import { RecoveryComponent } from './recovery/recovery.component';
 import { ResetComponent } from './reset/reset.component';
 
@@ -23,8 +22,7 @@ import { ResetComponent } from './reset/reset.component';
   ],
   providers: [
     AuthService,
-    interceptorProviders,
-    LoginGuard
+    interceptorProviders
   ]
 })
 export class AuthModule { }

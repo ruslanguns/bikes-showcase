@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BikesService } from './bikes.service';
 import { IBikes } from './bikes.interface';
 import Swal from 'sweetalert2';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-bikes',
@@ -10,23 +11,20 @@ import Swal from 'sweetalert2';
 })
 export class BikesComponent implements OnInit {
 
-  bikes: IBikes[] = [];
+  bicicletas$: Observable<any>;
 
   constructor(
     private readonly bikesService: BikesService,
   ) {
-    this.fetchData();
+    this.bicicletas$ = this.bikesService.bikes$;
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.updateData();
+  }
 
-
-  fetchData() {
-    this.bikesService.fetch()
-      .subscribe(
-        res => this.bikes = res,
-        error => console.log('HTTP error', error),
-      );
+  updateData() {
+    this.bikesService.fetchData();
   }
 
   deleteBike(id: string) {
@@ -44,8 +42,7 @@ export class BikesComponent implements OnInit {
         this.bikesService.delete(id)
           .subscribe(
             res => {
-              console.log(res);
-              this.fetchData();
+              this.updateData();
               console.log('Bicicleta eliminada');
             },
             error => console.log('HTTP error', error),
@@ -70,7 +67,7 @@ export class BikesComponent implements OnInit {
         this.bikesService.toSold(id)
           .subscribe(
             res => {
-              this.fetchData();
+              this.updateData();
               console.log('Marcada como vendida');
             },
             error => console.log('HTTP error', error),

@@ -108,6 +108,7 @@ export class CreateBikesComponent implements OnInit, OnDestroy {
           const { _id } = res;
           this.uploadImage(_id);
           this.formReset();
+          this.router.navigate(['/admin/bicicletas']);
         },
         error => console.log('HTTP error', error)
       );

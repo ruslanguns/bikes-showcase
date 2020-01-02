@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 declare function init_jquery();
+
 @Component({
   selector: 'app-pages',
   templateUrl: './pages.component.html',
@@ -8,10 +10,14 @@ declare function init_jquery();
 })
 export class PagesComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: any,
+  ) { }
 
   ngOnInit() {
-    init_jquery();
+    if (isPlatformBrowser(this.platformId)) {
+      init_jquery();
+    }
   }
 
 }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-reset',
@@ -18,16 +17,12 @@ export class ResetComponent implements OnInit {
     private readonly router: Router,
   ) {
     this.route.params.subscribe(params => {
-      const { accessToken } = params;
-      const decoded = jwt_decode(accessToken);
-      (decoded.reset) ? this.authService.setLocalStorageItems({ accessToken }) : this.router.navigate(['/admin']);
+      this.accessToken = params.accessToken;
     });
   }
 
   ngOnInit() {
-    setTimeout(() => {
-      this.router.navigate(['/admin/ajustes/reset']);
-    }, 2000);
+    this.authService.setLocalStorageItems({ accessToken: this.accessToken });
+    this.router.navigate(['/admin/ajustes/reset']);
   }
-
 }

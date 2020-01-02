@@ -4,13 +4,14 @@ import { BikesComponent } from './bikes.component';
 import { CreateBikesComponent } from './create-bikes/create-bikes.component';
 import { DetailBikesComponent } from './detail-bikes/detail-bikes.component';
 import { SoldBikesComponent } from './sold-bikes/sold-bikes.component';
+import { AuthGuard } from '../../@auth/guards/auth.guard';
 
 
 const routes: Routes = [
-  { path: '', component: BikesComponent },
-  { path: 'vendidas', component: SoldBikesComponent },
-  { path: 'crear', component: CreateBikesComponent },
-  { path: ':bikeId', component: DetailBikesComponent }
+  { path: '', component: BikesComponent, canActivate: [AuthGuard] },
+  { path: 'vendidas', component: SoldBikesComponent, canActivate: [AuthGuard] },
+  { path: 'crear', component: CreateBikesComponent, canActivate: [AuthGuard] },
+  { path: 'detalle/:bikeId', component: DetailBikesComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

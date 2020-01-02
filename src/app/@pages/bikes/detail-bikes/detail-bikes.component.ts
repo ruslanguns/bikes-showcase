@@ -64,7 +64,7 @@ export class DetailBikesComponent implements OnInit, OnDestroy {
   }
 
   fetch(id: string) {
-    this.bikesService.fetchById(id)
+    this.bikesService.getById(id)
       .subscribe(
         (res: any) => {
           this.bike = res;
@@ -130,6 +130,7 @@ export class DetailBikesComponent implements OnInit, OnDestroy {
           console.log('¡Bicicleta actualizada!');
           const { _id } = res;
           this.uploadImage(_id);
+          this.router.navigate(['/admin/bicicletas']);
         },
         error => console.log('HTTP error', error)
       );

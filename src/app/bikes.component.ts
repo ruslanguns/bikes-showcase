@@ -1,10 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SwiperOptions } from 'swiper';
-import { SwiperComponent } from 'ngx-useful-swiper';
-import { HttpClient } from '@angular/common/http';
-import { pluck, catchError, map } from 'rxjs/operators';
-import { throwError } from 'rxjs';
-import { IBikes } from './@pages/bikes/bikes.interface';
+import { BikesService } from './@pages/bikes/bikes.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-bikes',
@@ -14,11 +11,10 @@ import { IBikes } from './@pages/bikes/bikes.interface';
 
 export class BikesComponent implements OnInit {
 
-  @ViewChild('usefulSwiper', { static: false }) usefulSwiper: SwiperComponent;
-
   config: SwiperOptions = {
     effect: 'flip',
     loop: true,
+    initialSlide: 0,
     pagination: { el: '.swiper-pagination', clickable: true },
     navigation: {
       nextEl: '.swiper-button-next',
@@ -26,28 +22,16 @@ export class BikesComponent implements OnInit {
     },
   };
 
-  bicicletas = [];
+  bicicletas$: Observable<any>;
 
   constructor(
-    private http: HttpClient,
+    private readonly bikesService: BikesService,
   ) {
+    this.bicicletas$ = this.bikesService.bikes$;
+
   }
 
   ngOnInit() {
-    this.fetch();
-  }
-
-  fetch() {
-    const URL = `/api/bikes`;
-    return this.http.get<IBikes[]>(URL)
-      .pipe(
-        pluck('data'),
-        map((bikes: any) => bikes.filter((bike: IBikes) => bike.status !== 'vendido')),
-        catchError(err => throwError(err)),
-      ).subscribe(
-        (res: IBikes[]) => this.bicicletas = res,
-        error => console.log(error),
-      );
   }
 
 }

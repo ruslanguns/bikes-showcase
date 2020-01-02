@@ -21,8 +21,7 @@ import { AuthGuard } from '../@auth/guards/auth.guard';
     PagesComponent,
   ],
   providers: [
-    interceptorProviders,
-    AuthGuard
+    interceptorProviders
   ]
 })
 export class PagesModule { }

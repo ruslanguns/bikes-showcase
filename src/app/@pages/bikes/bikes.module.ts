@@ -19,7 +19,7 @@ import { SoldBikesComponent } from './sold-bikes/sold-bikes.component';
     CommonModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }), // TODO: Support for using the ngModel input property and ngModelChange event with reactive form directives has been deprecated in Angular v6 and will be removed in Angular v7.
     BikesRoutingModule,
     SharedModule,
   ],

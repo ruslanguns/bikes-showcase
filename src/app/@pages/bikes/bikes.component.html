@@ -40,31 +40,40 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let bike of bikes">
-                <th class="align-middle" scope="row">
-                  <i [routerLink]="['/admin/bicicletas/', bike._id]" class="cursor fas fa-eye mr-1"></i>
-                  {{ bike.productId }}
-                </th>
-                <td class="align-middle fitwidth">{{ bike.brand | uppercase }}</td>
-                <td class="align-middle fitwidth">{{ bike.price | currency: 'EUR' }}</td>
-                <td class="align-middle fitwidth">{{ bike.state | titlecase }}</td>
-                <td class="align-middle fitwidth">{{ bike.updatedAt | date: 'short' }}</td>
-                <td class="align-middle fitwidth">{{ bike.createdAt | date: 'short' }}</td>
-                <td class="align-middle fitwidth">
-                  <a (click)="markSold(bike._id)" href="javascript: void(0);" class="btn btn-success btn-sm">
-                    <i class="fas fa-check"></i>
-                  </a>
-                  <a [routerLink]="['/admin/bicicletas/', bike._id]" class="btn btn-secondary btn-sm ml-2">
-                    <i class="fas fa-edit"></i>
-                  </a>
-                  <a (click)="deleteBike(bike._id)" href="javascript: void(0);" class="btn btn-danger btn-sm ml-2">
-                    <i class="fas fa-trash-alt"></i>
-                  </a>
-                </td>
-              </tr>
-              <tr *ngIf="!bikes.length">
-                <td colspan="7" class="text-center">No hay bicicletas para mostrar</td>
-              </tr>
+              <ng-container *ngIf="bicicletas$ | async as bikes; else loading">
+                <tr *ngFor="let bike of bikes">
+                  <th class="align-middle" scope="row">
+                    <i [routerLink]="['/admin', 'bicicletas', 'detalle', (bike._id || 'not-found')]"
+                       class="cursor fas fa-eye mr-1"></i>
+                    {{ bike.productId }}
+                  </th>
+                  <td class="align-middle fitwidth">{{ bike.brand | uppercase }}</td>
+                  <td class="align-middle fitwidth">{{ bike.price | currency: 'EUR' }}</td>
+                  <td class="align-middle fitwidth">{{ bike.state | titlecase }}</td>
+                  <td class="align-middle fitwidth">{{ bike.updatedAt | date: 'short' }}</td>
+                  <td class="align-middle fitwidth">{{ bike.createdAt | date: 'short' }}</td>
+                  <td class="align-middle fitwidth">
+                    <a (click)="markSold(bike._id)" href="javascript: void(0);" class="btn btn-success btn-sm">
+                      <i class="fas fa-check"></i>
+                    </a>
+                    <a [routerLink]="['/admin', 'bicicletas', 'detalle', (bike._id || 'not-found')]"
+                       class="btn btn-secondary btn-sm ml-2">
+                      <i class="fas fa-edit"></i>
+                    </a>
+                    <a (click)="deleteBike(bike._id)" href="javascript: void(0);" class="btn btn-danger btn-sm ml-2">
+                      <i class="fas fa-trash-alt"></i>
+                    </a>
+                  </td>
+                </tr>
+                <tr *ngIf="!bikes.length">
+                  <td colspan="7" class="text-center">No hay bicicletas para mostrar</td>
+                </tr>
+              </ng-container>
+              <ng-template #loading>
+                <tr>
+                  <td colspan="7" class="text-center">Cargando...</td>
+                </tr>
+              </ng-template>
 
             </tbody>
           </table>

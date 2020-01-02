@@ -2,12 +2,13 @@
   <img src="https://cashconverters.es/content/themes/cash-converters/images/logo.png" alt="logo">
 </div>
 
+
 <div class="presentador">
   <swiper class="swiper-container" [config]="config" #usefulSwiper>
 
     <div class="swiper-wrapper">
 
-      <div class="swiper-slide" *ngFor="let bike of bicicletas">
+      <div class="swiper-slide" *ngFor="let bike of bicicletas$ | async ">
 
         <div class="bike-info">
 
@@ -45,7 +46,6 @@
         </div>
       </div>
     </div>
-    <!-- Add Pagination -->
     <div class="swiper-pagination"></div>
 
   </swiper>

@@ -1,11 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, catchError, retry } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { of, throwError } from 'rxjs';
+import { throwError } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import * as validator from 'validator';
 import { RecoveryClass } from './recovery';
+import { isPlatformBrowser } from '@angular/common';
 
 interface ApiResponse {
   message: string;
@@ -15,16 +16,48 @@ interface ApiResponse {
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService implements OnInit {
 
   accessToken = '';
-  id = '';
   helper = new JwtHelperService();
 
   constructor(
+    @Inject(PLATFORM_ID) private platformId: any,
     private readonly http: HttpClient,
     private readonly router: Router,
-  ) { }
+  ) {
+    if (isPlatformBrowser(this.platformId)) {
+      this.accessToken = localStorage.getItem('accessToken');
+    }
+  }
+
+  // tslint:disable-next-line: contextual-lifecycle
+  ngOnInit() {
+    this.getToken();
+  }
+
+  /**
+   * Valida si token JWT está expirado
+   */
+  expiredToken(): boolean {
+    const token = this.getToken();
+    if (!token) {
+      return true;
+    }
+
+    if (validator.isJWT(token)) {
+      return this.helper.isTokenExpired(token);
+    } else {
+      return true;
+    }
+  }
+
+  /**
+   * Obtener Token desde LocalStorage
+   */
+  getToken(): string {
+    return this.accessToken || localStorage.getItem('accessToken');
+  }
 
   /**
    * Inicio de sesión
@@ -37,8 +70,8 @@ export class AuthService {
       .pipe(
         map(async (res: any) => {
           await this.setLocalStorageItems(res.data);
-          console.log({ text: 'Login exitoso.' });
           this.router.navigate(['/admin']);
+          console.log({ text: 'Login exitoso.' });
         }),
         catchError(error => throwError(error))
       );
@@ -48,11 +81,10 @@ export class AuthService {
    * Sign Out.
    */
   logout(): Promise<void> {
-    this.id = null;
     this.accessToken = '';
     const items = ['accessToken'];
     this.removeLocalStorageItems(items);
-    this.router.navigate(['/login']);
+    this.router.navigate(['login']);
     return;
   }
 
@@ -71,23 +103,6 @@ export class AuthService {
   }
 
   /**
-   * Valida si token JWT está expirado
-   */
-  expiredToken(): boolean {
-    const token = this.getToken();
-    if (!token) { return true; }
-    (validator.isJWT(token || '')) ? this.helper.isTokenExpired(token) : false;
-  }
-
-  /**
-   * Obtener Token desde LocalStorage
-   */
-  getToken(): string {
-    const accessToken: string = localStorage.getItem('accessToken');
-    return (!accessToken) ? null : accessToken;
-  }
-
-  /**
    * API Login output to LocalStorage
    */
   setLocalStorageItems(data: any): Promise<void> {
@@ -97,7 +112,6 @@ export class AuthService {
       }
     }
     this.accessToken = data.accessToken;
-    this.id = data.id;
     return;
   }
 

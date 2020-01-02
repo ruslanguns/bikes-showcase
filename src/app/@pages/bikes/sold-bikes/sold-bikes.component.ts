@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
-import { IBikes } from '../bikes.interface';
 import { BikesService } from '../bikes.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-sold-bikes',
@@ -10,23 +10,20 @@ import { BikesService } from '../bikes.service';
 })
 export class SoldBikesComponent implements OnInit {
 
-  bikes: IBikes[] = [];
+  bicicletas$: Observable<any>;
 
   constructor(
     private readonly bikesService: BikesService,
   ) {
-    this.fetchData();
+    this.bicicletas$ = this.bikesService.soldBikes$;
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.updateData();
+  }
 
-
-  fetchData() {
-    this.bikesService.fetchSold()
-      .subscribe(
-        res => this.bikes = res,
-        error => console.log('HTTP error', error),
-      );
+  updateData() {
+    this.bikesService.fetchData();
   }
 
   deleteBike(id: string) {
@@ -44,11 +41,13 @@ export class SoldBikesComponent implements OnInit {
         this.bikesService.delete(id)
           .subscribe(
             res => {
-              console.log(res);
-              this.fetchData();
+              this.updateData();
               console.log('Bicicleta eliminada');
             },
-            error => console.log('HTTP error', error),
+            error => {
+              this.updateData();
+              console.log('HTTP error', error);
+            },
           );
 
       }
@@ -70,7 +69,7 @@ export class SoldBikesComponent implements OnInit {
         this.bikesService.toSale(id)
           .subscribe(
             res => {
-              this.fetchData();
+              this.updateData();
               console.log('Puesta a la venta');
             },
             error => console.log('HTTP error', error),

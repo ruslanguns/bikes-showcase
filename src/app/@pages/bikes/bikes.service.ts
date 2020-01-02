@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { pluck, catchError, map, tap } from 'rxjs/operators';
-import { throwError, Observable } from 'rxjs';
+import { throwError, Observable, Subject } from 'rxjs';
 import { IBikes } from './bikes.interface';
 import { Bike } from './bike.class';
 
@@ -15,25 +15,38 @@ interface ApiResponse {
 })
 export class BikesService {
 
+  public bikes$: Observable<IBikes[]>;
+  private bikesData = new Subject<IBikes[]>();
+
+  public soldBikes$: Observable<IBikes[]>;
+  private soldBikesData = new Subject<IBikes[]>();
+
   constructor(
     private readonly http: HttpClient,
-  ) { }
+  ) {
+    this.bikes$ = this.bikesData.asObservable();
+    this.soldBikes$ = this.soldBikesData.asObservable();
 
-  fetchById(id: string): Observable<IBikes> {
+    this.fetchData();
+  }
+
+  fetchData(): void {
+    this.get().subscribe();
+    this.getSold().subscribe();
+  }
+
+  getById(id: string): Observable<IBikes> {
     const URL = `api/bikes/${id}`;
     const http$ = this.http.get<ApiResponse>(URL);
 
     return http$
       .pipe(
         pluck('data'),
-        catchError(err => {
-          console.log({ text: err.error.error.message || err.error.message });
-          return throwError(err);
-        })
+        catchError(err => throwError(err))
       );
   }
 
-  fetch(): Observable<IBikes[]> {
+  get(): Observable<IBikes[]> {
     const URL = `api/bikes`;
     const http$ = this.http.get<ApiResponse>(URL);
 
@@ -41,15 +54,13 @@ export class BikesService {
       .pipe(
         pluck('data'),
         map((bikes: any) => bikes.filter((bike: IBikes) => bike.status !== 'vendido')),
-        // tap(bikes => console.log(bikes)),
-        catchError(err => {
-          console.log({ text: err.error.error.message || err.error.message });
-          return throwError(err);
-        })
+        // tap(res => console.log('En venta', res)),
+        tap((res: any) => this.bikesData.next(res)),
+        catchError(err => throwError(err))
       );
   }
 
-  fetchSold(): Observable<IBikes[]> {
+  getSold(): Observable<IBikes[]> {
     const URL = `api/bikes`;
     const http$ = this.http.get<ApiResponse>(URL);
 
@@ -57,11 +68,8 @@ export class BikesService {
       .pipe(
         pluck('data'),
         map((bikes: any) => bikes.filter((bike: IBikes) => bike.status !== 'a la venta')),
-        // tap(bikes => console.log(bikes)),
-        catchError(err => {
-          console.log({ text: err.error.error.message || err.error.message });
-          return throwError(err);
-        })
+        tap((res: any) => this.soldBikesData.next(res)),
+        catchError(err => throwError(err))
       );
   }
 
@@ -74,10 +82,8 @@ export class BikesService {
     return http$
       .pipe(
         pluck('data'),
-        catchError(err => {
-          console.log({ text: err.error.error.message || err.error.message });
-          return throwError(err);
-        })
+        tap(res => this.fetchData()),
+        catchError(err => throwError(err))
       );
   }
 
@@ -90,10 +96,8 @@ export class BikesService {
     return http$
       .pipe(
         pluck('data'),
-        catchError(err => {
-          console.log({ text: err.error.error.message || err.error.message });
-          return throwError(err);
-        })
+        tap(res => this.fetchData()),
+        catchError(err => throwError(err))
       );
   }
 
@@ -102,7 +106,10 @@ export class BikesService {
     return this.http.post<ApiResponse>(URL, image, {
       reportProgress: true,
       observe: 'events'
-    });
+    }).pipe(
+      tap(res => this.fetchData()),
+      catchError(err => throwError(err))
+    );
   }
 
   editImage(id: string, image: FormData) {
@@ -110,7 +117,10 @@ export class BikesService {
     return this.http.patch<ApiResponse>(URL, image, {
       reportProgress: true,
       observe: 'events'
-    });
+    }).pipe(
+      tap(res => this.fetchData()),
+      catchError(err => throwError(err))
+    );
   }
 
   delete(id: string) {
@@ -120,10 +130,8 @@ export class BikesService {
     return http$
       .pipe(
         pluck('data'),
-        catchError(err => {
-          console.log({ text: err.error.error.message || err.error.message });
-          return throwError(err);
-        })
+        tap(res => this.fetchData()),
+        catchError(err => throwError(err))
       );
   }
 
@@ -135,11 +143,8 @@ export class BikesService {
     return http$
       .pipe(
         pluck('data'),
-        // tap(res => console.log(res)),
-        catchError(err => {
-          console.log({ text: err.error.error.message || err.error.message });
-          return throwError(err);
-        })
+        tap(res => this.fetchData()),
+        catchError(err => throwError(err))
       );
   }
 
@@ -151,11 +156,8 @@ export class BikesService {
     return http$
       .pipe(
         pluck('data'),
-        // tap(res => console.log(res)),
-        catchError(err => {
-          console.log({ text: err.error.error.message || err.error.message });
-          return throwError(err);
-        })
+        tap(res => this.fetchData()),
+        catchError(err => throwError(err))
       );
   }
 }

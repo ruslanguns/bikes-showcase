@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from '../../@auth';
 
 @Component({
@@ -10,13 +9,10 @@ import { AuthService } from '../../@auth';
 export class SidebarComponent implements OnInit {
 
   constructor(
-    private readonly router: Router,
-    private readonly authService: AuthService,
-  ) {
-  }
+    private authService: AuthService,
+  ) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   logout() {
     this.authService.logout();
