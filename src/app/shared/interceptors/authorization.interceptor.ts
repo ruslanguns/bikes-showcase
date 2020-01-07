@@ -21,7 +21,7 @@ export class AuthorizationInterceptor implements HttpInterceptor {
       request = request.clone({
         headers: request.headers.set('Authorization', `Bearer ${this.auth.getToken()}`),
       });
-      console.log('Está autenticado.');
+      // console.log('Está autenticado.');
 
     } else {
       // no ocurre nada...

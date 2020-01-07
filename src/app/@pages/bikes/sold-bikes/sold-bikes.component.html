@@ -27,53 +27,7 @@
           <div class="spur-card-title">Lista de bicicletas</div>
         </div>
         <div class="card-body">
-          <table class="table table-hover table-in-card">
-            <thead>
-              <tr>
-                <th class="fitwidth" scope="col">Cod. Producto</th>
-                <th scope="col">Marca</th>
-                <th scope="col">Precio</th>
-                <th scope="col">Estado</th>
-                <th scope="col">Fecha venta</th>
-                <th scope="col">Fecha creación</th>
-                <th scope="col">Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <ng-container *ngIf="bicicletas$ | async as bikes; else loading">
-                <tr *ngFor="let bike of bikes">
-                  <th class="align-middle" scope="row">
-                    <i [routerLink]="['/admin/bicicletas', bike._id]" class="cursor fas fa-eye mr-1"></i>
-                    {{ bike.productId }}
-                  </th>
-                  <td class="align-middle fitwidth">{{ bike.brand | uppercase }}</td>
-                  <td class="align-middle fitwidth">{{ bike.price | currency: 'EUR' }}</td>
-                  <td class="align-middle fitwidth">{{ bike.state | titlecase }}</td>
-                  <td class="align-middle fitwidth">{{ bike.soldAt | date: 'short' }}</td>
-                  <td class="align-middle fitwidth">{{ bike.createdAt | date: 'short' }}</td>
-                  <td class="align-middle fitwidth">
-                    <a (click)="markSale(bike._id)" href="javascript: void(0);" class="btn btn-info btn-sm">
-                      <i class="fas fa-cart-plus"></i>
-                    </a>
-                    <a (click)="deleteBike(bike._id)" href="javascript: void(0);" class="btn btn-danger btn-sm ml-2">
-                      <i class="fas fa-trash-alt"></i>
-                    </a>
-                  </td>
-                </tr>
-                <tr *ngIf="!bikes.length">
-                  <td colspan="7" class="text-center">No hay bicicletas para mostrar</td>
-                </tr>
-              </ng-container>
-
-              <ng-template #loading>
-                <tr>
-                  <td colspan="7" class="text-center">Cargando...</td>
-                </tr>
-              </ng-template>
-
-
-            </tbody>
-          </table>
+          <ng2-smart-table [settings]="settings" [source]="data"></ng2-smart-table>
         </div>
       </div>
     </div>

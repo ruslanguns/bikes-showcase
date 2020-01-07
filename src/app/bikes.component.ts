@@ -27,11 +27,11 @@ export class BikesComponent implements OnInit {
   constructor(
     private readonly bikesService: BikesService,
   ) {
-    this.bicicletas$ = this.bikesService.bikes$;
 
   }
 
   ngOnInit() {
+    this.bicicletas$ = this.bikesService.bikes$;
   }
 
 }

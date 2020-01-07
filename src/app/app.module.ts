@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { registerLocaleData } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -8,6 +9,8 @@ import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform
 import { BikesComponent } from './bikes.component';
 
 import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
+import localeEs from '@angular/common/locales/es';
+registerLocaleData(localeEs, 'es');
 
 @NgModule({
   declarations: [
@@ -22,7 +25,7 @@ import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
     AppRoutingModule,
     NgxUsefulSwiperModule
   ],
-  providers: [],
+  providers: [{ provide: LOCALE_ID, useValue: 'es' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

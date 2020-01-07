@@ -12,9 +12,22 @@ import { interceptorProviders } from 'src/app/shared/interceptors';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SoldBikesComponent } from './sold-bikes/sold-bikes.component';
 
+import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { ActionsViewComponent } from './config/actions';
+import { ProductIdViewComponent } from './config/productId';
+import { SoldActionsViewComponent } from './config/soldActions';
+
 
 @NgModule({
-  declarations: [BikesComponent, CreateBikesComponent, DetailBikesComponent, SoldBikesComponent],
+  declarations: [
+    BikesComponent,
+    CreateBikesComponent,
+    DetailBikesComponent,
+    SoldBikesComponent,
+    ActionsViewComponent,
+    ProductIdViewComponent,
+    SoldActionsViewComponent,
+  ],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -22,7 +35,13 @@ import { SoldBikesComponent } from './sold-bikes/sold-bikes.component';
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }), // TODO: Support for using the ngModel input property and ngModelChange event with reactive form directives has been deprecated in Angular v6 and will be removed in Angular v7.
     BikesRoutingModule,
     SharedModule,
+    Ng2SmartTableModule,
   ],
   providers: [BikesService, interceptorProviders],
+  entryComponents: [
+    ActionsViewComponent,
+    ProductIdViewComponent,
+    SoldActionsViewComponent
+  ],
 })
 export class BikesModule { }
