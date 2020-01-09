@@ -25,6 +25,7 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import { fileOptions } from '../config';
 import { NotFoundException } from '@nestjs/common';
+import { BikesGateway } from './bikes.gateway';
 
 @ApiBearerAuth()
 @ApiTags('Bikes')
@@ -35,6 +36,7 @@ export class BikesController {
 
   constructor(
     private readonly bikesService: BikesService,
+    private readonly bikesGateway: BikesGateway,
   ) { }
 
   @Post()
@@ -46,6 +48,7 @@ export class BikesController {
     @Res() res,
   ) {
     const data = await this.bikesService.create(dto);
+    this.bikesGateway.newChange(true);
     return res.status(HttpStatus.CREATED).json({ message: 'Creado correctamente', data });
   }
 
@@ -90,6 +93,7 @@ export class BikesController {
     @Res() res,
   ) {
     const data = await this.bikesService.update(id, dto);
+    this.bikesGateway.newChange(true);
     return res.status(HttpStatus.CREATED).json({ message: 'Petición correcta', data });
   }
 
@@ -102,6 +106,7 @@ export class BikesController {
     @Res() res,
   ) {
     const data = await this.bikesService.delete(id);
+    this.bikesGateway.newChange(true);
     return res.status(HttpStatus.CREATED).json({ message: 'Petición correcta', data });
   }
 
@@ -116,6 +121,7 @@ export class BikesController {
     @Res() res,
   ) {
     const data = await this.bikesService.addImage(id, image);
+    this.bikesGateway.newChange(true);
     return res.status(HttpStatus.CREATED).json({ message: 'Imagen cargada correctamente', data });
   }
 
@@ -130,6 +136,7 @@ export class BikesController {
     @Res() res,
   ) {
     const data = await this.bikesService.editImage(id, image);
+    this.bikesGateway.newChange(true);
     return res.status(HttpStatus.CREATED).json({ message: 'Imagen actualizada correctamente', data });
   }
 
@@ -142,6 +149,7 @@ export class BikesController {
     @Res() res,
   ) {
     const data = await this.bikesService.removeImage(id);
+    this.bikesGateway.newChange(true);
     return res.status(HttpStatus.CREATED).json({ message: 'Imagen eliminada correctamente', data });
   }
 

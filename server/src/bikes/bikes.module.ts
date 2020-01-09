@@ -4,6 +4,7 @@ import { BikesService } from './bikes.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { BikesSchema } from './schemas';
 import { AuthModule } from '../auth/auth.module';
+import { BikesGateway } from './bikes.gateway';
 
 @Module({
   imports: [
@@ -13,6 +14,6 @@ import { AuthModule } from '../auth/auth.module';
     ]),
   ],
   controllers: [BikesController],
-  providers: [BikesService]
+  providers: [BikesService, BikesGateway]
 })
 export class BikesModule { }

@@ -13,12 +13,14 @@ export class AuthGuard implements CanActivate {
   ) { }
 
   canActivate(): boolean {
-    const authenticated = !(this.authService.expiredToken());
-    // console.log('AUTH GUARD ', authenticated);
+
+    const authenticated: boolean = !(this.authService.expiredToken());
+
     if (!authenticated) {
       this.router.navigate(['/login']);
       return false;
     }
     return true;
+
   }
 }

@@ -15,24 +15,12 @@ interface ApiResponse {
 })
 export class BikesService {
 
-  public bikes$: Observable<IBikes[]>;
-  private bikesData = new Subject<IBikes[]>();
-
-  public soldBikes$: Observable<IBikes[]>;
-  private soldBikesData = new Subject<IBikes[]>();
+  // public bikes$: Observable<IBikes[]>;
+  // private bikesData = new Subject<IBikes[]>();
 
   constructor(
-    private readonly http: HttpClient,
+    private http: HttpClient,
   ) {
-    this.bikes$ = this.bikesData.asObservable();
-    this.soldBikes$ = this.soldBikesData.asObservable();
-
-    this.fetchData();
-  }
-
-  fetchData(): void {
-    this.get().subscribe();
-    this.getSold().subscribe();
   }
 
   getById(id: string): Observable<IBikes> {
@@ -54,8 +42,6 @@ export class BikesService {
       .pipe(
         pluck('data'),
         map((bikes: any) => bikes.filter((bike: IBikes) => bike.status !== 'vendido')),
-        // tap(res => console.log('En venta', res)),
-        tap((res: any) => this.bikesData.next(res)),
         catchError(err => throwError(err))
       );
   }
@@ -68,7 +54,6 @@ export class BikesService {
       .pipe(
         pluck('data'),
         map((bikes: any) => bikes.filter((bike: IBikes) => bike.status !== 'a la venta')),
-        tap((res: any) => this.soldBikesData.next(res)),
         catchError(err => throwError(err))
       );
   }
@@ -82,7 +67,6 @@ export class BikesService {
     return http$
       .pipe(
         pluck('data'),
-        tap(res => this.fetchData()),
         catchError(err => throwError(err))
       );
   }
@@ -90,37 +74,39 @@ export class BikesService {
   update(id: string, data: Bike): Observable<IBikes> {
 
     const URL = `api/bikes/${id}`;
-
     const http$ = this.http.put<ApiResponse>(URL, data);
 
     return http$
       .pipe(
         pluck('data'),
-        tap(res => this.fetchData()),
         catchError(err => throwError(err))
       );
   }
 
   uploadImage(id: string, image: FormData) {
     const URL = `api/bikes/${id}/image`;
-    return this.http.post<ApiResponse>(URL, image, {
+    const http$ = this.http.post<ApiResponse>(URL, image, {
       reportProgress: true,
       observe: 'events'
-    }).pipe(
-      tap(res => this.fetchData()),
-      catchError(err => throwError(err))
-    );
+    });
+
+    return http$
+      .pipe(
+        catchError(err => throwError(err))
+      );
   }
 
   editImage(id: string, image: FormData) {
     const URL = `api/bikes/${id}/image`;
-    return this.http.patch<ApiResponse>(URL, image, {
+    const http$ = this.http.patch<ApiResponse>(URL, image, {
       reportProgress: true,
       observe: 'events'
-    }).pipe(
-      tap(res => this.fetchData()),
-      catchError(err => throwError(err))
-    );
+    });
+
+    return http$
+      .pipe(
+        catchError(err => throwError(err))
+      );
   }
 
   delete(id: string) {
@@ -130,7 +116,6 @@ export class BikesService {
     return http$
       .pipe(
         pluck('data'),
-        tap(res => this.fetchData()),
         catchError(err => throwError(err))
       );
   }
@@ -143,7 +128,6 @@ export class BikesService {
     return http$
       .pipe(
         pluck('data'),
-        tap(res => this.fetchData()),
         catchError(err => throwError(err))
       );
   }
@@ -156,7 +140,6 @@ export class BikesService {
     return http$
       .pipe(
         pluck('data'),
-        tap(res => this.fetchData()),
         catchError(err => throwError(err))
       );
   }

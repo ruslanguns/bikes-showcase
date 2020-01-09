@@ -1,21 +1,20 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { BikesComponent } from './bikes.component';
-import { AuthGuard } from './@auth/guards/auth.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/catalogo', pathMatch: 'full' },
-  { path: 'catalogo', component: BikesComponent },
+  {
+    path: '',
+    loadChildren: () => import('./@showcase/showcase.module').then(m => m.ShowcaseModule),
+  },
   {
     path: 'admin',
     loadChildren: () => import('./@pages/pages.module').then(m => m.PagesModule),
-    canActivate: [AuthGuard]
   },
   {
     path: 'login',
     loadChildren: () => import('./@auth/auth.module').then(m => m.AuthModule),
   },
-  { path: '**', redirectTo: '/catalogo' },
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({

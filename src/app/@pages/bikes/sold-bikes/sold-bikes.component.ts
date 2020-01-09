@@ -6,6 +6,7 @@ import { ProductIdViewComponent } from '../config/productId';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { IBikes } from '../bikes.interface';
+import { SocketIoService } from '../services/socket-io.service';
 
 @Component({
   selector: 'app-sold-bikes',
@@ -25,6 +26,7 @@ export class SoldBikesComponent implements OnInit {
     private readonly upperCasePipe: UpperCasePipe,
     private readonly titleCasePipe: TitleCasePipe,
     private readonly currencyPipe: CurrencyPipe,
+    private sockets: SocketIoService,
   ) {
     this.settings = {
       noDataMessage: 'No hay bicicletas para mostrar',
@@ -93,6 +95,14 @@ export class SoldBikesComponent implements OnInit {
 
   ngOnInit() {
     this.fetchData();
+    this.listenNewChanges();
+  }
+
+  listenNewChanges() {
+    this.sockets.listen('newChange')
+      .subscribe(
+        res => this.fetchData(),
+      );
   }
 
   fetchData() {
@@ -114,7 +124,6 @@ export class SoldBikesComponent implements OnInit {
         this.bikesService.delete(id)
           .subscribe(
             res => {
-              this.fetchData();
               console.log('Bicicleta eliminada');
             },
             error => {
@@ -141,7 +150,6 @@ export class SoldBikesComponent implements OnInit {
         this.bikesService.toSale(id)
           .subscribe(
             res => {
-              this.fetchData();
               console.log('Puesta a la venta');
             },
             error => console.log('HTTP error', error),

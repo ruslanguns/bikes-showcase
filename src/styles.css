@@ -73,3 +73,13 @@ input[type=number] {
   height: 300px;
   margin: 2%;
 }
+
+.dash-nav-item {
+  color: #fff !important;
+  cursor: pointer !important;
+}
+
+.dash-nav-dropdown-item {
+  color: #fff !important;
+  cursor: pointer !important;
+}

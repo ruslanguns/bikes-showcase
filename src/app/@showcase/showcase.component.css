@@ -2,8 +2,8 @@
 .frame {
   min-height: 100vh !important;    /* equals max image height */
   max-height: 100vh !important;    /* equals max image height */
-  height: 1000px;
   width: auto!important;
+  max-width: 100%;
   /* border: 1px solid red !important; */
   white-space: nowrap !important;
   margin: auto !important;

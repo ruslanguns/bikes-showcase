@@ -5,8 +5,20 @@ declare function init_jquery();
 
 @Component({
   selector: 'app-pages',
-  templateUrl: './pages.component.html',
-  styleUrls: ['./pages.component.scss']
+  template: `
+    <div class="dash">
+    <app-sidebar></app-sidebar>
+      <div class="dash-app">
+        <app-header></app-header>
+        <main class="dash-content">
+          <div class="container-fluid">
+            <router-outlet></router-outlet>
+          </div>
+        </main>
+      </div>
+    </div>
+  `,
+  styles: []
 })
 export class PagesComponent implements OnInit {
 

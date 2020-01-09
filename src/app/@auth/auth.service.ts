@@ -1,12 +1,13 @@
-import { Injectable, Inject, PLATFORM_ID, OnInit } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID, OnInit, Injector } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, catchError, retry } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { throwError } from 'rxjs';
+import { throwError, Observable, of } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import * as validator from 'validator';
 import { RecoveryClass } from './recovery';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, DOCUMENT } from '@angular/common';
+import { WindowService } from '../shared/services/windows.service';
 
 interface ApiResponse {
   message: string;
@@ -18,15 +19,20 @@ interface ApiResponse {
 })
 export class AuthService implements OnInit {
 
-  accessToken = '';
+  accessToken: string;
   helper = new JwtHelperService();
+  isBrowser: boolean = isPlatformBrowser(this.platformId);
 
   constructor(
-    @Inject(PLATFORM_ID) private platformId: any,
+    // tslint:disable-next-line: ban-types
+    @Inject(PLATFORM_ID) private platformId: Object,
+    @Inject(DOCUMENT) private doc,
+    private injector: Injector,
+    private windowService: WindowService,
     private readonly http: HttpClient,
     private readonly router: Router,
   ) {
-    if (isPlatformBrowser(this.platformId)) {
+    if (this.isBrowser) {
       this.accessToken = localStorage.getItem('accessToken');
     }
   }
@@ -41,6 +47,7 @@ export class AuthService implements OnInit {
    */
   expiredToken(): boolean {
     const token = this.getToken();
+
     if (!token) {
       return true;
     }

@@ -23,6 +23,7 @@ import { AuthModule } from './src/auth/auth.module';
     BikesModule,
     SettingsModule,
     AuthModule
-  ]
+  ],
+  providers: []
 })
 export class ApplicationModule { }

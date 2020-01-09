@@ -16,6 +16,7 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { ActionsViewComponent } from './config/actions';
 import { ProductIdViewComponent } from './config/productId';
 import { SoldActionsViewComponent } from './config/soldActions';
+import { SocketIoService } from './services/socket-io.service';
 
 
 @NgModule({
@@ -37,7 +38,7 @@ import { SoldActionsViewComponent } from './config/soldActions';
     SharedModule,
     Ng2SmartTableModule,
   ],
-  providers: [BikesService, interceptorProviders],
+  providers: [BikesService, interceptorProviders, SocketIoService],
   entryComponents: [
     ActionsViewComponent,
     ProductIdViewComponent,

@@ -6,7 +6,6 @@ import { SharedModule } from '../shared/shared.module';
 import { PagesRoutingModule } from './pages-routing.module';
 import { BikesModule } from './bikes/bikes.module';
 import { interceptorProviders } from '../shared/interceptors';
-import { AuthGuard } from '../@auth/guards/auth.guard';
 
 @NgModule({
   declarations: [PagesComponent],
@@ -15,7 +14,6 @@ import { AuthGuard } from '../@auth/guards/auth.guard';
     RouterModule,
     PagesRoutingModule,
     SharedModule,
-    BikesModule
   ],
   exports: [
     PagesComponent,
