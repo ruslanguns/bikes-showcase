@@ -1,27 +1,63 @@
 # BikesShowcase
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.20.
+Hola a todos, este proyecto se trata de un catálogo online totalmente open source pensada para kioskos de tiendas en general, el concepto principal trata de un catálogo de bicicletas con un carrousel de imágenes con un efecto flip gracias a la librería de [SwiperJs](https://swiperjs.com). Como página principal tienes un carrousel configurable y que funciona en tiempo real, asimismo brinda un panel de administración completo, seguro e intuitivo.
 
-## Development server
+## Contenido técnico y gracias a:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+* Angular universal
+* NestJS
+* MongoDb
+* Passport
+* Socket-io
+* Nodemailer
+* JWT
+* Swagger
+* SwipeJs
+* Ng2-smart-table
+* y mucho mas.
 
-## Code scaffolding
+## Pre-requisitos
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Se require de una base de datos en MongoDB y de configuraciones iniciales en el lado de las variables de entorno. Por tanto se provee una carpeta de configuración situada en la raiz del proyecto:
 
-## Build
+./config/env.sample
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Debemos cambiar el nombre de este archivo a development.env o a production.env según sea necesario.
 
-## Running unit tests
+Posteriormente en las variables de entorno de nuestro sistema debemos configurar la variable general para elegir la version de nuestras variables de entorno:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+`set BIKES=development` // Windows
 
-## Running end-to-end tests
+`BIKES=development` // Linux
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+> NOTA: para la base de datos tenemos una instancia de Docker que podemos ejecutarla con el comando `npm run start:db` pero no nos olvidemos que antes debemos configurar las credenciales dentro del archivo 'docker-compose.yml'.
 
-## Further help
+## Instalación.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Antes de nada tener en cuenta los pre-requisitos para poder usar el proyecto, luego después de descargar/clonar este repositorio, desde la raiz del mismo, ejecutamos el siguiente comando para instalarlo:
+
+`npm i`.
+
+Posteriormente genera el build del proyecto:
+
+`npm run build:ssr`
+
+Y lanza el servidor
+
+`npm run start:ssr`
+
+## Development
+
+Para contribuir o mejorar el proyecto necesitarás tener en cuenta los pre-requisitos y ejecutamos el siguiente comando:
+
+`npm run serve`
+
+> NOTA: Ver el archivo 'package.json' para ver los demás comandos.
+
+## Contribución
+
+Siéntanse libres de realizar los Pull Request que quieran para mejorar este proyecto. Eventualmente estaré colocando los nuevos retos, tareas y convenciones que someteré a este proyecto.
+
+## Contacto
+
+Puedes contactarme a mi correo personal: ruslanguns@gmail.com
