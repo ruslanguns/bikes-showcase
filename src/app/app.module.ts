@@ -13,6 +13,8 @@ registerLocaleData(localeEs, 'es');
 import { MomentModule } from 'ngx-moment';
 import 'moment/locale/es';
 
+// import 'typeface-open-sans';
+
 const config: SocketIoConfig = { url: 'http://localhost:4200/bikes', options: {} };
 // For AoT compilation:
 export function getWindow() {

@@ -6,6 +6,7 @@ import { SocketIoService } from '../../shared';
 import { ActionsViewComponent, ProductIdViewComponent } from './components';
 import { IBikes } from './bikes.interface';
 import { BikesService } from './bikes.service';
+import { DateFormatComponent } from './components/date-format';
 
 @Component({
   selector: 'app-bikes',
@@ -38,7 +39,6 @@ export class BikesComponent implements OnInit {
         productId: {
           title: 'Cod. Producto',
           class: 'anchoFijo negritas',
-          width: '180px',
           type: 'custom',
           renderComponent: ProductIdViewComponent,
           onComponentInitFunction: (instance) => {
@@ -47,35 +47,37 @@ export class BikesComponent implements OnInit {
         },
         brand: {
           title: 'Marca',
-          class: 'anchoFijo',
-          width: 'auto',
           valuePrepareFunction: (brand) => this.upperCasePipe.transform(brand),
         },
         price: {
           title: 'Precio',
-          class: 'anchoFijo',
           valuePrepareFunction: (price) => this.currencyPipe.transform(price, 'EUR'),
         },
         state: {
           title: 'Estado',
-          class: 'anchoFijo',
-          width: '160px',
           valuePrepareFunction: (state) => this.titleCasePipe.transform(state),
         },
         updatedAt: {
           title: 'Última edición',
           class: 'anchoFijo',
-          width: 'auto',
-          filter: false,
-          valuePrepareFunction: (updatedAt) => this.datePipe.transform(updatedAt, 'short', 'UTC'),
+          type: 'custom',
+          renderComponent: DateFormatComponent,
+          onComponentInitFunction: (instance) => {
+            instance.date.subscribe(v => console.log(v));
+          }
+
         },
         createdAt: {
           title: 'Fecha creación',
-          class: 'anchoFijo',
           sortDirection: 'desc',
-          width: 'auto',
+          class: 'anchoFijo',
           filter: false,
-          valuePrepareFunction: (createdAt) => this.datePipe.transform(createdAt, 'short', 'UTC'),
+          type: 'custom',
+          renderComponent: DateFormatComponent,
+          onComponentInitFunction: (instance) => {
+            instance.date.subscribe(v => console.log(v));
+          }
+
         },
         acciones: {
           title: 'Acciones',

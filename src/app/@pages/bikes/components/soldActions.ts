@@ -5,10 +5,10 @@ import { ViewCell } from 'ng2-smart-table';
   selector: 'app-actions-view',
   template: `
     <div class="d-flex flex-nowrap text-white">
-      <a (click)="OnToSale()" class="btn btn-info btn-sm cursor">
+      <a title="Poner de nuevo a la venta" (click)="OnToSale()" class="btn btn-info btn-sm cursor">
         <i class="fas fa-check"></i>
       </a>
-      <a (click)="OnDelete()" class="btn btn-danger btn-sm ml-2 cursor">
+      <a title="Eliminar bicicleta" (click)="OnDelete()" class="btn btn-danger btn-sm ml-2 cursor">
         <i class="fas fa-trash-alt"></i>
       </a>
     </div>

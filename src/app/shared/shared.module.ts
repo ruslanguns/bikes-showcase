@@ -7,13 +7,15 @@ import { AutoFocusDirective } from './directives/auto-focus.directive';
 import { HttpClientModule } from '@angular/common/http';
 import { AsyncSrcDirective } from './directives/async-src.directive';
 import { interceptorProviders } from './interceptors';
+import { CapitalizePipe } from './pipes/capitalize.pipe';
 
 @NgModule({
   declarations: [
     SidebarComponent,
     HeaderComponent,
     AutoFocusDirective,
-    AsyncSrcDirective
+    AsyncSrcDirective,
+    CapitalizePipe
   ],
   imports: [
     CommonModule,
@@ -24,7 +26,8 @@ import { interceptorProviders } from './interceptors';
     SidebarComponent,
     HeaderComponent,
     AutoFocusDirective,
-    AsyncSrcDirective
+    AsyncSrcDirective,
+    CapitalizePipe
   ],
   providers: [
     interceptorProviders

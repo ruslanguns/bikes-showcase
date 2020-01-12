@@ -5,13 +5,13 @@ import { ViewCell } from 'ng2-smart-table';
   selector: 'app-actions-view',
   template: `
     <div class="d-flex flex-nowrap text-white">
-      <a (click)="onMarkSold()" class="btn btn-success btn-sm cursor">
+      <a title="Marcar como vendido" (click)="onMarkSold()" class="btn btn-success btn-sm cursor">
         <i class="fas fa-check"></i>
       </a>
-      <a (click)="OnEdit()" class="btn btn-secondary btn-sm ml-2 cursor">
+      <a title="Editar bicicleta" (click)="OnEdit()" class="btn btn-secondary btn-sm ml-2 cursor">
         <i class="fas fa-edit"></i>
       </a>
-      <a (click)="OnDelete()" class="btn btn-danger btn-sm ml-2 cursor">
+      <a title="Eliminar bicicleta" (click)="OnDelete()" class="btn btn-danger btn-sm ml-2 cursor">
         <i class="fas fa-trash-alt"></i>
       </a>
     </div>
@@ -40,7 +40,6 @@ export class ActionsViewComponent implements ViewCell, OnInit {
   }
 
   OnDelete() {
-    console.log('Eliminando');
     this.delete.emit(this.rowData);
   }
 }

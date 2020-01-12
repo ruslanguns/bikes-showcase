@@ -4,14 +4,22 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 
-import { SharedModule, interceptorProviders } from '../../shared';
+import { SharedModule, WindowService } from '../../shared';
 import { ActionsViewComponent, ProductIdViewComponent, SoldActionsViewComponent } from './components';
 import { CreateBikesComponent } from './create-bikes';
 import { DetailBikesComponent } from './detail-bikes';
 import { SoldBikesComponent } from './sold-bikes';
 import { BikesRoutingModule } from './bikes-routing.module';
 import { BikesComponent } from './bikes.component';
+import { DateFormatComponent } from './components/date-format';
 
+import { MomentModule } from 'ngx-moment';
+import 'moment/locale/es';
+
+// For AoT compilation:
+export function getWindow() {
+  return window;
+}
 
 @NgModule({
   declarations: [
@@ -22,6 +30,7 @@ import { BikesComponent } from './bikes.component';
     ActionsViewComponent,
     ProductIdViewComponent,
     SoldActionsViewComponent,
+    DateFormatComponent
   ],
   imports: [
     CommonModule,
@@ -31,12 +40,19 @@ import { BikesComponent } from './bikes.component';
     BikesRoutingModule,
     SharedModule,
     Ng2SmartTableModule,
+    MomentModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: WindowService,
+      useFactory: getWindow,
+    },
+  ],
   entryComponents: [
     ActionsViewComponent,
     ProductIdViewComponent,
-    SoldActionsViewComponent
+    SoldActionsViewComponent,
+    DateFormatComponent
   ],
 })
 export class BikesModule { }
