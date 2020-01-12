@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { DatePipe, UpperCasePipe, TitleCasePipe, CurrencyPipe } from '@angular/common';
-import { BikesService } from './bikes.service';
-import { IBikes } from './bikes.interface';
-import Swal from 'sweetalert2';
-import { ActionsViewComponent } from './config/actions';
 import { Router } from '@angular/router';
-import { ProductIdViewComponent } from './config/productId';
-import { SocketIoService } from './services/socket-io.service';
+import Swal from 'sweetalert2';
+import { SocketIoService } from '../../shared';
+import { ActionsViewComponent, ProductIdViewComponent } from './components';
+import { IBikes } from './bikes.interface';
+import { BikesService } from './bikes.service';
 
 @Component({
   selector: 'app-bikes',
@@ -100,10 +99,7 @@ export class BikesComponent implements OnInit {
   }
 
   listenNewChanges() {
-    this.sockets.listen('newChange')
-      .subscribe(
-        res => this.fetchData(),
-      );
+    this.sockets.listen('newChange').subscribe(res => this.fetchData());
   }
 
   fetchData() {

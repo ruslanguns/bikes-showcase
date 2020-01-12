@@ -1,16 +1,16 @@
 import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
+import { AuthModule } from '../auth/auth.module';
+import { SettingsSchema } from './schemas';
 import { SettingsController } from './settings.controller';
 import { SettingsService } from './settings.service';
-import { MongooseModule } from '@nestjs/mongoose';
-import { SettingsSchema } from './schemas';
-import { AuthModule } from '../auth/auth.module';
 
 @Module({
   imports: [
-    AuthModule,
     MongooseModule.forFeature([
       { name: 'Settings', schema: SettingsSchema }
     ]),
+    AuthModule,
   ],
   controllers: [SettingsController],
   providers: [SettingsService]

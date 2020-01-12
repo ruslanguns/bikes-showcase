@@ -1,7 +1,7 @@
-import { diskStorage } from 'multer';
-import moment = require('moment');
-import { extname } from 'path';
 import { NotFoundException } from '@nestjs/common';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
+import * as moment from 'moment';
 
 
 const imagesAllowed = ['.jpg', '.jpeg', '.png'];

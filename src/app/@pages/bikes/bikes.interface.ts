@@ -5,7 +5,7 @@ export interface IBikes {
   brand: string;
   details: string;
   category: string;
-  image: string;
+  image: any;
   price: number;
   size: string;
   state: string;

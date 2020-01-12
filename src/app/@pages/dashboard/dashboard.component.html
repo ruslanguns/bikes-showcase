@@ -1,16 +1,17 @@
 <div class="row dash-row">
   <div class="col-xl-4">
     <div class="stats stats-primary">
-      <h3 class="stats-title"> Última semana </h3>
+      <h3 class="stats-title"> Bicicletas cargadas </h3>
       <div class="stats-content">
         <div class="stats-icon">
           <i class="fas fa-plus-circle"></i>
         </div>
         <div class="stats-data">
-          <div class="stats-number">114</div>
+          <div class="stats-number">{{ (!(data.carga?.general?.unidades)) ? 0 : data.carga?.general?.unidades }}</div>
           <div class="stats-change">
-            <span class="stats-percentage">+25%</span>
-            <span class="stats-timeframe"> de la semana pasada.</span>
+            <span
+                  class="stats-percentage">{{ (!(data.carga?.cargaEsteMes?.unidades)) ? 0 : data.carga?.cargaEsteMes?.unidades }}</span>
+            <span class="stats-timeframe"> en este mes.</span>
           </div>
         </div>
       </div>
@@ -24,10 +25,13 @@
           <i class="fas fa-cart-arrow-down"></i>
         </div>
         <div class="stats-data">
-          <div class="stats-number">2,541 €</div>
+          <div class="stats-number">
+            {{ (!(data.ventas?.ventasEsteMes?.cantidad)) ? 0 : data.ventas?.ventasEsteMes?.cantidad | currency: 'EUR'}}
+          </div>
           <div class="stats-change">
-            <span class="stats-percentage">-17.5%</span>
-            <span class="stats-timeframe"> del mes pasado.</span>
+            <span
+                  class="stats-percentage">{{ (!(data.ventas?.ventasMesAnterior?.cantidad)) ? 0 : data.ventas?.ventasMesAnterior?.cantidad | currency: 'EUR' }}</span>
+            <span class="stats-timeframe"> el mes pasado.</span>
           </div>
         </div>
       </div>
@@ -41,14 +45,14 @@
           <i class="fas fa-hand-pointer"></i>
         </div>
         <div class="stats-data">
-          <div class="stats-number">12,925</div>
+          <div class="stats-number">{{ data.visitas }}</div>
         </div>
       </div>
     </div>
   </div>
 </div>
 <div class="row">
-  <div class="col-xl-12">
+  <div class="col-xl-6">
     <div class="card spur-card">
       <div class="card-header">
         <div class="spur-card-icon">
@@ -58,29 +62,55 @@
       </div>
       <div class="card-body ">
         <div class="notifications">
-          <a href="#!" class="notification">
+          <a *ngFor="let bikeCargada of ultimasCargas"
+             [routerLink]="['/admin/bicicletas/detalle', bikeCargada._id]"
+             class="notification">
             <div class="notification-icon">
               <i class="fas fa-inbox"></i>
             </div>
-            <div class="notification-text">BPRO — 229€</div>
-            <span class="notification-time">HOY</span>
-          </a>
-          <a href="#!" class="notification">
-            <div class="notification-icon">
-              <i class="fas fa-inbox"></i>
+            <div class="notification-text">
+              {{ bikeCargada.brand | uppercase }} — {{ bikeCargada.price | currency: 'EUR'}}
             </div>
-            <div class="notification-text">Canondale — 1,100€ </div>
-            <span class="notification-time">Hace 3 días</span>
-          </a>
-          <a href="#!" class="notification">
-            <div class="notification-icon">
-              <i class="fas fa-inbox"></i>
-            </div>
-            <div class="notification-text">BMX — 75€</div>
-            <span class="notification-time">Hace 3 días</span>
+            <span class="notification-time">
+              <time title="{{ bikeCargada.createdAt | amLocale:'es' | amDateFormat:'MMMM YYYY, h:mm:ss a'}}">
+                {{ bikeCargada.createdAt | amTimeAgo }}
+              </time>
+            </span>
           </a>
           <div class="notifications-show-all">
-            <a href="#!">Ver más</a>
+            <a routerLink="/admin/bicicletas">Ver más</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-6">
+    <div class="card spur-card">
+      <div class="card-header">
+        <div class="spur-card-icon">
+          <i class="fas fa-bell"></i>
+        </div>
+        <div class="spur-card-title"> Últimas vendidas</div>
+      </div>
+      <div class="card-body ">
+        <div class="notifications">
+          <a *ngFor="let bikeVendida of ultimasVentas"
+             [routerLink]="['/admin/bicicletas/vendidas', bikeVendida._id]"
+             href="#!" class="notification">
+            <div class="notification-icon">
+              <i class="fas fa-inbox"></i>
+            </div>
+            <div class="notification-text">
+              {{ bikeVendida.brand | uppercase }} — {{ bikeVendida.price | currency: 'EUR'}}
+            </div>
+            <span class="notification-time">
+              <time title="{{ bikeVendida.soldAt | amLocale:'es' | amDateFormat:'MMMM YYYY, h:mm:ss a'}}">
+                {{ bikeVendida.soldAt | amTimeAgo }}
+              </time>
+            </span>
+          </a>
+          <div class="notifications-show-all">
+            <a routerLink="/admin/bicicletas/vendidas">Ver más</a>
           </div>
         </div>
       </div>

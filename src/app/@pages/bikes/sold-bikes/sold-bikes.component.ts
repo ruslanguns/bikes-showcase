@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { DatePipe, UpperCasePipe, TitleCasePipe, CurrencyPipe } from '@angular/common';
-import { BikesService } from '../bikes.service';
-import { SoldActionsViewComponent } from '../config/soldActions';
-import { ProductIdViewComponent } from '../config/productId';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { SoldActionsViewComponent, ProductIdViewComponent } from '../components';
+import { SocketIoService } from '../../../shared';
 import { IBikes } from '../bikes.interface';
-import { SocketIoService } from '../services/socket-io.service';
+import { BikesService } from '../bikes.service';
 
 @Component({
   selector: 'app-sold-bikes',
@@ -66,7 +65,7 @@ export class SoldBikesComponent implements OnInit {
         soldAt: {
           title: 'Fecha venta',
           class: 'anchoFijo',
-          width: '140px',
+          // width: '140px',
           filter: false,
           valuePrepareFunction: (soldAt) => this.datePipe.transform(soldAt, 'short', 'UTC'),
         },
@@ -74,7 +73,7 @@ export class SoldBikesComponent implements OnInit {
           title: 'Fecha creación',
           class: 'anchoFijo',
           sortDirection: 'desc',
-          width: '140px',
+          // width: '140px',
           filter: false,
           valuePrepareFunction: (createdAt) => this.datePipe.transform(createdAt, 'short', 'UTC'),
         },

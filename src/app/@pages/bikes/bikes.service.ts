@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { pluck, catchError, map, tap } from 'rxjs/operators';
-import { throwError, Observable, Subject } from 'rxjs';
+import { pluck, catchError, map } from 'rxjs/operators';
+import { throwError, Observable } from 'rxjs';
 import { IBikes } from './bikes.interface';
 import { Bike } from './bike.class';
 
-interface ApiResponse {
+interface ApiResponse<T> {
   message: string;
-  data: IBikes;
+  data: T;
 }
 
 @Injectable({
@@ -25,7 +25,7 @@ export class BikesService {
 
   getById(id: string): Observable<IBikes> {
     const URL = `api/bikes/${id}`;
-    const http$ = this.http.get<ApiResponse>(URL);
+    const http$ = this.http.get<ApiResponse<IBikes>>(URL);
 
     return http$
       .pipe(
@@ -36,24 +36,24 @@ export class BikesService {
 
   get(): Observable<IBikes[]> {
     const URL = `api/bikes`;
-    const http$ = this.http.get<ApiResponse>(URL);
+    const http$ = this.http.get<ApiResponse<IBikes[]>>(URL);
 
     return http$
       .pipe(
         pluck('data'),
-        map((bikes: any) => bikes.filter((bike: IBikes) => bike.status !== 'vendido')),
+        map(bikes => bikes.filter(bike => bike.status !== 'vendido')),
         catchError(err => throwError(err))
       );
   }
 
   getSold(): Observable<IBikes[]> {
     const URL = `api/bikes`;
-    const http$ = this.http.get<ApiResponse>(URL);
+    const http$ = this.http.get<ApiResponse<IBikes[]>>(URL);
 
     return http$
       .pipe(
         pluck('data'),
-        map((bikes: any) => bikes.filter((bike: IBikes) => bike.status !== 'a la venta')),
+        map(bikes => bikes.filter(bike => bike.status !== 'a la venta')),
         catchError(err => throwError(err))
       );
   }
@@ -62,7 +62,7 @@ export class BikesService {
 
     const URL = `api/bikes`;
 
-    const http$ = this.http.post<ApiResponse>(URL, data);
+    const http$ = this.http.post<ApiResponse<IBikes>>(URL, data);
 
     return http$
       .pipe(
@@ -74,7 +74,7 @@ export class BikesService {
   update(id: string, data: Bike): Observable<IBikes> {
 
     const URL = `api/bikes/${id}`;
-    const http$ = this.http.put<ApiResponse>(URL, data);
+    const http$ = this.http.put<ApiResponse<IBikes>>(URL, data);
 
     return http$
       .pipe(
@@ -85,7 +85,7 @@ export class BikesService {
 
   uploadImage(id: string, image: FormData) {
     const URL = `api/bikes/${id}/image`;
-    const http$ = this.http.post<ApiResponse>(URL, image, {
+    const http$ = this.http.post<ApiResponse<any>>(URL, image, {
       reportProgress: true,
       observe: 'events'
     });
@@ -98,7 +98,7 @@ export class BikesService {
 
   editImage(id: string, image: FormData) {
     const URL = `api/bikes/${id}/image`;
-    const http$ = this.http.patch<ApiResponse>(URL, image, {
+    const http$ = this.http.patch<ApiResponse<any>>(URL, image, {
       reportProgress: true,
       observe: 'events'
     });
@@ -111,7 +111,7 @@ export class BikesService {
 
   delete(id: string) {
     const URL = `api/bikes/${id}`;
-    const http$ = this.http.delete<ApiResponse>(URL);
+    const http$ = this.http.delete<ApiResponse<IBikes>>(URL);
 
     return http$
       .pipe(
@@ -123,7 +123,7 @@ export class BikesService {
   toSold(id: string) {
     const URL = `api/bikes/${id}`;
     const data = { status: 'vendido' };
-    const http$ = this.http.put<ApiResponse>(URL, data);
+    const http$ = this.http.put<ApiResponse<IBikes>>(URL, data);
 
     return http$
       .pipe(
@@ -135,7 +135,29 @@ export class BikesService {
   toSale(id: string) {
     const URL = `api/bikes/${id}`;
     const data = { status: 'a la venta' };
-    const http$ = this.http.put<ApiResponse>(URL, data);
+    const http$ = this.http.put<ApiResponse<IBikes>>(URL, data);
+
+    return http$
+      .pipe(
+        pluck('data'),
+        catchError(err => throwError(err))
+      );
+  }
+
+  getStats() {
+    const URL = `api/bikes/stats/all`;
+    const http$ = this.http.get<ApiResponse<any>>(URL);
+
+    return http$
+      .pipe(
+        pluck('data'),
+        catchError(err => throwError(err))
+      );
+  }
+
+  setView() {
+    const URL = `api/bikes/newview`;
+    const http$ = this.http.patch(URL, {});
 
     return http$
       .pipe(

@@ -1,22 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
 
+import { SharedModule, interceptorProviders } from '../../shared';
+import { ActionsViewComponent, ProductIdViewComponent, SoldActionsViewComponent } from './components';
+import { CreateBikesComponent } from './create-bikes';
+import { DetailBikesComponent } from './detail-bikes';
+import { SoldBikesComponent } from './sold-bikes';
 import { BikesRoutingModule } from './bikes-routing.module';
 import { BikesComponent } from './bikes.component';
-import { CreateBikesComponent } from './create-bikes/create-bikes.component';
-import { SharedModule } from '../../shared/shared.module';
-import { DetailBikesComponent } from './detail-bikes/detail-bikes.component';
-import { BikesService } from './bikes.service';
-import { interceptorProviders } from 'src/app/shared/interceptors';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SoldBikesComponent } from './sold-bikes/sold-bikes.component';
-
-import { Ng2SmartTableModule } from 'ng2-smart-table';
-import { ActionsViewComponent } from './config/actions';
-import { ProductIdViewComponent } from './config/productId';
-import { SoldActionsViewComponent } from './config/soldActions';
-import { SocketIoService } from './services/socket-io.service';
 
 
 @NgModule({
@@ -38,7 +32,7 @@ import { SocketIoService } from './services/socket-io.service';
     SharedModule,
     Ng2SmartTableModule,
   ],
-  providers: [BikesService, interceptorProviders, SocketIoService],
+  providers: [],
   entryComponents: [
     ActionsViewComponent,
     ProductIdViewComponent,

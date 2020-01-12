@@ -16,4 +16,5 @@ export class SettingDto {
   @IsOptional()
   @IsEmail()
   email: string;
+
 }

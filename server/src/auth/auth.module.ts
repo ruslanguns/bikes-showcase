@@ -1,14 +1,13 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { SettingsSchema } from '../settings/schemas';
-import { AuthService } from './auth.service';
-import { JwtStrategy } from './jwt.strategy';
-import { JwtModule } from '@nestjs/jwt';
-import { AuthController } from './auth.controller';
-import { PassportModule } from '@nestjs/passport';
 import { MailerModule } from '@nest-modules/mailer';
-import { ConfigService } from '../config/config.service';
-import { ConfigModule } from '../config/config.module';
+import { JwtModule } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
+import { ConfigService, ConfigModule } from '../config';
+import { SettingsSchema } from '../settings/schemas';
+import { JwtStrategy } from './jwt';
+import { AuthService } from './auth.service';
+import { AuthController } from './auth.controller';
 
 @Module({
   imports: [

@@ -1,20 +1,19 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { LOCALE_ID, NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
-
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { WindowService, interceptorProviders } from './shared';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
-
 import localeEs from '@angular/common/locales/es';
 registerLocaleData(localeEs, 'es');
 
-import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
-import { SharedModule } from './shared';
-import { WindowService } from './shared/services/windows.service';
+import { MomentModule } from 'ngx-moment';
+import 'moment/locale/es';
 
-const config: SocketIoConfig = { url: 'http://localhost:4200/ws', options: {} };
+const config: SocketIoConfig = { url: 'http://localhost:4200/bikes', options: {} };
 // For AoT compilation:
 export function getWindow() {
   return window;
@@ -31,6 +30,7 @@ export function getWindow() {
     HttpClientModule,
     NoopAnimationsModule,
     AppRoutingModule,
+    MomentModule
   ],
   providers: [
     {
@@ -41,7 +41,8 @@ export function getWindow() {
       provide: WindowService,
       useFactory: getWindow,
     },
-    SharedModule],
+    interceptorProviders
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

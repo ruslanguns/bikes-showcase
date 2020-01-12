@@ -1,12 +1,20 @@
-import { Controller, Post, Body, Res, HttpStatus, Get, Patch, UseGuards } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { LoginDto } from './dtos/login.dto';
+import {
+  Controller,
+  Post,
+  Body,
+  Res,
+  HttpStatus,
+  Patch,
+  UseGuards
+} from '@nestjs/common';
 import {
   ApiOperation,
   ApiTags,
   ApiResponse,
 } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
+import { AuthService } from './auth.service';
+import { AuthDto } from './auth.dto';
 
 @ApiTags('Authentication')
 @Controller('auth')
@@ -19,7 +27,7 @@ export class AuthController {
   @Post()
   @ApiOperation({ summary: 'Inicio de sesión. Devuelve token de acceso.' })
   async login(
-    @Body() dto: LoginDto,
+    @Body() dto: AuthDto,
     @Res() res,
   ) {
     const data = await this.authService.signIn(dto);

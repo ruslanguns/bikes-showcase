@@ -1,11 +1,11 @@
 import { Injectable, BadGatewayException, OnModuleInit, Logger } from '@nestjs/common';
-import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { ISettings } from './interfaces';
-import { SettingDto } from './dtos/settings.dto';
+import { Model } from 'mongoose';
 import * as crypto from 'crypto';
+import { ConfigService } from '../config';
 import { AuthService } from '../auth/auth.service';
-import { ConfigService } from '../config/config.service';
+import { SettingDto } from './settings.dto';
+import { ISettings } from './settings.interface';
 
 @Injectable()
 export class SettingsService implements OnModuleInit {
@@ -31,7 +31,7 @@ export class SettingsService implements OnModuleInit {
       await this.settingsModel.create({
         username: this.configService.get<string>('DEFAULT_ADMIN_USERNAME'),
         password: this.configService.get<string>('DEFAULT_ADMIN_PASSWORD'),
-        email: this.configService.get<string>('DEFAULT_ADMIN_EMAIL')
+        email: this.configService.get<string>('DEFAULT_ADMIN_EMAIL'),
       });
       this.logger.warn('Default user has been setup. Remember to change its password for a secured one.');
     } else {

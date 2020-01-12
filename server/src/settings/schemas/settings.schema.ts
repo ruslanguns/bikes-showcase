@@ -5,6 +5,7 @@ export const SettingsSchema = new Schema({
   username: { type: String, required: true, lowercase: true, trim: true },
   password: { type: String, required: true },
   email: { type: String, required: true, lowercase: true, trim: true },
+  totalViews: { type: Number, default: 0 },
   updatedAt: Date,
   lastLoginAt: Date,
 }, { strict: 'throw' });

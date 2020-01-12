@@ -3,12 +3,11 @@
   min-height: 100vh !important;    /* equals max image height */
   max-height: 100vh !important;    /* equals max image height */
   width: auto!important;
-  max-width: 100%;
+  width: auto;
   /* border: 1px solid red !important; */
   white-space: nowrap !important;
   margin: auto !important;
 }
-
 
 .helper {
   display: inline-block !important;
@@ -20,7 +19,21 @@
 
 .image-slider {
   position: absolute;
+  min-height: 100vh;
+  width: auto;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+}
+
+.center {
+  line-height: 100vh;
+  min-height: 100vh;
+  text-align: center;
+}
+
+.center p {
+  line-height: 1.5;
+  display: inline-block;
+  vertical-align: middle;
 }

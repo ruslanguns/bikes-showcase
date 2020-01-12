@@ -1,17 +1,19 @@
 import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
+import { AuthModule } from '../auth/auth.module';
+import { SettingsSchema } from '../settings/schemas';
+import { BikesSchema } from './schemas';
 import { BikesController } from './bikes.controller';
 import { BikesService } from './bikes.service';
-import { MongooseModule } from '@nestjs/mongoose';
-import { BikesSchema } from './schemas';
-import { AuthModule } from '../auth/auth.module';
 import { BikesGateway } from './bikes.gateway';
 
 @Module({
   imports: [
-    AuthModule,
     MongooseModule.forFeature([
-      { name: 'Bikes', schema: BikesSchema }
+      { name: 'Bikes', schema: BikesSchema },
+      { name: 'Settings', schema: SettingsSchema }
     ]),
+    AuthModule,
   ],
   controllers: [BikesController],
   providers: [BikesService, BikesGateway]

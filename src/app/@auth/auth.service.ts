@@ -1,13 +1,13 @@
 import { Injectable, Inject, PLATFORM_ID, OnInit, Injector } from '@angular/core';
+import { isPlatformBrowser, DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { map, catchError, retry } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { throwError, Observable, of } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { throwError } from 'rxjs';
 import * as validator from 'validator';
 import { RecoveryClass } from './recovery';
-import { isPlatformBrowser, DOCUMENT } from '@angular/common';
-import { WindowService } from '../shared/services/windows.service';
+import { WindowService } from '../shared';
 
 interface ApiResponse {
   message: string;

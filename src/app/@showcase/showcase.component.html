@@ -1,13 +1,11 @@
+<div class="header">
+  <img src="https://cashconverters.es/content/themes/cash-converters/images/logo.png" alt="logo">
+</div>
 <ng-container *ngIf="isBrowser; else incompatibleBrowser">
-  <div class="header">
-    <img src="https://cashconverters.es/content/themes/cash-converters/images/logo.png" alt="logo">
-  </div>
 
   <div class="presentador">
     <swiper class="swiper-container" [config]="config" #bikes_swipper>
-
       <div class="swiper-wrapper">
-
         <div class="swiper-slide swiper-lazy" *ngFor="let bike of data">
 
           <div class="bike-info">
@@ -37,7 +35,9 @@
 
           <div class="frame">
             <span class="helper"></span>
-            <img [src]="'api/bikes/' + bike._id + '/image'" height=800 class="image-slider">
+            <img [src]="getImage(bike._id, bike.image.filename)"
+                 height=800
+                 class="image-slider">
           </div>
         </div>
       </div>
@@ -49,6 +49,14 @@
   </div>
 </ng-container>
 
+<ng-container *ngIf="data === []">
+  <div class="center">
+    <p>No hay bicicletas para mostrar. Por favor contacte con un vendedor. Gracias por su comprensión</p>
+  </div>
+</ng-container>
+
 <ng-template #incompatibleBrowser>
-  Navegador no compatible...
+  <div class="center">
+    <p>Cargando contenido.</p>
+  </div>
 </ng-template>

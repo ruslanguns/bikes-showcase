@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { AutoFocusDirective } from './directives/auto-focus.directive';
 import { HttpClientModule } from '@angular/common/http';
 import { AsyncSrcDirective } from './directives/async-src.directive';
+import { interceptorProviders } from './interceptors';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,8 @@ import { AsyncSrcDirective } from './directives/async-src.directive';
     AutoFocusDirective,
     AsyncSrcDirective
   ],
-  providers: []
+  providers: [
+    interceptorProviders
+  ]
 })
 export class SharedModule { }

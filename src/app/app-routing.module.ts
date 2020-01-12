@@ -4,15 +4,15 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./@showcase/showcase.module').then(m => m.ShowcaseModule),
+    loadChildren: () => import('./@showcase').then(m => m.ShowcaseModule),
   },
   {
     path: 'admin',
-    loadChildren: () => import('./@pages/pages.module').then(m => m.PagesModule),
+    loadChildren: () => import('./@pages').then(m => m.PagesModule),
   },
   {
     path: 'login',
-    loadChildren: () => import('./@auth/auth.module').then(m => m.AuthModule),
+    loadChildren: () => import('./@auth').then(m => m.AuthModule),
   },
   { path: '**', redirectTo: '' },
 ];

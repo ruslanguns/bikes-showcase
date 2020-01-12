@@ -1,13 +1,21 @@
-import { Controller, Put, Body, Res, HttpStatus, UseGuards, Get } from '@nestjs/common';
-import { SettingsService } from './settings.service';
-import { SettingDto } from './dtos/settings.dto';
-import { AuthGuard } from '@nestjs/passport';
+import {
+  Controller,
+  Put,
+  Body,
+  Res,
+  HttpStatus,
+  UseGuards,
+  Get
+} from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOperation,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
+import { SettingsService } from './settings.service';
+import { SettingDto } from './settings.dto';
 
 @ApiBearerAuth()
 @ApiTags('Settings')

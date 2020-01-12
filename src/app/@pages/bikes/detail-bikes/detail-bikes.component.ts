@@ -68,7 +68,7 @@ export class DetailBikesComponent implements OnInit, OnDestroy {
       .subscribe(
         (res: any) => {
           this.bike = res;
-          this.bikeImageUrl = `/api/bikes/${this.bike._id}/image`;
+          this.bikeImageUrl = this.getImage(this.bike._id, this.bike.image.filename);
           // console.log(this.bike);
         },
         error => console.log('HTTP error: ', error),
@@ -134,5 +134,9 @@ export class DetailBikesComponent implements OnInit, OnDestroy {
         },
         error => console.log('HTTP error', error)
       );
+  }
+
+  getImage(bikeId: string, filename: string): string {
+    return `/api/bikes/${bikeId}/image/${filename}`;
   }
 }

@@ -1,13 +1,13 @@
 import { Injectable, ForbiddenException, BadGatewayException, NotFoundException } from '@nestjs/common';
-import { LoginDto } from './dtos/login.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { ISettings } from '../settings/interfaces';
 import { JwtService } from '@nestjs/jwt';
-import { JwtPayload } from './jwt.interface';
-import * as crypto from 'crypto';
 import { MailerService } from '@nest-modules/mailer';
+import * as crypto from 'crypto';
 import { ConfigService } from '../config';
+import { ISettings } from '../settings';
+import { JwtPayload } from './jwt';
+import { AuthDto } from './auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -21,9 +21,9 @@ export class AuthService {
 
   /**
    * Inicio de sesión
-   * @param dto Clase LoginDto
+   * @param dto Clase AuthDto
    */
-  async signIn(dto: LoginDto): Promise<ForbiddenException | object> {
+  async signIn(dto: AuthDto): Promise<ForbiddenException | object> {
     const { password } = dto;
     const user = await this.validate(password);
 

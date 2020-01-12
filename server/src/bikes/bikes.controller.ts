@@ -11,21 +11,21 @@ import {
   Delete,
   UseInterceptors,
   UploadedFile,
-  UseGuards
+  UseGuards,
+  NotFoundException
 } from '@nestjs/common';
-import { BikesService } from './bikes.service';
-import { BikeDto } from './dtos/bike.dto';
-import { FileInterceptor } from '@nestjs/platform-express';
 import {
   ApiBearerAuth,
   ApiOperation,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { AuthGuard } from '@nestjs/passport';
 import { fileOptions } from '../config';
-import { NotFoundException } from '@nestjs/common';
+import { BikesService } from './bikes.service';
 import { BikesGateway } from './bikes.gateway';
+import { BikeDto } from './bike.dto';
 
 @ApiBearerAuth()
 @ApiTags('Bikes')
@@ -48,7 +48,7 @@ export class BikesController {
     @Res() res,
   ) {
     const data = await this.bikesService.create(dto);
-    this.bikesGateway.newChange(true);
+    this.bikesGateway.notifyChange();
     return res.status(HttpStatus.CREATED).json({ message: 'Creado correctamente', data });
   }
 
@@ -93,7 +93,7 @@ export class BikesController {
     @Res() res,
   ) {
     const data = await this.bikesService.update(id, dto);
-    this.bikesGateway.newChange(true);
+    this.bikesGateway.notifyChange();
     return res.status(HttpStatus.CREATED).json({ message: 'Petición correcta', data });
   }
 
@@ -106,7 +106,7 @@ export class BikesController {
     @Res() res,
   ) {
     const data = await this.bikesService.delete(id);
-    this.bikesGateway.newChange(true);
+    this.bikesGateway.notifyChange();
     return res.status(HttpStatus.CREATED).json({ message: 'Petición correcta', data });
   }
 
@@ -121,7 +121,7 @@ export class BikesController {
     @Res() res,
   ) {
     const data = await this.bikesService.addImage(id, image);
-    this.bikesGateway.newChange(true);
+    this.bikesGateway.notifyChange();
     return res.status(HttpStatus.CREATED).json({ message: 'Imagen cargada correctamente', data });
   }
 
@@ -136,7 +136,7 @@ export class BikesController {
     @Res() res,
   ) {
     const data = await this.bikesService.editImage(id, image);
-    this.bikesGateway.newChange(true);
+    this.bikesGateway.notifyChange();
     return res.status(HttpStatus.CREATED).json({ message: 'Imagen actualizada correctamente', data });
   }
 
@@ -149,17 +149,30 @@ export class BikesController {
     @Res() res,
   ) {
     const data = await this.bikesService.removeImage(id);
-    this.bikesGateway.newChange(true);
+    this.bikesGateway.notifyChange();
     return res.status(HttpStatus.CREATED).json({ message: 'Imagen eliminada correctamente', data });
   }
 
-  @Get(':id/image')
+  @Get(':id/image/:filename')
+  @ApiOperation({ summary: 'Eliminar la imagen de una nueva bicicleta' })
   async serveBikeImage(
     @Res() res,
     @Param('id') id,
+    @Param('filename') filename,
   ) {
     const { image } = await this.bikesService.findById(id);
-    (image) ? res.sendFile(image.filename, { root: image.destination }) : res.status(HttpStatus.NOT_FOUND).json({ message: 'La bicicleta no tiene imagen.' });
+    (image) ? res.sendFile(filename, { root: image.destination }) : res.status(HttpStatus.NOT_FOUND).json({ message: 'La bicicleta no tiene imagen.' });
+  }
+
+  @Get('stats/all')
+  @ApiOperation({ summary: 'Obtener estadísticas de las bicicletas' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  @UseGuards(AuthGuard('jwt'))
+  async getStatistics(
+    @Res() res,
+  ) {
+    const data = await this.bikesService.getStats();
+    return res.status(HttpStatus.CREATED).json({ message: 'Estadisticas obtenidas correctamente', data });
   }
 
 }

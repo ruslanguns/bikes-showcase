@@ -1,11 +1,9 @@
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { ShowcaseComponent } from './showcase.component';
-
 import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
-import { WindowService } from '../shared/services/windows.service';
+import { WindowService } from '../shared';
+import { ShowcaseComponent } from './showcase.component';
 
 const routes: Routes = [
   { path: '', component: ShowcaseComponent },

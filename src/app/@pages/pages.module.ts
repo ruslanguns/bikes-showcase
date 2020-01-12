@@ -18,8 +18,6 @@ import { interceptorProviders } from '../shared/interceptors';
   exports: [
     PagesComponent,
   ],
-  providers: [
-    interceptorProviders
-  ]
+  providers: []
 })
 export class PagesModule { }

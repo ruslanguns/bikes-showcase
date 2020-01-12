@@ -1,11 +1,11 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { AngularUniversalModule } from '@nestjs/ng-universal';
 import { MongooseModule } from '@nestjs/mongoose';
 import { join } from 'path';
-import { BikesModule } from './src/bikes';
 import { ConfigModule, ConfigService } from './src/config';
+import { BikesModule } from './src/bikes';
 import { SettingsModule } from './src/settings';
-import { AuthModule } from './src/auth/auth.module';
+import { AuthModule } from './src/auth';
 
 @Module({
   imports: [
@@ -21,9 +21,8 @@ import { AuthModule } from './src/auth/auth.module';
       inject: [ConfigService],
     }),
     BikesModule,
-    SettingsModule,
-    AuthModule
+    AuthModule,
+    SettingsModule
   ],
-  providers: []
 })
 export class ApplicationModule { }

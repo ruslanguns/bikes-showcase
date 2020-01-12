@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BikesComponent } from './bikes.component';
-import { CreateBikesComponent } from './create-bikes/create-bikes.component';
-import { DetailBikesComponent } from './detail-bikes/detail-bikes.component';
-import { SoldBikesComponent } from './sold-bikes/sold-bikes.component';
-import { AuthGuard } from '../../@auth/guards/auth.guard';
+import { CreateBikesComponent } from './create-bikes';
+import { DetailBikesComponent } from './detail-bikes';
+import { SoldBikesComponent } from './sold-bikes';
+import { AuthGuard } from '../../@auth';
 
 
 const routes: Routes = [

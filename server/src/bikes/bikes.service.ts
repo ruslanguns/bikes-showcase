@@ -1,16 +1,21 @@
 import { Injectable, BadGatewayException, BadRequestException, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { IBikes } from './interfaces';
-import { BikeDto } from './dtos';
 import * as sharp from 'sharp';
 import * as fs from 'fs';
+import { ISettings } from '../settings';
+import { BikeDto } from './bike.dto';
+import { IBikes } from './bikes.interface';
+import { BikesGateway } from './bikes.gateway';
+import getStatsQuery from './queries/getStatsQuery';
 
 @Injectable()
 export class BikesService {
 
   constructor(
     @InjectModel('Bikes') private readonly bikesModel: Model<IBikes>,
+    @InjectModel('Settings') private readonly settingsModel: Model<ISettings>,
+    private bikesGateway: BikesGateway,
   ) { }
 
   /**
@@ -37,6 +42,19 @@ export class BikesService {
   async findById(id: string): Promise<IBikes> {
     return await this.bikesModel.findById(id)
       .catch(err => { throw new BadGatewayException('Error al buscar la bicicleta en la DB', err); });
+  }
+
+  /**
+   * Aplicar una nueva visita
+   */
+  async setView(): Promise<number> {
+    const settings = await this.settingsModel.findOne({});
+    settings.totalViews += 1;
+    await settings.save();
+
+    const { totalViews } = settings;
+    this.bikesGateway.getViews(totalViews);
+    return totalViews;
   }
 
   /**
@@ -116,6 +134,12 @@ export class BikesService {
       if (newImage) { fs.unlinkSync(newImage.path); }
       return false;
     }
+  }
+
+  async getStats(): Promise<{}> {
+    const stats = await this.bikesModel.aggregate(getStatsQuery).exec()
+      .catch(err => { throw new BadGatewayException('Error al buscar Stats en DB', err); });
+    return stats[0];
   }
 
   /**
