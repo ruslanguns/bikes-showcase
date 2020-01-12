@@ -8,6 +8,7 @@ const webpackOptions = WebpackConfigFactory.create(webpack, {
   // This is our Nest server for Dynamic universal
   server: "./server/main.ts"
 });
+require("typeface-open-sans");
 
 const whitelistedPackages = /^(?!(livereload|concurrently|mongoose|sharp|fastify-swagger|handlebars|UglifyJS)).*/;
 webpackOptions.externals[1] = nodeExternals({
