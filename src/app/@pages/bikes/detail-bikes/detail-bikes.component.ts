@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Location } from '@angular/common';
 import { fromEvent } from 'rxjs/internal/observable/fromEvent';
 import { pluck, filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
@@ -42,7 +43,8 @@ export class DetailBikesComponent implements OnInit, OnDestroy {
     private readonly router: Router,
     private readonly bikesService: BikesService,
     private route: ActivatedRoute,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private _location: Location
   ) {
     this.route.params.subscribe(params => {
       this.bikeId = params.bikeId;
@@ -87,6 +89,10 @@ export class DetailBikesComponent implements OnInit, OnDestroy {
   onFileChanged(event) {
     this.selectedFile = event.target.files[0];
     this.preview();
+  }
+
+  goBack() {
+    this._location.back();
   }
 
   uploadImage(id: string) {
