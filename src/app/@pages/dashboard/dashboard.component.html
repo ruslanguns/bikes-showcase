@@ -70,6 +70,9 @@
             </div>
             <div class="notification-text">
               {{ bikeCargada.brand | uppercase }} — {{ bikeCargada.price | currency: 'EUR'}}
+              <ng-container *ngIf="bikeCargada.status === 'vendido'">
+                <span class="badge badge-success ml-4">Vendida</span>
+              </ng-container>
             </div>
             <span class="notification-time">
               <time title="{{ bikeCargada.createdAt | amLocale:'es' | amDateFormat:'MMMM YYYY, h:mm:ss a'}}">
@@ -95,7 +98,7 @@
       <div class="card-body ">
         <div class="notifications">
           <a *ngFor="let bikeVendida of ultimasVentas"
-             [routerLink]="['/admin/bicicletas/vendidas', bikeVendida._id]"
+             [routerLink]="['/admin/bicicletas/detalle', bikeVendida._id]"
              href="#!" class="notification">
             <div class="notification-icon">
               <i class="fas fa-inbox"></i>
