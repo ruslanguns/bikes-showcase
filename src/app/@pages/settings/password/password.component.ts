@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SettingsService } from '../settings.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-password',
@@ -13,6 +14,7 @@ export class PasswordComponent implements OnInit {
 
   constructor(
     private readonly settingsService: SettingsService,
+    private toastr: ToastrService
   ) {
 
     this.form = new FormGroup({
@@ -37,10 +39,9 @@ export class PasswordComponent implements OnInit {
     return this.settingsService.changePassword(this.form.value)
       .subscribe(
         res => {
-          console.log('Contraseña cambiada.');
+          this.toastr.success('Contraseña cambiada', 'Petición correcta');
           this.form.reset();
         },
-        error => console.log('HTTP error', error)
       );
   }
 

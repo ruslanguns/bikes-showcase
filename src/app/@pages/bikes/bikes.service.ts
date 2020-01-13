@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { pluck, catchError, map } from 'rxjs/operators';
-import { throwError, Observable } from 'rxjs';
+import { pluck, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { IBikes } from './bikes.interface';
 import { Bike } from './bike.class';
 
@@ -15,9 +15,6 @@ interface ApiResponse<T> {
 })
 export class BikesService {
 
-  // public bikes$: Observable<IBikes[]>;
-  // private bikesData = new Subject<IBikes[]>();
-
   constructor(
     private http: HttpClient,
   ) {
@@ -29,8 +26,7 @@ export class BikesService {
 
     return http$
       .pipe(
-        pluck('data'),
-        catchError(err => throwError(err))
+        pluck('data')
       );
   }
 
@@ -42,7 +38,6 @@ export class BikesService {
       .pipe(
         pluck('data'),
         map(bikes => bikes.filter(bike => bike.status !== 'vendido')),
-        catchError(err => throwError(err))
       );
   }
 
@@ -53,8 +48,7 @@ export class BikesService {
     return http$
       .pipe(
         pluck('data'),
-        map(bikes => bikes.filter(bike => bike.status !== 'a la venta')),
-        catchError(err => throwError(err))
+        map(bikes => bikes.filter(bike => bike.status !== 'a la venta'))
       );
   }
 
@@ -67,7 +61,6 @@ export class BikesService {
     return http$
       .pipe(
         pluck('data'),
-        catchError(err => throwError(err))
       );
   }
 
@@ -79,7 +72,6 @@ export class BikesService {
     return http$
       .pipe(
         pluck('data'),
-        catchError(err => throwError(err))
       );
   }
 
@@ -90,10 +82,7 @@ export class BikesService {
       observe: 'events'
     });
 
-    return http$
-      .pipe(
-        catchError(err => throwError(err))
-      );
+    return http$;
   }
 
   editImage(id: string, image: FormData) {
@@ -103,10 +92,7 @@ export class BikesService {
       observe: 'events'
     });
 
-    return http$
-      .pipe(
-        catchError(err => throwError(err))
-      );
+    return http$;
   }
 
   delete(id: string) {
@@ -116,7 +102,6 @@ export class BikesService {
     return http$
       .pipe(
         pluck('data'),
-        catchError(err => throwError(err))
       );
   }
 
@@ -128,7 +113,6 @@ export class BikesService {
     return http$
       .pipe(
         pluck('data'),
-        catchError(err => throwError(err))
       );
   }
 
@@ -140,7 +124,6 @@ export class BikesService {
     return http$
       .pipe(
         pluck('data'),
-        catchError(err => throwError(err))
       );
   }
 
@@ -151,7 +134,6 @@ export class BikesService {
     return http$
       .pipe(
         pluck('data'),
-        catchError(err => throwError(err))
       );
   }
 
@@ -162,7 +144,6 @@ export class BikesService {
     return http$
       .pipe(
         pluck('data'),
-        catchError(err => throwError(err))
       );
   }
 }

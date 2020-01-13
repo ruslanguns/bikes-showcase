@@ -7,6 +7,7 @@ import { ActionsViewComponent, ProductIdViewComponent } from './components';
 import { IBikes } from './bikes.interface';
 import { BikesService } from './bikes.service';
 import { DateFormatComponent } from './components/date-format';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-bikes',
@@ -26,7 +27,8 @@ export class BikesComponent implements OnInit {
     private titleCasePipe: TitleCasePipe,
     private currencyPipe: CurrencyPipe,
     private router: Router,
-    private sockets: SocketIoService
+    private sockets: SocketIoService,
+    private toastr: ToastrService
   ) {
     this.settings = {
       noDataMessage: 'No hay bicicletas para mostrar',
@@ -121,13 +123,7 @@ export class BikesComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         this.bikesService.delete(id)
-          .subscribe(
-            res => {
-              console.log('Bicicleta eliminada');
-            },
-            error => console.log('HTTP error', error),
-          );
-
+          .subscribe(res => this.toastr.success('Bicicleta eliminada', 'Petición correcta'));
       }
     });
   }
@@ -145,12 +141,7 @@ export class BikesComponent implements OnInit {
     }).then(result => {
       if (result.value) {
         this.bikesService.toSold(id)
-          .subscribe(
-            res => {
-              console.log('Marcada como vendida');
-            },
-            error => console.log('HTTP error', error),
-          );
+          .subscribe(res => this.toastr.success('Marcada como vendida', 'Petición correcta'));
       }
     });
   }

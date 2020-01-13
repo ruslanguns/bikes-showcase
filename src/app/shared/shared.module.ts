@@ -29,8 +29,6 @@ import { CapitalizePipe } from './pipes/capitalize.pipe';
     AsyncSrcDirective,
     CapitalizePipe
   ],
-  providers: [
-    interceptorProviders
-  ]
+  providers: []
 })
 export class SharedModule { }

@@ -8,15 +8,6 @@ body {
 /* UTILITIES */
 .cursor {cursor: pointer; cursor: hand;}
 
-/* th.fitwidth {
-  width: 1px;
-  white-space: nowrap;
-}
-td.fitwidth {
-  width: 1px;
-  white-space: nowrap;
-} */
-
 ng2-smart-table-pager {
   display: flex;
   justify-content: flex-end !important;
@@ -32,7 +23,7 @@ input::-webkit-inner-spin-button {
 }
 
 .anchoFijo {
-  white-space:nowrap;
+  white-space:nowrap !important;
   overflow:hidden;
   text-overflow:ellipsis;
 }

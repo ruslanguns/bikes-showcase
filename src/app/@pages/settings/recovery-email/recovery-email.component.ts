@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SettingsService } from '../settings.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-recovery-email',
@@ -16,6 +17,7 @@ export class RecoveryEmailComponent implements OnInit {
 
   constructor(
     private readonly settingsService: SettingsService,
+    private toastr: ToastrService
   ) {
 
     this.form = new FormGroup({
@@ -31,10 +33,7 @@ export class RecoveryEmailComponent implements OnInit {
 
   fetchData() {
     this.settingsService.fetch()
-      .subscribe(
-        (res: any) => this.email = res.email,
-        error => console.log('HTTP error', error)
-      );
+      .subscribe(res => this.email = res.email);
   }
 
   onSubmit() {
@@ -42,11 +41,10 @@ export class RecoveryEmailComponent implements OnInit {
     return this.settingsService.changeEmail(this.form.value)
       .subscribe(
         res => {
-          console.log('Correo de recuperación cambiado.');
+          this.toastr.success('Correo de recuperación cambiado', 'Petición correcta');
           this.form.reset();
           this.fetchData();
         },
-        error => console.log('HTTP error', error)
       );
   }
 }

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { BikesService } from '../bikes.service';
 import { HttpEventType } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-bikes',
@@ -33,7 +34,8 @@ export class CreateBikesComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly router: Router,
-    private readonly bikesService: BikesService
+    private readonly bikesService: BikesService,
+    private toastr: ToastrService
   ) {
 
     this.form = new FormGroup({
@@ -104,13 +106,12 @@ export class CreateBikesComponent implements OnInit, OnDestroy {
     return this.bikesService.create(this.form.value)
       .subscribe(
         res => {
-          console.log('¡Bicicleta agregada!');
           const { _id } = res;
           this.uploadImage(_id);
           this.formReset();
+          this.toastr.success('Bicicleta creada', 'Petición correcta');
           this.router.navigate(['/admin/bicicletas']);
         },
-        error => console.log('HTTP error', error)
       );
   }
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-recovery',
@@ -16,6 +17,7 @@ export class RecoveryComponent implements OnInit {
     private readonly fb: FormBuilder,
     private readonly authService: AuthService,
     private readonly router: Router,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit() {
@@ -32,9 +34,8 @@ export class RecoveryComponent implements OnInit {
       .subscribe(
         res => {
           this.router.navigate(['/login']);
-          console.log('Correo de recuperación enviado.');
-        },
-        error => console.log('HTTP Error', error),
+          this.toastr.success('Correo de recuperación enviado');
+        }
       );
   }
 

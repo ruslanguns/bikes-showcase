@@ -1,13 +1,13 @@
-import { Injectable, Inject, PLATFORM_ID, OnInit, Injector } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID, OnInit } from '@angular/core';
 import { isPlatformBrowser, DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { map, catchError, retry } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { throwError } from 'rxjs';
 import * as validator from 'validator';
 import { RecoveryClass } from './recovery';
 import { WindowService } from '../shared';
+import { ToastrService } from 'ngx-toastr';
 
 interface ApiResponse {
   message: string;
@@ -27,10 +27,10 @@ export class AuthService implements OnInit {
     // tslint:disable-next-line: ban-types
     @Inject(PLATFORM_ID) private platformId: Object,
     @Inject(DOCUMENT) private doc,
-    private injector: Injector,
     private windowService: WindowService,
     private readonly http: HttpClient,
     private readonly router: Router,
+    private toastr: ToastrService
   ) {
     if (this.isBrowser) {
       this.accessToken = localStorage.getItem('accessToken');
@@ -78,9 +78,8 @@ export class AuthService implements OnInit {
         map(async (res: any) => {
           await this.setLocalStorageItems(res.data);
           this.router.navigate(['/admin']);
-          console.log({ text: 'Login exitoso.' });
-        }),
-        catchError(error => throwError(error))
+          this.toastr.success('Login exitoso');
+        })
       );
   }
 
@@ -99,14 +98,7 @@ export class AuthService implements OnInit {
     const URL = `api/auth/recuperar`;
     const http$ = this.http.post<ApiResponse>(URL, data);
 
-    return http$
-      .pipe(
-        retry(1),
-        catchError(err => {
-          console.log({ text: err.error.message });
-          return throwError(err);
-        })
-      );
+    return http$;
   }
 
   /**

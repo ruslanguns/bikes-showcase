@@ -4,6 +4,7 @@ import { SettingsService } from '../settings.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../@auth/auth.service';
 import * as jwt_decode from 'jwt-decode';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-reset-password',
@@ -18,6 +19,7 @@ export class ResetPasswordComponent implements OnInit {
     private readonly settingsService: SettingsService,
     private readonly router: Router,
     private readonly authService: AuthService,
+    private toastr: ToastrService
   ) {
 
     this.form = new FormGroup({
@@ -44,11 +46,10 @@ export class ResetPasswordComponent implements OnInit {
     return this.settingsService.resetPassword(this.form.value)
       .subscribe(
         res => {
-          console.log('Contraseña cambiada.');
+          this.toastr.success('Contraseña cambiada', 'Petición correcta');
           this.form.reset();
           this.router.navigate(['/admin']);
         },
-        error => console.log('HTTP error', error)
       );
   }
 

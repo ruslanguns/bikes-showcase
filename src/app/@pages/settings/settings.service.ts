@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ChangeEmail } from './recovery-email';
 import { ChangePassword } from './password';
-import { catchError, retry, pluck } from 'rxjs/operators';
-import { throwError, Observable } from 'rxjs';
+import { pluck } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { ISettings } from './settings.interface';
 import { ResetPassword } from './reset-password';
 
@@ -28,11 +28,7 @@ export class SettingsService {
 
     return http$
       .pipe(
-        pluck('data'),
-        catchError(err => {
-          console.log({ text: err.error.message });
-          return throwError(err);
-        })
+        pluck('data')
       );
   }
 
@@ -40,41 +36,20 @@ export class SettingsService {
     const URL = `api/settings`;
     const http$ = this.http.put<ApiResponse>(URL, data);
 
-    return http$
-      .pipe(
-        retry(1),
-        catchError(err => {
-          console.log({ text: err.error.message });
-          return throwError(err);
-        })
-      );
+    return http$;
   }
 
   changePassword(data: ChangePassword): Observable<ApiResponse> {
     const URL = `api/settings`;
     const http$ = this.http.put<ApiResponse>(URL, data);
 
-    return http$
-      .pipe(
-        retry(1),
-        catchError(err => {
-          console.log({ text: err.error.message });
-          return throwError(err);
-        })
-      );
+    return http$;
   }
 
   resetPassword(data: ResetPassword) {
     const URL = `api/auth/reset`;
     const http$ = this.http.patch<ApiResponse>(URL, data);
 
-    return http$
-      .pipe(
-        retry(1),
-        catchError(err => {
-          console.log({ text: err.error.message });
-          return throwError(err);
-        })
-      );
+    return http$;
   }
 }

@@ -14,8 +14,6 @@ export class AuthorizationInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    console.log('Hemos aplicado el interceptor');
-
     if (!this.auth.expiredToken()) {
 
       request = request.clone({

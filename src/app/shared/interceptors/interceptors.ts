@@ -1,6 +1,7 @@
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthorizationInterceptor } from './authorization.interceptor';
 import { WindowService } from '../services/windows.service';
+import { HttpErrorInterceptor } from './error.interceptor';
 
 export const interceptorProviders =
   [

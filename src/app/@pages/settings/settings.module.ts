@@ -5,11 +5,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SettingsRoutingModule } from './settings-routing.module';
 import { PasswordComponent } from './password/password.component';
 import { SharedModule } from '../../shared/shared.module';
-import { HttpClientModule } from '@angular/common/http';
-import { SettingsService } from './settings.service';
-import { interceptorProviders } from '../../shared/interceptors';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RecoveryEmailComponent } from './recovery-email';
 import { ResetPasswordComponent } from './reset-password';
+import { HttpErrorInterceptor } from 'src/app/shared/interceptors/error.interceptor';
 
 
 @NgModule({
@@ -23,8 +22,7 @@ import { ResetPasswordComponent } from './reset-password';
     SharedModule,
   ],
   providers: [
-    SettingsService,
-    interceptorProviders
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
   ]
 })
 export class SettingsModule { }

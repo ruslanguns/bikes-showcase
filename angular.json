@@ -28,7 +28,8 @@
               "node_modules/swiper/css/swiper.css",
               "node_modules/material-design-icons/iconfont/material-icons.css",
               "node_modules/animate.css/animate.min.css",
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.slim.min.js",

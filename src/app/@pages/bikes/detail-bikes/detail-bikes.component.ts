@@ -8,6 +8,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpEventType } from '@angular/common/http';
 import { IBikes } from '../bikes.interface';
 import { Bike } from '../bike.class';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-detail-bikes',
@@ -41,6 +42,7 @@ export class DetailBikesComponent implements OnInit, OnDestroy {
     private readonly router: Router,
     private readonly bikesService: BikesService,
     private route: ActivatedRoute,
+    private toastr: ToastrService
   ) {
     this.route.params.subscribe(params => {
       this.bikeId = params.bikeId;
@@ -69,9 +71,7 @@ export class DetailBikesComponent implements OnInit, OnDestroy {
         (res: any) => {
           this.bike = res;
           this.bikeImageUrl = this.getImage(this.bike._id, this.bike.image.filename);
-          // console.log(this.bike);
-        },
-        error => console.log('HTTP error: ', error),
+        }
       );
   }
 
@@ -127,12 +127,10 @@ export class DetailBikesComponent implements OnInit, OnDestroy {
     return this.bikesService.update(this.bikeId, this.form.value)
       .subscribe(
         res => {
-          console.log('¡Bicicleta actualizada!');
           const { _id } = res;
           this.uploadImage(_id);
-          this.router.navigate(['/admin/bicicletas']);
-        },
-        error => console.log('HTTP error', error)
+          this.toastr.success('Bicicleta actualizada', 'Petición correcta');
+        }
       );
   }
 
