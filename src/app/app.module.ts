@@ -3,7 +3,7 @@ import { LOCALE_ID, NgModule } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { SocketIoModule } from 'ngx-socket-io';
 import { WindowService } from './shared';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,8 +16,8 @@ import 'moment/locale/es';
 
 import { interceptorProviders } from './shared/interceptors/interceptors';
 import { SharedModule } from './shared/shared.module';
+import { environment } from '../environments/environment.prod';
 
-const config: SocketIoConfig = { url: 'http://localhost:4200/bikes', options: {} };
 // For AoT compilation:
 export function getWindow() {
   return window;
@@ -30,7 +30,7 @@ export function getWindow() {
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule,
-    SocketIoModule.forRoot(config),
+    SocketIoModule.forRoot(environment.socketConfig),
     HttpClientModule,
     NoopAnimationsModule,
     AppRoutingModule,
