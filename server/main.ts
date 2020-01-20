@@ -24,7 +24,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('docs', app, document);
 
-  this.logger.log(`Documentación API: http://${host}${(port) ? `:${port}` : ''}/docs`);
+  logger.log(`Documentación API: http://${host}${(port) ? `:${port}` : ''}/docs`);
 
   // Initialize express sessions, and have Passport use them
   app.use(passport.initialize());
@@ -34,6 +34,6 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   await app.listen(port);
 
-  this.logger.log(`Aplicación corriendo en: http://${host}${(port) ? `:${port}` : ''}/`);
+  logger.log(`Aplicación corriendo en: http://${host}${(port) ? `:${port}` : ''}/`);
 }
 bootstrap();
