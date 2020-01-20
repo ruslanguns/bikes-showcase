@@ -11,11 +11,13 @@
     "serve": "node serve-script",
     "compile:server": "webpack --config webpack.server.config.js --progress --colors",
     "build:client-and-server-bundles": "ng build --prod && ng run bikes-showcase:server:production",
-    "start:db": "bash docker.sh",
+    "start:db": "bash ./scripts/docker-db.sh",
     "build:server": "./node_modules/.bin/tsc -p ./server/tsconfig.json",
     "build:ssr": "npm run build:client-and-server-bundles && npm run build:server",
     "start:prod": "npm run build:ssr && node dist/server-app/main.js",
-    "start-only": "node dist/server-app/main.js"
+    "start-only": "node dist/server-app/main.js",
+    "deploy": "bash ./scripts/docker.sh",
+    "commit": "git-cz"
   },
   "private": true,
   "dependencies": {
@@ -95,6 +97,8 @@
     "@types/sharp": "^0.23.1",
     "@types/swiper": "^5.2.0",
     "codelyzer": "^5.0.0",
+    "commitizen": "^4.0.3",
+    "cz-conventional-changelog": "^3.0.2",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.1.0",
@@ -113,5 +117,10 @@
     "webpack-cli": "^3.3.10",
     "ws": "^7.2.1",
     "xmlhttprequest": "^1.8.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }

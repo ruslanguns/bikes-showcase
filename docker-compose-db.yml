@@ -1,16 +1,6 @@
 version: '3'
 
 services:
-  back_app:
-    depends_on:
-      - mongodb
-    restart: always
-    build: .
-    ports:
-      - "4200:4200"
-    volumes:
-      - .:/usr/src/app
-      - .:/usr/src/app/files
   mongodb:
     image: mongo:latest
     volumes:

@@ -5,3 +5,4 @@ printf '====>  To stop just hit "CTRL + C" \n\n'
 sleep 3 # wait 3 seconds
 
 docker-compose up
+
