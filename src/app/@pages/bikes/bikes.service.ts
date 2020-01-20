@@ -55,7 +55,6 @@ export class BikesService {
   create(data: Bike): Observable<IBikes> {
 
     const URL = `api/bikes`;
-
     const http$ = this.http.post<ApiResponse<IBikes>>(URL, data);
 
     return http$

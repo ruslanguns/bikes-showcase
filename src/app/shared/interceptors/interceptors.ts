@@ -5,6 +5,7 @@ import { HttpErrorInterceptor } from './error.interceptor';
 
 export const interceptorProviders =
   [
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizationInterceptor, multi: true },
     { provide: WindowService, useClass: WindowService }
   ];

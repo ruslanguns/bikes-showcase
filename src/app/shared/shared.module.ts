@@ -4,9 +4,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { HeaderComponent } from './header/header.component';
 import { RouterModule } from '@angular/router';
 import { AutoFocusDirective } from './directives/auto-focus.directive';
-import { HttpClientModule } from '@angular/common/http';
 import { AsyncSrcDirective } from './directives/async-src.directive';
-import { interceptorProviders } from './interceptors';
 import { CapitalizePipe } from './pipes/capitalize.pipe';
 
 @NgModule({
@@ -20,7 +18,6 @@ import { CapitalizePipe } from './pipes/capitalize.pipe';
   imports: [
     CommonModule,
     RouterModule,
-    HttpClientModule
   ],
   exports: [
     SidebarComponent,

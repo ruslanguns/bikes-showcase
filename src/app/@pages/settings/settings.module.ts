@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SettingsRoutingModule } from './settings-routing.module';
 import { PasswordComponent } from './password/password.component';
 import { SharedModule } from '../../shared/shared.module';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RecoveryEmailComponent } from './recovery-email';
 import { ResetPasswordComponent } from './reset-password';
 import { HttpErrorInterceptor } from 'src/app/shared/interceptors/error.interceptor';
@@ -17,12 +16,9 @@ import { HttpErrorInterceptor } from 'src/app/shared/interceptors/error.intercep
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
     SettingsRoutingModule,
     SharedModule,
   ],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
-  ]
+  providers: []
 })
 export class SettingsModule { }

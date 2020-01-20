@@ -4,7 +4,6 @@ import {
   HttpInterceptor,
   HttpHandler,
   HttpRequest,
-  HttpResponse,
   HttpErrorResponse
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
@@ -19,18 +18,24 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     return next.handle(request)
       .pipe(
         catchError((error: HttpErrorResponse) => {
+
           const toastr = this.injector.get(ToastrService);
           let errorMessage = '';
           let errorCode = '';
+
           if (error.error instanceof ErrorEvent) {
+
             // client-side error
             errorMessage = `Error: ${error.error.message}`;
             toastr.error(errorMessage, 'Ha ocurrido algo');
+
           } else {
+
             // server-side error
-            errorCode = `${error.status}`;
-            errorMessage = `${error.error.message}`;
+            errorCode = `${error.status || error.error['statusCode']}`;
+            errorMessage = `${error.error.error['message'] || error.error.message}`;
           }
+
           toastr.error(errorMessage, errorCode);
           return throwError(error);
         })

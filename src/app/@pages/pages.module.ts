@@ -4,8 +4,6 @@ import { CommonModule } from '@angular/common';
 import { PagesComponent } from './pages.component';
 import { SharedModule } from '../shared/shared.module';
 import { PagesRoutingModule } from './pages-routing.module';
-import { BikesModule } from './bikes/bikes.module';
-import { interceptorProviders } from '../shared/interceptors';
 
 @NgModule({
   declarations: [PagesComponent],

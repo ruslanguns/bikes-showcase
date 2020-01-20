@@ -23,7 +23,7 @@ const Image = {
 };
 
 export const BikesSchema = new Schema({
-  productId: { type: String, required: true, unique: true },
+  productId: { type: String, required: true, trim: true, unique: true },
   brand: { type: String, required: true },
   details: { type: String, required: false },
   category: { type: String, default: '' },
