@@ -16,6 +16,7 @@ services:
       - .:/usr/src/app
       - .:/usr/src/app/files
   mongodb:
+    restart: always
     image: mongo:latest
     volumes:
       - mongodata:/data/db
