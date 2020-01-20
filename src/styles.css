@@ -1,68 +1,21 @@
 
 @import url('https://fonts.googleapis.com/css?family=Arimo|Roboto|Open+Sans&display=swap');
 
-body {
+html, body {
+  position: relative;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
   font-family: 'Open Sans', sans-serif;
 }
 
-/* UTILITIES */
-.cursor {cursor: pointer; cursor: hand;}
-
-ng2-smart-table-pager {
-  display: flex;
-  justify-content: flex-end !important;
-  margin: 20px;
-}
-
-/* Remove Arrows/Spinners */
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
+body {
+  background: #eee;
+  font-size: 14px;
+  color:#000;
   margin: 0;
-}
-
-.anchoFijo {
-  white-space:nowrap !important;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
-.negritas {
-  font-weight: bold !important;
-}
-
-ng2-smart-table {
-  font-size: 1.2em !important;
-}
-
-/* Firefox */
-input[type=number] {
-  -moz-appearance:textfield;
-}
-
-/** Typography */
-.pvp {
-  font-size: 0.5em;
-}
-
-.header img {
-  position: absolute;
-  display:block;
-  width: 25%;
-  margin: 2%;
-  z-index: 3;
-  float: left;
-}
-
-.bike-info {
-  position: absolute;
-  z-index: 3;
-  right: 0;
-  top: 0;
-  width: 250px;
-  height: 300px;
-  margin: 2%;
+  padding: 0;
 }
 
 .dash-nav-item {
@@ -73,4 +26,58 @@ input[type=number] {
 .dash-nav-dropdown-item {
   color: #fff !important;
   cursor: pointer !important;
+}
+
+/* UTILITIES */
+.cursor {cursor: pointer; cursor: hand;}
+.anchoFijo {
+  white-space:nowrap !important;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.negritas {
+  font-weight: bold !important;
+}
+
+/* Remove Arrows/Spinners */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+input[type=number] {
+  -moz-appearance:textfield;
+}
+
+ng2-smart-table-pager {
+  display: flex;
+  justify-content: flex-end !important;
+  margin: 20px;
+}
+
+ng2-smart-table {
+  font-size: 1.2em !important;
+}
+
+:root {
+  --swiper-theme-color:
+  #d3026e;
+}
+
+.swiper-pagination-fraction, .swiper-pagination-custom, .swiper-container-horizontal > .swiper-pagination-bullets {
+  bottom: 40px;
+  left: 0;
+  width: 100%;
+}
+
+.swiper-pagination-bullet {
+  --bullet-background: #ED4E9E;
+}
+
+.swiper-pagination-bullet {
+  width: 16px;
+  height: 16px;
+  --bullet-background: transparent;
 }
