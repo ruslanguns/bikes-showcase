@@ -63,6 +63,7 @@ export class BikesComponent implements OnInit {
           title: 'Última edición',
           class: 'anchoFijo',
           type: 'custom',
+          filter: false,
           renderComponent: DateFormatComponent,
           onComponentInitFunction: (instance) => {
             instance.date.subscribe(v => console.log(v));
