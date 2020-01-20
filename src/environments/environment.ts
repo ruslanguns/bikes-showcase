@@ -1,8 +1,9 @@
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
 import { SocketIoConfig } from 'ngx-socket-io';
-const config: SocketIoConfig = { url: '/ws/bikes', options: {} };
+
+const host: string = process.env.host || 'localhost'; // <== Editar con el Host actual
+const port: number = Number(process.env.port) || 4200;
+
+const config: SocketIoConfig = { url: `http://${host}${(port) ? `:${port}` : ''}/bikes`, options: {} };
 
 export const environment = {
   production: false,

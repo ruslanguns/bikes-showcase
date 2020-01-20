@@ -7,6 +7,14 @@ export class ConfigService extends ConfigManager {
 
   provideConfigSpec() {
     return {
+      HOST: {
+        validate: Joi.string().alphanum().min(3).max(30),
+        default: undefined
+      },
+      PORT: {
+        validate: Joi.number().min(1000).max(9999),
+        default: '4200'
+      },
       DEFAULT_ADMIN_USERNAME: {
         validate: Joi.string().alphanum().min(3).max(30),
         default: 'admin'

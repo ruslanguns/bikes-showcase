@@ -12,12 +12,18 @@ import { AuthDto } from './auth.dto';
 @Injectable()
 export class AuthService {
 
+  host: string;
+  port: number;
+
   constructor(
     @InjectModel('Settings') private readonly settingsModel: Model<ISettings>,
     private readonly jwtService: JwtService,
     private readonly mailerService: MailerService,
     private readonly configService: ConfigService,
-  ) { }
+  ) {
+    this.host = this.configService.get<string>('HOST');
+    this.port = this.configService.get<number>('PORT');
+  }
 
   /**
    * Inicio de sesión
@@ -77,12 +83,12 @@ export class AuthService {
                     Hola!<br><br>
                     Se ha solicitado la recuperación de su contraseña. <br><br>
 
-                    <a href="http://localhost:4200/login/reset/${accessToken}" taget="_blank">
+                    <a href="http://${ this.host}${(this.port) ? `:${this.port}` : ''}/login/reset/${accessToken}" taget="_blank">
                       Haga click aquí </a> para ir a su panel y gestionar su contraseña.<br>
 
                     Si tiene problemas con el enlace copie y pegue en la URL el texto siguiente: <br><br>
 
-                    http://localhost:4200/login/reset/${accessToken} <br><br>
+                    http://${ this.host}${(this.port) ? `:${this.port}` : ''}/login/reset/${accessToken} <br><br>
 
                     Si usted no ha solicitado este correo, puede ignorarlo. <br><br>
 
