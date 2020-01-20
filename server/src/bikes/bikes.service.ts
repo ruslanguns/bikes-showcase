@@ -126,12 +126,23 @@ export class BikesService {
     const bike = await this.bikesModel.findById(id).select('image');
 
     if (bike && bike.image && bike.image.path) {
-      fs.unlinkSync(bike.image.path);
+      try {
+        fs.unlinkSync(bike.image.path);
+      } catch (err) {
+        console.log(err);
+      }
+
       bike.image = undefined;
       await bike.save();
       return true;
     } else {
-      if (newImage) { fs.unlinkSync(newImage.path); }
+      if (newImage) {
+        try {
+          fs.unlinkSync(newImage.path);
+        } catch (err) {
+          console.log('No existe la imagen para eliminar');
+        }
+      }
       return false;
     }
   }

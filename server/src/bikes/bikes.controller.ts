@@ -161,7 +161,16 @@ export class BikesController {
     @Param('filename') filename,
   ) {
     const { image } = await this.bikesService.findById(id);
-    (image) ? res.sendFile(filename, { root: image.destination }) : res.status(HttpStatus.NOT_FOUND).json({ message: 'La bicicleta no tiene imagen.' });
+    if (image) {
+      res.sendFile(filename, { root: image.destination }, (err) => {
+        if (err) {
+          res.status(HttpStatus.NOT_FOUND).json({ message: 'El archivo no existe o no se puede mostrar.' }).end();
+        } else { }
+      });
+    } else {
+      res.status(HttpStatus.NOT_FOUND).json({ message: 'La bicicleta no tiene imagen.' });
+    }
+
   }
 
   @Get('stats/all')
