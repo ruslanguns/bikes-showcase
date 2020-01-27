@@ -18,7 +18,7 @@
     "start-only": "node dist/server-app/main.js",
     "deploy": "bash ./scripts/docker.sh",
     "commit": "git-cz",
-    "upgrade": "bash ./scripts/docker.sh"
+    "upgrade": "bash ./scripts/update.sh"
   },
   "private": true,
   "dependencies": {

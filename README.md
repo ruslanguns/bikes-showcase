@@ -22,6 +22,8 @@ Se require de una base de datos en MongoDB y de configuraciones iniciales en el 
 
 ./config/env.sample
 
+En adelante si deseamos hacer el [deploy con Docker](#deploy-a-producción-con-docker) necesitamos modificar el archivo .env en el root de nuestro
+
 Parece doble trabajo pero por seguridad se ha decidido así, necesitamos definir algunas variables de entorno del lado del servidor, muestro el ejemplo en caso de que estemos en Linux, puede variar según el sistema operativo:
 
 ```bash
@@ -64,6 +66,12 @@ Y lanza el servidor
 
 `npm run start:ssr`
 
+## Deploy a producción con Docker
+
+Tenemos varias formas de configurar el proyecto a producción pero en este caso explicaré como lanzarlo con Doker.
+
+En primer lugar tenemos dos scripts ya pensados para esto, por
+
 ## Development
 
 Para contribuir o mejorar el proyecto necesitarás tener en cuenta los pre-requisitos y ejecutamos el siguiente comando:
@@ -88,6 +96,35 @@ El proceso de actualización es muy sencillo pero involucra un rebuild del proye
 `npm run upgrade`
 
 > Es muy importante para que este proceso funcione, que no hayamos hechos cambios en el código huesped, intentemos hacer nuestras modificaciones en una rama paralela o en un directorio por separado para no crear conflictos innecesarios en la actualización.
+
+Posteriormente ya solo lanzamos el proyecto, tener en cuenta que si usamos Docker como deploy a producción pues tenemos que seguir el [siguiente paso](#actualización-de-la-imagen-de-docker)
+
+### Actualización de la imagen de Docker Compose
+
+> Solo válido si nuestro deploy esta basado en la imagen de docker.
+
+Tener en cuenta el [changelog](#changelog) de los cambios de la nueva versión para saber si tenemos algún requisito adicional.
+
+```
+# Paramos los contenedores
+docker-compose stop
+
+# Eliminamos los contenedores
+docker-compose rm # Confirmamos con y de que estamos seguros.
+
+# Recreamos la imagen
+docker build -t ruslanguns/bikes .
+
+# Lanzamos el docker-compose pero recreando las imagenes.
+docker-compose up --force-recreate -d
+
+# Opcional: revisar logs del proceso para ver si no hay errores.
+docker-compose logs -f
+```
+
+## Changelog
+
+> En adelante aquí se notificarán los cambios que se realizen en la aplicación.
 
 ## Proyectos relacionados
 
