@@ -17,9 +17,10 @@ export class ShowcaseComponent implements OnInit, AfterViewInit {
   isBrowser: boolean = isPlatformBrowser(this.platformId);
   sockets: SocketIoService;
   bikesService: BikesService;
-  data: IBikes[];
+  data: IBikes[] = [];
   config: SwiperOptions;
   count = 0;
+  rightNav = true;
 
   constructor(
     // tslint:disable-next-line: ban-types
@@ -39,10 +40,19 @@ export class ShowcaseComponent implements OnInit, AfterViewInit {
       this.config = {
         loop: true, // FIXME: Loop not working with observable fetched data
         preloadImages: false,
-        lazy: true, // FIXME: It does not load lazy, only gives loader animation, see Network at Dev Tools
+        lazy: {
+          //  tell swiper to load images before they appear
+          loadPrevNext: true,
+          // amount of images to load
+          loadPrevNextAmount: 5,
+        },
         effect: 'fade',
         speed: 1000,
         // centeredSlides: true,
+        // navigation: {
+        //   nextEl: '.swiper-button-next',
+        //   prevEl: '.swiper-button-prev',
+        // },
         pagination: {
           el: '.swiper-pagination',
           clickable: true,
@@ -78,7 +88,7 @@ export class ShowcaseComponent implements OnInit, AfterViewInit {
       this.bikes_swipper.swiper.update();
       this.bikes_swipper.swiper.updateSlides();
       this.bikes_swipper.swiper.updateProgress();
-      // this.bikes_swipper.swiper.pagination.update();
+      this.bikes_swipper.swiper.pagination.update();
     });
   }
 
@@ -93,6 +103,21 @@ export class ShowcaseComponent implements OnInit, AfterViewInit {
 
   getTimestamp(): number {
     return new Date().valueOf();
+  }
+
+  getSlideIndex(): number {
+    const idx: number = this.bikes_swipper.swiper.activeIndex;
+    return idx;
+  }
+
+  slidePrev(): void {
+    console.log('Presionado slidePrev()');
+    return this.bikes_swipper.swiper.slidePrev();
+  }
+
+  slideNext(): void {
+    console.log('Presionado slideNext()');
+    return this.bikes_swipper.swiper.slideNext();
   }
 
 

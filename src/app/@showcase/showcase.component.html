@@ -8,7 +8,7 @@
       <div class="swiper-slide" *ngFor="let bike of data">
 
         <div class="bike-info">
-          <div class="card text-center">
+          <div class="card border-light text-white bg-dark">
             <div class="card-header">
               <div class="text-center">
                 <h2>
@@ -17,23 +17,37 @@
                 </h2>
               </div>
             </div>
-            <div class="card-body text-left">
+            <div class="col" class="card-body text-left">
               <h5 class="card-title">Detalles:</h5>
               <p class="card-text text-left">
                 Marca: <strong> {{ bike.brand | uppercase }} </strong> <br>
-                Estilo: <strong> {{ bike.category | titlecase }} </strong> <br>
+                Modelo: <strong> {{ bike.details | titlecase }} </strong> <br>
+                Categoría: <strong> {{ bike.category | titlecase }} </strong> <br>
                 Estado: <strong> {{ bike.state | titlecase }}</strong> <br>
                 Talla: <strong> {{ bike.size | uppercase }} </strong> <br>
               </p>
             </div>
             <div class="card-footer text-muted">
-              <strong>{{ bike.productId }}</strong>
+              <div class="row">
+                <div class="col-2">
+                  <i (click)="bikes_swipper.swiper.slidePrev()" class="fas fa-sync cursor"></i>
+                </div>
+                <div class="col-10">
+                  <strong>{{ bike.productId }}</strong>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
         <img data-src="{{ getImage(bike._id, bike.image.filename) }}" class="slide-img swiper-lazy">
         <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+
+        <div [ngStyle]="{'display': (getSlideIndex() === 0) ? 'none' : 'flex'}" (click)="slidePrev()" class="leftArrow">
+          <i
+             class="fas fa-chevron-left"></i></div>
+        <div [ngStyle]="{'display': ((data.length -1 )=== getSlideIndex()) ? 'none' : 'flex'}" (click)="slideNext()"
+             class="rightArrow"><i class="fas fa-chevron-right"></i></div>
 
       </div>
     </div>

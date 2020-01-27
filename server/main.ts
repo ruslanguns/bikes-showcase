@@ -5,6 +5,8 @@ import * as passport from 'passport';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { ConfigService } from './src/config/config.service';
+import * as helmet from 'helmet';
+import * as compression from 'compression';
 
 async function bootstrap() {
   const logger = new Logger('Bootstrap');
@@ -12,6 +14,8 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
   const host = configService.get<string>('HOST');
   const port = configService.get<number>('PORT');
+  console.log(host);
+
 
   app.setGlobalPrefix('api');
 
@@ -30,8 +34,15 @@ async function bootstrap() {
   app.use(passport.initialize());
   app.use(passport.session());
 
-
   app.useGlobalPipes(new ValidationPipe());
+
+  app.use(helmet()); // Security helmet
+  app.use(compression({
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    allowedHeaders: 'Content-Type, Accept',
+  })); // Compress to improve servers speed
+  app.enableCors(); // Enable cors
   await app.listen(port);
 
   logger.log(`Aplicación corriendo en: http://${host}${(port) ? `:${port}` : ''}/`);

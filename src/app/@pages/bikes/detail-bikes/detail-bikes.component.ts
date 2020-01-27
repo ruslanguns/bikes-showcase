@@ -10,6 +10,7 @@ import { HttpEventType } from '@angular/common/http';
 import { IBikes } from '../bikes.interface';
 import { Bike } from '../bike.class';
 import { ToastrService } from 'ngx-toastr';
+import { WindowService } from 'src/app/shared';
 
 @Component({
   selector: 'app-detail-bikes',
@@ -44,7 +45,8 @@ export class DetailBikesComponent implements OnInit, OnDestroy {
     private readonly bikesService: BikesService,
     private route: ActivatedRoute,
     private toastr: ToastrService,
-    private _location: Location
+    private _location: Location,
+    private windowService: WindowService,
   ) {
     this.route.params.subscribe(params => {
       this.bikeId = params.bikeId;
@@ -92,7 +94,13 @@ export class DetailBikesComponent implements OnInit, OnDestroy {
   }
 
   goBack() {
-    this._location.back();
+    if (this.windowService.history.length > 1) {
+      console.log('Hay historial');
+      this._location.back();
+    } else {
+      console.log('No hay historial');
+      this.router.navigate(['/admin/bicicletas']);
+    }
   }
 
   uploadImage(id: string) {

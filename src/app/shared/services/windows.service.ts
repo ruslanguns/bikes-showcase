@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 export class WindowService {
   public navigator: any = {};
   public location: any = {};
+  public history: any = {};
 
   public scrollTo(a: number, b: number) {
     return null;
