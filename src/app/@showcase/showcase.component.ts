@@ -25,10 +25,10 @@ export class ShowcaseComponent implements OnInit, AfterViewInit {
   constructor(
     // tslint:disable-next-line: ban-types
     @Inject(PLATFORM_ID) private platformId: Object,
-    @Inject(DOCUMENT) private doc,
+    @Inject(DOCUMENT) private doc: Document,
     private injector: Injector,
     private windowService: WindowService,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
   ) {
     if (this.isBrowser) {
 
@@ -118,6 +118,10 @@ export class ShowcaseComponent implements OnInit, AfterViewInit {
   slideNext(): void {
     console.log('Presionado slideNext()');
     return this.bikes_swipper.swiper.slideNext();
+  }
+
+  refresh(): void {
+    this.doc.defaultView.location.reload();
   }
 
 
