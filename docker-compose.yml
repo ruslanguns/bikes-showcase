@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   back_app:
@@ -7,24 +7,22 @@ services:
     restart: always
     build: .
     ports:
-      - "4200:4200"
-    environment:
-      - BIKES=development
-      - HOST=localhost
-      - PORT=4200
+      - "${PORT}:80"
     volumes:
       - .:/usr/src/app
       - .:/usr/src/app/files
+    environment:
+      - BIKES=${BIKES}
   mongodb:
-    restart: always
     image: mongo:latest
+    restart: always
     volumes:
       - mongodata:/data/db
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=cash
-      - MONGO_INITDB_ROOT_PASSWORD=123
-      - MONGODB_DATABASE=bikes
+      - MONGO_INITDB_ROOT_USERNAME=${DB_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD}
+      - MONGODB_DATABASE=${DB_NAME}
     ports:
-      - 27017:27017
+      - ${DB_PORT}:27017
 volumes:
   mongodata:

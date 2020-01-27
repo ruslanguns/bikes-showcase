@@ -1,5 +1,7 @@
 FROM node:lts
 
+ARG PORT=4200
+
 # Create app directory
 WORKDIR /usr/src/app
 
@@ -16,6 +18,6 @@ RUN npm install
 # Bundle app source
 COPY . .
 
-EXPOSE 4200
+EXPOSE $PORT
 
 CMD [ "npm", "run","start-only" ]

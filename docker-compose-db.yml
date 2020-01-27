@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   mongodb:
@@ -6,10 +6,10 @@ services:
     volumes:
       - mongodata:/data/db
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=cash
-      - MONGO_INITDB_ROOT_PASSWORD=123
-      - MONGODB_DATABASE=bikes
+      - MONGO_INITDB_ROOT_USERNAME=${DB_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD}
+      - MONGODB_DATABASE=${DB_NAME}
     ports:
-      - 27017:27017
+      - ${PORT}:27017
 volumes:
   mongodata:

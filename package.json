@@ -17,7 +17,8 @@
     "start:prod": "npm run build:ssr && node dist/server-app/main.js",
     "start-only": "node dist/server-app/main.js",
     "deploy": "bash ./scripts/docker.sh",
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "upgrade": "bash ./scripts/docker.sh"
   },
   "private": true,
   "dependencies": {
