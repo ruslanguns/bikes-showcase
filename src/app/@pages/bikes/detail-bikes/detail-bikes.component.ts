@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
 import { fromEvent } from 'rxjs/internal/observable/fromEvent';
 import { pluck, filter } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BikesService } from '../bikes.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -11,6 +11,8 @@ import { IBikes } from '../bikes.interface';
 import { Bike } from '../bike.class';
 import { ToastrService } from 'ngx-toastr';
 import { WindowService } from 'src/app/shared';
+import { SettingsService } from '../../settings/settings.service';
+import { IMarcas } from '../../settings/settings.interface';
 
 @Component({
   selector: 'app-detail-bikes',
@@ -31,6 +33,11 @@ export class DetailBikesComponent implements OnInit, OnDestroy {
   fileUploadProgress: string = null;
   uploadedFilePath: string = null;
 
+  // Typeahead models
+  marcas: IMarcas[] = [];
+  categories: string[] = [];
+  talla: string[] = [];
+
   private OnKeyEscapeClose: Subscription;
   keyup$ = (keyCode: string) => {
     return fromEvent<KeyboardEvent>(document, 'keyup')
@@ -47,11 +54,13 @@ export class DetailBikesComponent implements OnInit, OnDestroy {
     private toastr: ToastrService,
     private _location: Location,
     private windowService: WindowService,
+    private settingsService: SettingsService,
   ) {
     this.route.params.subscribe(params => {
       this.bikeId = params.bikeId;
     });
 
+    this.getInputsTypesahead();
     this.fetch(this.bikeId);
     this.form = new FormGroup({
       productId: new FormControl(null, [Validators.required]),
@@ -62,6 +71,7 @@ export class DetailBikesComponent implements OnInit, OnDestroy {
       price: new FormControl(null),
       state: new FormControl('usado'),
     });
+
   }
 
   ngOnInit() {
@@ -72,11 +82,22 @@ export class DetailBikesComponent implements OnInit, OnDestroy {
   fetch(id: string) {
     this.bikesService.getById(id)
       .subscribe(
-        (res: any) => {
+        res => {
           this.bike = res;
           this.bikeImageUrl = this.getImage(this.bike._id, this.bike.image.filename);
         }
       );
+  }
+
+  /**
+   * Actualizamos los inputs existentes
+   */
+  async getInputsTypesahead(): Promise<void> {
+    this.settingsService.fetch().subscribe(res => {
+      this.marcas = res.inputs.marcas;
+      this.categories = res.inputs.estilo;
+      this.talla = res.inputs.talla;
+    });
   }
 
   ngOnDestroy() {
@@ -95,10 +116,10 @@ export class DetailBikesComponent implements OnInit, OnDestroy {
 
   goBack() {
     if (this.windowService.history.length > 1) {
-      console.log('Hay historial');
+      // console.log('Hay historial');
       this._location.back();
     } else {
-      console.log('No hay historial');
+      // console.log('No hay historial');
       this.router.navigate(['/admin/bicicletas']);
     }
   }

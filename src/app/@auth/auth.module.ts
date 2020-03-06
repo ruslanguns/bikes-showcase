@@ -6,7 +6,6 @@ import { SharedModule } from '../shared';
 import { RecoveryComponent } from './recovery';
 import { ResetComponent } from './reset';
 import { LoginComponent } from './login';
-import { AuthService } from './auth.service';
 
 @NgModule({
   declarations: [LoginComponent, RecoveryComponent, ResetComponent],
@@ -17,6 +16,6 @@ import { AuthService } from './auth.service';
     ReactiveFormsModule,
     SharedModule
   ],
-  providers: [AuthService]
+  providers: []
 })
 export class AuthModule { }

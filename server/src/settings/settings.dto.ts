@@ -17,4 +17,17 @@ export class SettingDto {
   @IsEmail()
   email: string;
 
+  @ApiProperty({ description: 'Data inputs para los typeaheads.' })
+  @IsOptional()
+  inputs: {
+    marcas: [
+      {
+        name: string;
+        models: string[];
+      }
+    ],
+    estilo: string[];
+    talla: string[];
+  };
+
 }

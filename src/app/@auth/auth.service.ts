@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import * as validator from 'validator';
 import { RecoveryClass } from './recovery';
-import { WindowService } from '../shared';
+import { WindowService } from '../shared/services';
 import { ToastrService } from 'ngx-toastr';
 
 interface ApiResponse {

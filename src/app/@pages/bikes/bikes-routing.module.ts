@@ -4,7 +4,7 @@ import { BikesComponent } from './bikes.component';
 import { CreateBikesComponent } from './create-bikes';
 import { DetailBikesComponent } from './detail-bikes';
 import { SoldBikesComponent } from './sold-bikes';
-import { AuthGuard } from '../../@auth';
+import { AuthGuard } from '../../@auth/guards';
 
 
 const routes: Routes = [

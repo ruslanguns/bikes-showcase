@@ -43,7 +43,7 @@ export class SettingsService implements OnModuleInit {
    * Obtener configuraciones
    */
   async find(): Promise<ISettings> {
-    return await this.settingsModel.findOne().select('-_id, -password, -username').exec();
+    return await this.settingsModel.findOne().select('-_id -password -username').exec();
   }
 
   /**
@@ -64,4 +64,5 @@ export class SettingsService implements OnModuleInit {
       .select('-_id -username -password -lastLoginAt -email')
       .catch(err => { throw new BadGatewayException('Error al modificar en DB', (err)); });
   }
+
 }

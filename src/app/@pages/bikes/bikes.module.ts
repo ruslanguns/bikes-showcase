@@ -14,6 +14,7 @@ import { DateFormatComponent } from './components/date-format';
 
 import { MomentModule } from 'ngx-moment';
 import 'moment/locale/es';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 // For AoT compilation:
 export function getWindow() {
@@ -38,7 +39,8 @@ export function getWindow() {
     BikesRoutingModule,
     SharedModule,
     Ng2SmartTableModule,
-    MomentModule
+    MomentModule,
+    NgbModule
   ],
   providers: [
     {

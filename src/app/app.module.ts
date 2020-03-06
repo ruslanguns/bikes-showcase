@@ -36,7 +36,7 @@ export function getWindow() {
     AppRoutingModule,
     MomentModule,
     ToastrModule.forRoot(),
-    SharedModule
+    SharedModule,
   ],
   providers: [
     {

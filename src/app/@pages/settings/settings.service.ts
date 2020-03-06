@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ChangeEmail } from './recovery-email';
 import { ChangePassword } from './password';
-import { pluck } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { pluck, tap } from 'rxjs/operators';
+import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { ISettings } from './settings.interface';
 import { ResetPassword } from './reset-password';
 
@@ -17,7 +17,6 @@ interface ApiResponse {
 })
 export class SettingsService {
 
-
   constructor(
     private readonly http: HttpClient,
   ) { }
@@ -28,7 +27,7 @@ export class SettingsService {
 
     return http$
       .pipe(
-        pluck('data')
+        pluck('data'),
       );
   }
 
@@ -52,4 +51,5 @@ export class SettingsService {
 
     return http$;
   }
+
 }

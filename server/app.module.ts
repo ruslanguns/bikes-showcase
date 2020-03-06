@@ -7,13 +7,14 @@ import { BikesModule } from './src/bikes';
 import { SettingsModule } from './src/settings';
 import { AuthModule } from './src/auth';
 
+
 @Module({
   imports: [
     ConfigModule,
     AngularUniversalModule.forRoot({
       viewsPath: join(process.cwd(), 'dist/browser'),
       bundle: require('../server/main'),
-      liveReload: true
+      liveReload: true,
     }),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],

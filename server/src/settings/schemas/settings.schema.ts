@@ -6,6 +6,16 @@ export const SettingsSchema = new Schema({
   password: { type: String, required: true },
   email: { type: String, required: true, lowercase: true, trim: true },
   totalViews: { type: Number, default: 0 },
+  inputs: { // TODO: Continuar adaptando schema y funcionalidad para el input typeahead
+    marcas: [
+      {
+        name: { type: String, default: '' },
+        models: { type: [String], default: [] },
+      }
+    ],
+    estilo: { type: [String], default: ['carreras', 'carretera', 'montaña', 'niño', 'paseo', 'plegable'] },
+    talla: { type: [String], default: ['xl', 's', 'm', 'l', 'xl'] },
+  },
   updatedAt: Date,
   lastLoginAt: Date,
 }, { strict: 'throw' });
