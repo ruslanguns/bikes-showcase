@@ -2,9 +2,7 @@
 
 :root {
   --swiper-navigation-size: 84px;
-  /*
   --swiper-navigation-color: var(--swiper-theme-color);
-  */
 }
 html,
 body {
@@ -83,12 +81,12 @@ ng2-smart-table {
 }
 
 .swiper-pagination-bullet {
-  --bullet-background: #ed4e9e;
+  --bullet-background: #ed4e9e !important;
 }
 
 .swiper-pagination-bullet {
-  width: 16px;
-  height: 16px;
+  width: 26px;
+  height: 26px;
   --bullet-background: transparent;
 }
 
