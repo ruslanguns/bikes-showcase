@@ -1,11 +1,11 @@
-import { SocketIoConfig } from 'ngx-socket-io';
+import { socketConfig } from 'src/app/shared/config/socket.config';
 
 const host = 'localhost'; // <== Editar con el Host actual
-const port = 4200;
+const port = 4200; // <== Editar con el Port actual
 
-const config: SocketIoConfig = { url: `http://${host}${(port) ? `:${port}` : ''}/bikes`, options: {} };
+
 
 export const environment = {
   production: false,
-  socketConfig: config
+  socketConfig: socketConfig({host, port})
 };
