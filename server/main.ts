@@ -37,14 +37,10 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
 
   app.use(helmet()); // Security helmet
-  app.use(compression({
-    origin: '*',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    allowedHeaders: 'Content-Type, Accept',
-  })); // Compress to improve servers speed
+  app.use(compression()); // Compress to improve servers speed
   app.enableCors(); // Enable cors
   await app.listen(port);
 
-  logger.log(`Aplicación corriendo en: http://${host}${(port) ? `:${port}` : ''}/`);
+  logger.log(`Application is running in ${(process.env.BIKES || 'unknown' ).toUpperCase()} on: ${await app.getUrl()}`);
 }
 bootstrap();

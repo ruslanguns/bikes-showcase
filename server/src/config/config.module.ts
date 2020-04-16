@@ -11,7 +11,6 @@ import { join } from 'path';
       useEnv: {
         folder: join(__dirname, '../../../../config'),
       }
-      // useFile: join(__dirname, '../../../../config/development.env'),
     }),
   ],
   providers: [ConfigService],

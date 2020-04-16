@@ -10,6 +10,6 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD}
       - MONGODB_DATABASE=${DB_NAME}
     ports:
-      - ${DB_PORT}:27017
+      - ${DB_PORT:-27017}:27017
 volumes:
   mongodata:

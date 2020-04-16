@@ -7,12 +7,14 @@ services:
     restart: always
     build: .
     ports:
-      - "${PORT}:80"
+      - "${PORT:-8081}:80"
     volumes:
       - .:/usr/src/app
-      - .:/usr/src/app/files
+      - /usr/src/app/dist
+      - /usr/src/app/node_modules
+    command: npm run start-only
     environment:
-      - BIKES=${BIKES}
+      - BIKES=${BIKES:-development}
   mongodb:
     image: mongo:latest
     restart: always
@@ -23,6 +25,6 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD}
       - MONGODB_DATABASE=${DB_NAME}
     ports:
-      - ${DB_PORT}:27017
+      - ${DB_PORT:-27017}:27017
 volumes:
   mongodata:
