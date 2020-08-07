@@ -50,7 +50,7 @@
     "@nguniversal/module-map-ngfactory-loader": "^8.0.0",
     "animate.css": "^3.7.2",
     "bootstrap": "^4.4.1",
-    "class-transformer": "^0.2.3",
+    "class-transformer": "^0.3.1",
     "class-validator": "^0.11.0",
     "compression": "^1.7.4",
     "context-map-webpack-plugin": "^0.1.0",
