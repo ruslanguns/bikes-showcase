@@ -4,7 +4,7 @@
 </div>
 <div *ngIf="isBrowser">
   <swiper class="swiper-container" [config]="config" #bikes_swipper>
-    <div class="swiper-wrapper">
+    <div class="swiper-wrapper" *ngIf="data">
       <div class="swiper-slide" *ngFor="let bike of data">
 
         <div class="bike-info">

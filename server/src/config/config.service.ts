@@ -87,6 +87,7 @@ export class ConfigService extends ConfigManager {
   }
 
   public mongooseOptions() {
+    console.log(this.MongoUri())
     return {
       uri: this.MongoUri(),
       authSource: 'admin',

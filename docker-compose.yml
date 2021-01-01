@@ -2,19 +2,19 @@ version: "3"
 
 services:
   back_app:
+    build: .
     depends_on:
       - mongodb
     restart: always
-    build: .
     ports:
-      - "${PORT:-8081}:80"
+      - "8081:80"
     volumes:
       - .:/usr/src/app
       - /usr/src/app/dist
       - /usr/src/app/node_modules
     command: npm run start-only
     environment:
-      - BIKES=${BIKES:-development}
+      - BIKES=development
   mongodb:
     image: mongo:latest
     restart: always

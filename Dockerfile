@@ -7,7 +7,6 @@ WORKDIR /usr/src/app
 
 # Install dependencies
 RUN npm i -g @angular/cli
-
 RUN npm i -g @nestjs/cli
 
 # Install app dependencies
@@ -17,6 +16,8 @@ RUN npm install
 
 # Bundle app source
 COPY . .
+
+RUN npm run build:ssr
 
 EXPOSE $PORT
 

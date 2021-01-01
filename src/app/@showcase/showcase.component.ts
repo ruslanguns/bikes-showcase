@@ -39,7 +39,6 @@ export class ShowcaseComponent implements OnInit, AfterViewInit {
 
       this.config = {
         loop: true, // FIXME: Loop not working with observable fetched data
-        preloadImages: false,
         lazy: {
           //  tell swiper to load images before they appear
           loadPrevNext: true,

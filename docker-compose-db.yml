@@ -6,10 +6,10 @@ services:
     volumes:
       - mongodata:/data/db
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=${DB_USERNAME}
-      - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD}
-      - MONGODB_DATABASE=${DB_NAME}
+      - MONGO_INITDB_ROOT_USERNAME=cash
+      - MONGO_INITDB_ROOT_PASSWORD=123
+      - MONGODB_DATABASE=bikes
     ports:
-      - ${DB_PORT:-27017}:27017
+      - 27017:27017
 volumes:
   mongodata:
