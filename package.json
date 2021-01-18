@@ -72,7 +72,7 @@
     "ngx-useful-swiper": "8.0.1",
     "passport": "0.4.0",
     "passport-jwt": "4.0.0",
-    "popper.js": "1.14.3",
+    "popper.js": "1.16.1",
     "reflect-metadata": "0.1.13",
     "rxjs": "6.4.0",
     "rxjs-compat": "6.5.4",
