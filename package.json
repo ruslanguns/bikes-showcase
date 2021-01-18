@@ -97,7 +97,7 @@
     "@types/jasminewd2": "2.0.8",
     "@types/jquery": "3.3.31",
     "@types/mongoose": "5.5.32",
-    "@types/node": "8.9.5",
+    "@types/node": "8.10.66",
     "@types/sharp": "0.23.1",
     "@types/swiper": "5.2.0",
     "codelyzer": "5.2.0",
