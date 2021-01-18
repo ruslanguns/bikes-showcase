@@ -39,7 +39,7 @@
     "@nestjs/jwt": "6.1.1",
     "@nestjs/mongoose": "6.1.2",
     "@nestjs/ng-universal": "2.0.1",
-    "@nestjs/passport": "6.1.1",
+    "@nestjs/passport": "6.2.0",
     "@nestjs/platform-express": "6.10.8",
     "@nestjs/platform-socket.io": "6.10.14",
     "@nestjs/swagger": "4.0.9",
