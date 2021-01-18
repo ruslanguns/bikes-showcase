@@ -37,7 +37,7 @@
     "@nestjs/common": "6.10.8",
     "@nestjs/core": "6.10.8",
     "@nestjs/jwt": "6.1.2",
-    "@nestjs/mongoose": "6.1.2",
+    "@nestjs/mongoose": "6.4.0",
     "@nestjs/ng-universal": "2.0.1",
     "@nestjs/passport": "6.1.1",
     "@nestjs/platform-express": "6.10.8",
