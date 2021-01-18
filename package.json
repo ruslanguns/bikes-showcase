@@ -111,7 +111,7 @@
     "karma-jasmine": "2.0.1",
     "karma-jasmine-html-reporter": "1.5.4",
     "nodemon": "1.19.4",
-    "protractor": "5.4.2",
+    "protractor": "5.4.4",
     "rimraf": "2.7.1",
     "ts-loader": "5.4.5",
     "ts-node": "7.0.1",
