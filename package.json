@@ -54,7 +54,7 @@
     "class-validator": "0.13.1",
     "compression": "1.7.4",
     "context-map-webpack-plugin": "0.1.0",
-    "fastify-swagger": "2.5.0",
+    "fastify-swagger": "2.6.0",
     "helmet": "3.21.2",
     "jquery": "3.5.0",
     "jwt-decode": "2.2.0",
