@@ -83,7 +83,7 @@
     "swiper": "5.2.1",
     "tslib": "1.10.0",
     "typeface-open-sans": "0.0.75",
-    "validator": "12.1.0",
+    "validator": "12.2.0",
     "webpack-node-externals": "1.7.2",
     "zone.js": "0.9.1"
   },
