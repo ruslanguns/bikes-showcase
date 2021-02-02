@@ -55,7 +55,7 @@
     "compression": "1.7.4",
     "context-map-webpack-plugin": "0.1.0",
     "fastify-swagger": "2.6.0",
-    "helmet": "3.21.2",
+    "helmet": "3.23.3",
     "jquery": "3.5.1",
     "jwt-decode": "2.2.0",
     "localstorage-polyfill": "1.0.1",
