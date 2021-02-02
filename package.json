@@ -42,7 +42,7 @@
     "@nestjs/passport": "6.2.0",
     "@nestjs/platform-express": "6.10.8",
     "@nestjs/platform-socket.io": "6.10.14",
-    "@nestjs/swagger": "4.0.9",
+    "@nestjs/swagger": "4.7.12",
     "@nestjs/websockets": "6.10.14",
     "@nestjsplus/config": "1.0.14",
     "@ng-bootstrap/ng-bootstrap": "5.2.1",
