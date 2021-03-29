@@ -75,7 +75,7 @@
     "popper.js": "1.16.1",
     "reflect-metadata": "0.1.13",
     "rxjs": "6.4.0",
-    "rxjs-compat": "6.5.4",
+    "rxjs-compat": "6.6.7",
     "serialize-javascript": "3.1.0",
     "sharp": "0.23.4",
     "swagger-ui-express": "4.1.2",
