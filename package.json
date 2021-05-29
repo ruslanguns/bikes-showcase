@@ -119,7 +119,7 @@
     "typescript": "3.5.3",
     "wait-on": "3.3.0",
     "webpack-cli": "3.3.12",
-    "ws": "7.2.1",
+    "ws": "7.4.6",
     "xmlhttprequest": "1.8.0"
   },
   "config": {
