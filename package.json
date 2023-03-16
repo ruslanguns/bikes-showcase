@@ -40,7 +40,7 @@
     "@nestjs/mongoose": "6.4.0",
     "@nestjs/ng-universal": "2.0.1",
     "@nestjs/passport": "6.2.0",
-    "@nestjs/platform-express": "6.10.8",
+    "@nestjs/platform-express": "8.2.6",
     "@nestjs/platform-socket.io": "6.10.14",
     "@nestjs/swagger": "4.7.12",
     "@nestjs/websockets": "6.10.14",
