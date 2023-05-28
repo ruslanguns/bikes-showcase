@@ -70,7 +70,7 @@
     "ngx-socket-io": "3.2.0",
     "ngx-toastr": "11.3.0",
     "ngx-useful-swiper": "8.0.1",
-    "passport": "0.4.1",
+    "passport": "0.6.0",
     "passport-jwt": "4.0.0",
     "popper.js": "1.16.1",
     "reflect-metadata": "0.1.13",
