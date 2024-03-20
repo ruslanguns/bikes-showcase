@@ -98,7 +98,7 @@
     "@types/jquery": "3.5.5",
     "@types/mongoose": "5.5.32",
     "@types/node": "8.10.66",
-    "@types/sharp": "0.23.1",
+    "@types/sharp": "0.32.0",
     "@types/swiper": "5.2.0",
     "codelyzer": "5.2.2",
     "commitizen": "4.2.3",
