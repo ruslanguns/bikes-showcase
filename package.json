@@ -96,7 +96,7 @@
     "@types/jasmine": "3.6.3",
     "@types/jasminewd2": "2.0.8",
     "@types/jquery": "3.5.5",
-    "@types/mongoose": "5.5.32",
+    "@types/mongoose": "5.11.97",
     "@types/node": "8.10.66",
     "@types/sharp": "0.23.1",
     "@types/swiper": "5.2.0",
