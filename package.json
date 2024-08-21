@@ -85,7 +85,7 @@
     "typeface-open-sans": "0.0.75",
     "validator": "12.1.0",
     "webpack-node-externals": "1.7.2",
-    "zone.js": "0.9.1"
+    "zone.js": "0.15.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.1100.7",
