@@ -61,7 +61,7 @@
     "localstorage-polyfill": "1.0.1",
     "material-design-icons": "3.0.1",
     "mock-browser": "0.92.14",
-    "moment": "2.29.1",
+    "moment": "2.29.4",
     "mongoose": "5.7.14",
     "mongoose-unique-validator": "2.0.3",
     "ng2-completer": "3.0.3",
