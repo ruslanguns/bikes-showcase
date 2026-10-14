@@ -52,7 +52,7 @@
     "bootstrap": "4.6.0",
     "class-transformer": "0.3.1",
     "class-validator": "0.13.1",
-    "compression": "1.7.4",
+    "compression": "1.8.2",
     "context-map-webpack-plugin": "0.1.0",
     "fastify-swagger": "2.6.0",
     "helmet": "3.21.2",
